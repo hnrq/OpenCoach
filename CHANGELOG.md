@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [0.7.2] - 2026-03-28
+
+### Changes
+- fix: load TuiCSS JS via npm import to fix dynamic route warning
+
 ## [0.7.1] - 2026-01-30
 
 ### Changes
