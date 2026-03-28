@@ -1,0 +1,41 @@
+id: opencoach-programmer-smoke
+name: "Programmer: Smoke Test - RAPIDAPI_KEY Check"
+description: |
+  Validates the programmer's first mandatory step: checking that RAPIDAPI_KEY
+  is set before attempting any exercise selection.
+
+  If RAPIDAPI_KEY is missing, the agent must stop and instruct the user —
+  it must NOT attempt exercise selection from any other source.
+
+  Validates:
+  - Agent checks for RAPIDAPI_KEY before proceeding
+  - Agent halts with a clear error message if key is missing
+  - Agent does not fall back to hardcoded exercises
+category: developer
+
+prompts:
+  - text: |
+      Design a training session for a Soccer athlete. Accumulation phase,
+      training_focus: "explosive power + agility".
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [bash]
+  minToolCalls: 1
+  maxToolCalls: 3
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 30000
+
+tags:
+  - smoke-test
+  - rapidapi-key
+  - prerequisite
+  - opencoach
+  - programmer

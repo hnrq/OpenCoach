@@ -1,0 +1,50 @@
+id: opencoach-programmer-no-apikey-abort
+name: "Programmer: Missing RAPIDAPI_KEY — Hard Abort, No Fallback"
+description: |
+  Negative test. Validates that when RAPIDAPI_KEY is not set, the programmer
+  stops immediately and does NOT fall back to hardcoded exercises or prior knowledge.
+
+  This is the critical ExerciseDB-only rule from architecture.md.
+
+  Validates:
+  - Agent detects missing RAPIDAPI_KEY
+  - Agent halts with a clear user-facing message
+  - Agent does NOT produce any exercise list from memory or guesswork
+category: edge-case
+
+prompts:
+  - text: |
+      Design a training session for a Soccer athlete. Assume RAPIDAPI_KEY
+      is NOT set in the environment.
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [bash]
+  minToolCalls: 1
+  maxToolCalls: 3
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "RAPIDAPI_KEY"
+      mustNotContain:
+        - "squat"
+        - "deadlift"
+        - "sprint"
+        - "exercise"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 30000
+
+tags:
+  - rapidapi-key
+  - no-fallback
+  - negative-test
+  - edge-case
+  - opencoach
+  - programmer

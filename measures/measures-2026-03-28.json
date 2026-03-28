@@ -1,0 +1,21 @@
+{
+  "core_metrics": {
+    "weight": 79.9,
+    "body_fat_pct": 12.4
+  },
+  "mandatory_sites": {
+    "chest": 100,
+    "waist_narrowest": 81,
+    "umbilical": 84,
+    "hip_widest": 103,
+    "thigh_mid": 58,
+    "bicep_flexed": 38.5,
+    "forearm": 28
+  },
+  "appointment_notes": {
+    "goal": "Muscle Gain / Body Recomposition",
+    "energy_levels": "Not specified in PDF",
+    "sleep": "Not specified in PDF",
+    "coach_summary": "Imported from PDF (07/02/2026). Significant weight increase since last check-in."
+  }
+}

@@ -1,0 +1,45 @@
+id: opencoach-dietitian-smoke
+name: "Dietitian: Smoke Test - Basic Operation"
+description: |
+  Sanity check that the Dietitian subagent is configured and responds
+  to a basic nutrition generation request.
+
+  Validates:
+  - Subagent can receive input and use tools
+  - Produces a diet file in /diet folder
+  - Includes rest_day_calories in output
+category: developer
+
+prompts:
+  - text: |
+      Generate a diet plan for an 80kg user at 18% body fat with goal: Soccer.
+      WROC: -0.3 kg/week. sport_context: energy_system = "70% aerobic / 30% anaerobic",
+      nutrition_strategy = "Carb-dominant; match-day carb loading".
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [write, bash]
+  minToolCalls: 1
+  maxToolCalls: 8
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "rest_day_calories"
+        - "protein"
+        - "carbs"
+        - "fats"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 60000
+
+tags:
+  - smoke-test
+  - opencoach
+  - dietitian
+  - safe

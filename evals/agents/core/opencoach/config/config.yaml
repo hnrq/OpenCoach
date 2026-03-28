@@ -1,0 +1,9 @@
+agent: core/opencoach
+model: anthropic/claude-sonnet-4-6
+timeout: 90000
+
+suites:
+  - smoke
+  - approval-gates
+  - goal-confirmation
+  - sport-context

@@ -1,0 +1,47 @@
+id: opencoach-programmer-metabolic-primer
+name: "Programmer: Metabolic Primer is Mandatory in Every Session"
+description: |
+  Validates that no training session is generated without a Metabolic Primer
+  (AMRAP or Tabata) as the opening block, regardless of sport or block phase.
+
+  This is a Michaels methodology hard rule — the primer cannot be skipped.
+
+  Validates:
+  - Every generated session starts with a Metabolic Primer
+  - Primer is AMRAP or Tabata format
+  - Primer appears before the strength block, not after
+category: business
+
+prompts:
+  - text: |
+      Design a full training session for a Powerlifting athlete in the
+      Intensification block. sport_context.training_focus = "Max strength, CNS adaptation".
+      Assume RAPIDAPI_KEY is set.
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [write, bash]
+  minToolCalls: 1
+  maxToolCalls: 10
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "Metabolic Primer"
+      mustNotContain:
+        - "skip primer"
+        - "no primer"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 90000
+
+tags:
+  - metabolic-primer
+  - michaels-methodology
+  - opencoach
+  - programmer

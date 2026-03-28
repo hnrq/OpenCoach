@@ -1,0 +1,30 @@
+id: opencoach-head-coach-smoke
+name: "Head Coach: Smoke Test - Basic Operation"
+description: |
+  Sanity check that the Head Coach agent is configured and can respond.
+  Validates basic tool usage and that the agent identifies itself correctly.
+category: developer
+
+prompts:
+  - text: |
+      What is your role and what subagents do you coordinate?
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  minToolCalls: 0
+  maxToolCalls: 3
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 30000
+
+tags:
+  - smoke-test
+  - opencoach
+  - head-coach
+  - safe

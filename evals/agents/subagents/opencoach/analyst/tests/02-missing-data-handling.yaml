@@ -1,0 +1,46 @@
+id: opencoach-analyst-missing-data
+name: "Analyst: Missing Data Reports null — No Hallucination"
+description: |
+  Validates the analyst's critical constraint: if a field is missing from
+  measure files, it must report "null" and NOT infer or estimate a value.
+
+  This is a negative test — the analyst should NOT hallucinate metrics.
+
+  Validates:
+  - Missing fields are reported as null
+  - Agent does not infer values from averages or prior sessions
+  - Report clearly flags which fields are missing
+category: edge-case
+
+prompts:
+  - text: |
+      Analyze progress. If any measurement fields are missing or unavailable,
+      report them explicitly. Do not estimate or infer missing values.
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [read, glob]
+  minToolCalls: 1
+  maxToolCalls: 6
+  contentExpectations:
+    - filePath: null
+      mustNotContain:
+        - "estimated"
+        - "approximately"
+        - "assumed"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 45000
+
+tags:
+  - null-handling
+  - no-hallucination
+  - edge-case
+  - opencoach
+  - analyst

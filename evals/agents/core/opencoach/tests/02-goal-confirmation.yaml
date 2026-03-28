@@ -1,0 +1,42 @@
+id: opencoach-goal-confirmation
+name: "Head Coach: Goal Confirmation and profile.json Persistence"
+description: |
+  Validates that the Head Coach reads and writes sport_goal to profile.json
+  during the appointment flow, and correctly maps the goal to sport_context.
+
+  Validates:
+  - Reads profile.json at start of appointment
+  - Asks for goal if not found
+  - Persists confirmed goal and sport_context to profile.json
+  - Matches user's sport to the Sport Goal Reference table
+category: business
+
+prompts:
+  - text: |
+      Start a new appointment. I want to train for Muay Thai.
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [read, write]
+  contentExpectations:
+    - filePath: "profile.json"
+      mustContain:
+        - "sport_goal"
+        - "Muay Thai"
+        - "sport_context"
+        - "energy_system"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 60000
+
+tags:
+  - goal-confirmation
+  - profile
+  - opencoach
+  - head-coach

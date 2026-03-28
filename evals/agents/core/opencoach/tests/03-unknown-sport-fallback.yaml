@@ -1,0 +1,43 @@
+id: opencoach-unknown-sport-fallback
+name: "Head Coach: Unknown Sport Maps to Closest Entry with Noted Assumption"
+description: |
+  Validates that when a user specifies a sport not in the Sport Goal Reference
+  table, the Head Coach maps it to the closest entry and explicitly notes
+  the assumption — rather than hallucinating a new profile or refusing.
+
+  Validates:
+  - Agent does not refuse an unlisted sport
+  - Agent selects the closest Sport Goal Reference entry
+  - Agent explicitly states the assumption made (e.g., "mapping Capoeira to MMA/Grappling")
+  - sport_context is still populated from the mapped entry
+category: edge-case
+
+prompts:
+  - text: |
+      My athletic goal is Capoeira. What sport profile will you use and why?
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  minToolCalls: 0
+  maxToolCalls: 2
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "assumption"
+        - "sport_context"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 30000
+
+tags:
+  - unknown-sport
+  - fallback
+  - edge-case
+  - opencoach
+  - head-coach

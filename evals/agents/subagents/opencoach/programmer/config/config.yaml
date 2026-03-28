@@ -1,0 +1,7 @@
+agent: subagents/opencoach/programmer
+model: anthropic/claude-sonnet-4-6
+timeout: 90000
+
+suites:
+  - smoke
+  - standalone

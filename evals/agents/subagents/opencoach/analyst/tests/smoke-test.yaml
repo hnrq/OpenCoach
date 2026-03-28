@@ -1,0 +1,37 @@
+id: opencoach-analyst-smoke
+name: "Analyst: Smoke Test - Basic Operation"
+description: |
+  Sanity check that the Analyst subagent is configured and can execute
+  basic data operations against the /measures folder.
+
+  Validates:
+  - Subagent can read measure files
+  - Subagent responds with structured data, not prose
+  - Does not hallucinate missing fields
+category: developer
+
+prompts:
+  - text: |
+      List the available measure files in the /measures folder and report
+      what fields are present in the most recent one.
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [read, glob]
+  minToolCalls: 1
+  maxToolCalls: 5
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 45000
+
+tags:
+  - smoke-test
+  - opencoach
+  - analyst
+  - safe

@@ -9,7 +9,7 @@
       "category": "core",
       "type": "agent",
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "tags": [
         "coaching",
         "fitness",
@@ -29,7 +29,7 @@
       "category": "subagents/opencoach",
       "type": "subagent",
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "tags": [
         "coaching",
         "data",
@@ -43,7 +43,7 @@
       "category": "subagents/opencoach",
       "type": "subagent",
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "tags": [
         "coaching",
         "nutrition",
@@ -57,7 +57,7 @@
       "category": "subagents/opencoach",
       "type": "subagent",
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "tags": [
         "coaching",
         "training",
@@ -69,13 +69,13 @@
   "defaults": {
     "agent": {
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "type": "agent",
       "tags": []
     },
     "subagent": {
       "version": "1.0.0",
-      "author": "opencode",
+      "author": "henrique-ramos",
       "type": "subagent",
       "tags": []
     }

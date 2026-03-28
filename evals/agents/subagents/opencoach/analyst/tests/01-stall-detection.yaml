@@ -1,0 +1,48 @@
+id: opencoach-analyst-stall-detection
+name: "Analyst: Stall Detection After 14 Days No Change"
+description: |
+  Validates that the analyst correctly identifies and flags a weight stall
+  when WROC shows no meaningful change over 14+ days.
+
+  A stall is the primary trigger for caloric/volume adjustments downstream.
+  The analyst must explicitly label the phase as "Stall" in its report.
+
+  Validates:
+  - Stall is flagged when WROC ≈ 0 for 14+ days
+  - Phase is reported as "Stall" (not "Losing" or "Gaining")
+  - Report does not suggest adjustments — that is the Head Coach's role
+category: business
+
+prompts:
+  - text: |
+      Analyze the following weight data and report the phase (Stall / Losing / Gaining)
+      and WROC in kg/week:
+      Day 1: 82.0kg | Day 7: 82.1kg | Day 14: 81.9kg | Day 21: 82.0kg
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  minToolCalls: 0
+  maxToolCalls: 3
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "Stall"
+        - "kg/week"
+      mustNotContain:
+        - "reduce calories"
+        - "increase training"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 45000
+
+tags:
+  - stall-detection
+  - wroc
+  - opencoach
+  - analyst

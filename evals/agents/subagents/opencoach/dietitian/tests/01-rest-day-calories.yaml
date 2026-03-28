@@ -1,0 +1,44 @@
+id: opencoach-dietitian-rest-day-calories
+name: "Dietitian: rest_day_calories Always Present in Output"
+description: |
+  Validates that every generated diet file includes a rest_day_calories field.
+  This is a hard constraint — a diet plan without rest day variation is incomplete.
+
+  Validates:
+  - rest_day_calories is present in the generated JSON
+  - rest_day_calories is lower than training_day_calories
+  - The field is not null or zero
+category: business
+
+prompts:
+  - text: |
+      Generate a diet plan JSON for an 80kg Soccer athlete at 15% body fat.
+      WROC: -0.2 kg/week. sport_context.nutrition_strategy: "Carb-dominant; match-day carb loading".
+
+approvalStrategy:
+  type: auto-approve
+
+behavior:
+  mustUseTools: [write, bash]
+  minToolCalls: 1
+  maxToolCalls: 6
+  contentExpectations:
+    - filePath: null
+      mustContain:
+        - "rest_day_calories"
+      mustNotContain:
+        - "rest_day_calories\": null"
+        - "rest_day_calories\": 0"
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 60000
+
+tags:
+  - rest-day-calories
+  - constraint
+  - opencoach
+  - dietitian

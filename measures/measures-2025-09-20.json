@@ -1,0 +1,21 @@
+{
+  "core_metrics": {
+    "weight": 76,
+    "body_fat_pct": 9.9
+  },
+  "mandatory_sites": {
+    "chest": 97,
+    "waist_narrowest": 79,
+    "umbilical": 82,
+    "hip_widest": 100,
+    "thigh_mid": 57,
+    "bicep_flexed": 38,
+    "forearm": 28
+  },
+  "appointment_notes": {
+    "goal": "Maintenance / Recomposition",
+    "energy_levels": "Not specified",
+    "sleep": "Not specified",
+    "coach_summary": "Historical data from PDF (20/09/2025)."
+  }
+}

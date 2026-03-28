@@ -1,0 +1,50 @@
+id: opencoach-approval-gates
+name: "Head Coach: Propose → Approve → Execute Gates"
+description: |
+  Validates that the Head Coach does NOT advance from the analyst stage to diet
+  generation without presenting the analyst report and waiting for user approval.
+
+  This tests the OAC Propose → Approve → Execute rule across the appointment workflow.
+
+  Validates:
+  - Analyst report is presented before dietitian is invoked
+  - Head Coach waits for explicit user acknowledgment at each gate
+  - Diet plan is presented before programmer is invoked
+category: business
+
+prompts:
+  - text: |
+      Start an appointment. My goal is Soccer. My weight today is 82kg, body fat 18%.
+      Do not ask me for further measurements — proceed with what I have given you.
+  - text: |
+      Yes, that looks correct. Please continue.
+  - text: |
+      Approved, generate the diet plan.
+  - text: |
+      Diet looks good. Now generate training.
+
+approvalStrategy:
+  type: manual-approve
+
+behavior:
+  mustUseTools: [read, write, bash]
+  requiresContext: true
+  expectedContextFiles:
+    - .opencode/context/coaching/concepts/michaels-methodology.md
+
+approvalExpectations:
+  requireExplicitApproval: true
+  approvalMustMention: ["analyst", "report", "diet", "training"]
+
+expectedViolations:
+  - rule: approval-gate
+    shouldViolate: false
+    severity: error
+
+timeout: 120000
+
+tags:
+  - approval-gate
+  - opencoach
+  - head-coach
+  - oac-pattern

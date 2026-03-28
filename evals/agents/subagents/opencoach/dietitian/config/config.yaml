@@ -1,0 +1,7 @@
+agent: subagents/opencoach/dietitian
+model: anthropic/claude-sonnet-4-6
+timeout: 60000
+
+suites:
+  - smoke
+  - standalone
