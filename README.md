@@ -434,10 +434,12 @@ Interactive wizard generates orchestrators, subagents, context files, workflows,
 - **OpenAgent** - General tasks, questions, learning (start here)
 - **OpenCoder** - Production development, complex features
 - **SystemBuilder** - Generate custom AI systems
+- **OpenCoach** - Health & fitness coaching using "Michaels" methodology 🆕
 
 ### 🔧 Specialized Subagents (Auto-delegated)
 - **ContextScout** - Smart pattern discovery (your secret weapon)
 - **TaskManager** - Breaks complex features into atomic subtasks
+- **OpenCoach Specialist Triad** - @analyst, @dietitian, @programmer for fitness management 🆕
 - **CoderAgent** - Focused code implementations
 - **TestEngineer** - Test authoring and TDD
 - **CodeReviewer** - Code review and security analysis
@@ -448,6 +450,7 @@ Interactive wizard generates orchestrators, subagents, context files, workflows,
 
 ### ⚡ Productivity Commands
 - `/add-context` - Interactive wizard to add your patterns
+- `/appointment` - Start a health & fitness coaching session with OpenCoach 🆕
 - `/commit` - Smart git commits with conventional format
 - `/test` - Testing workflows
 - `/optimize` - Code optimization
@@ -821,3 +824,21 @@ This project is licensed under the MIT License.
 ---
 
 **Made with ❤️ by developers, for developers. Star the repo if this saves you refactoring time!**
+
+---
+
+### OpenCoach: Your Personal AI Coach 🆕
+
+Built on the "Michaels" methodology (Metabolic Primers + Strength/Hypertrophy Blocks), OpenCoach automates your fitness and nutrition tracking.
+
+**Features:**
+- **Analyze Progress:** Track weight, body fat, and anthropometrics (Weekly Rate of Change - WROC).
+- **Automated Nutrition:** Generate diet plans with high protein (2.2g/kg LBM) and rest day deltas.
+- **Smart Training:** Workout design featuring metabolic primers and progressive strength blocks.
+- **Data Import:** Extract measurements from historical PDF reports directly into JSON.
+
+**Try it:**
+```bash
+/appointment
+```
+

@@ -142,7 +142,7 @@ run_security_checks() {
     print_info "Running security checks..."
     echo ""
     
-    local categories=("agent" "command" "tool" "plugin" "context")
+    local categories=("agent" "command" "tool" "plugin" "context" "skills")
     
     for category in "${categories[@]}"; do
         local category_dir="$REPO_ROOT/.opencode/$category"
@@ -369,7 +369,13 @@ extract_metadata_from_file() {
     # Generate ID from filename first (needed for metadata lookup)
     local filename
     filename=$(basename "$file" .md)
-    id=$(echo "$filename" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    
+    # If filename is generic (SKILL, navigation, index, README, 0-category), use directory name
+    if [[ "$filename" == "SKILL" ]] || [[ "$filename" == "navigation" ]] || [[ "$filename" == "index" ]] || [[ "$filename" == "README" ]] || [[ "$filename" == "0-category" ]]; then
+        id=$(basename "$(dirname "$file")" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    else
+        id=$(echo "$filename" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+    fi
     
     # Try to extract from frontmatter (YAML)
     if grep -q "^---$" "$file" 2>/dev/null; then
@@ -510,6 +516,8 @@ detect_component_type() {
         echo "plugin"
     elif [[ "$path" == *"/context/"* ]]; then
         echo "context"
+    elif [[ "$path" == *"/skill/"* ]] || [[ "$path" == *"/skills/"* ]]; then
+        echo "skill"
     else
         echo "unknown"
     fi
@@ -556,7 +564,7 @@ scan_for_new_components() {
     registry_paths=$(jq -r '.components | to_entries[] | .value[] | .path' "$REGISTRY_FILE" 2>/dev/null | sort -u)
     
     # Scan .opencode directory
-    local categories=("agent" "command" "tool" "plugin" "context")
+    local categories=("agent" "command" "tool" "plugin" "context" "skills")
     
     for category in "${categories[@]}"; do
         local category_dir="$REPO_ROOT/.opencode/$category"

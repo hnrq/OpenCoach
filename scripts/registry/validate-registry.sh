@@ -130,15 +130,20 @@ validate_component_paths() {
     echo "Checking ${category_display}..." >&2
     
     # Get all components in this category
-    local components
-    components=$(jq -r ".components.${category}[]? | @json" "$REGISTRY_FILE" 2>/dev/null)
+    local component_list
+    component_list=$(jq -r ".components.${category}[]? | @json" "$REGISTRY_FILE" 2>/dev/null || echo "")
     
-    if [ -z "$components" ]; then
+    if [ -z "$component_list" ]; then
         echo "No ${category_display} found" >&2
         return
     fi
     
-    while IFS= read -r component; do
+    # Process each component
+    # Use mapfile or similar to handle spaces correctly
+    mapfile -t components_array <<< "$component_list"
+    
+    for component in "${components_array[@]}"; do
+        if [ -z "$component" ]; then continue; fi
         local id
         id=$(echo "$component" | jq -r '.id')
         local path
@@ -162,7 +167,7 @@ validate_component_paths() {
                 suggest_fix "$path" "$id"
             fi
         fi
-    done <<< "$components"
+    done
 }
 
 suggest_fix() {
@@ -196,7 +201,7 @@ scan_for_orphaned_files() {
     registry_paths=$(jq -r '.components | to_entries[] | .value[] | .path' "$REGISTRY_FILE" 2>/dev/null | sort -u)
     
     # Scan .opencode directory for markdown files
-    local categories=("agent" "command" "tool" "plugin" "context")
+    local categories=("agent" "command" "tool" "plugin" "context" "skills")
     
     for category in "${categories[@]}"; do
         local category_dir="$REPO_ROOT/.opencode/$category"
@@ -244,10 +249,14 @@ scan_for_orphaned_files() {
             
             # Check if this path is in registry
             # shellcheck disable=SC2143
-            if ! echo "$registry_paths" | grep -q "^${rel_path}$"; then
-                ORPHANED_FILES=$((ORPHANED_FILES + 1))
-                ORPHANED_COMPONENTS+=("$rel_path")
-                [ "$VERBOSE" = true ] && print_warning "Orphaned file (not in registry): ${rel_path}"
+            if ! echo "$registry_paths" | grep -q "^${rel_path}$" || false; then
+                # The above pattern is a bit tricky with set -e
+                # Better way to check if path is NOT in registry_paths
+                if ! echo "$registry_paths" | grep -q "^${rel_path}$" 2>/dev/null; then
+                    ORPHANED_FILES=$((ORPHANED_FILES + 1))
+                    ORPHANED_COMPONENTS+=("$rel_path")
+                    [ "$VERBOSE" = true ] && print_warning "Orphaned file (not in registry): ${rel_path}"
+                fi
             fi
         done < <(find "$category_dir" -type f \( -name "*.md" -o -name "*.ts" \) 2>/dev/null)
     done
@@ -286,6 +295,9 @@ check_dependency_exists() {
             ;;
         plugin)
             registry_category="plugins"
+            ;;
+        skill)
+            registry_category="skills"
             ;;
         context)
             registry_category="contexts"
@@ -347,25 +359,33 @@ validate_component_dependencies() {
     echo ""
     
     # Get all component types
-    local component_types
-    component_types=$(jq -r '.components | keys[]' "$REGISTRY_FILE" 2>/dev/null)
+    local type_list
+    type_list=$(jq -r '.components | keys[]' "$REGISTRY_FILE" 2>/dev/null || echo "")
     
-    while IFS= read -r comp_type; do
+    if [ -z "$type_list" ]; then
+        return
+    fi
+    
+    mapfile -t types_array <<< "$type_list"
+    
+    for comp_type in "${types_array[@]}"; do
+        if [ -z "$comp_type" ]; then continue; fi
         # Get all components of this type
-        local components
-        components=$(jq -r ".components.${comp_type}[]? | @json" "$REGISTRY_FILE" 2>/dev/null)
+        local component_list
+        component_list=$(jq -r ".components.${comp_type}[]? | @json" "$REGISTRY_FILE" 2>/dev/null || echo "")
         
-        if [ -z "$components" ]; then
-            continue
-        fi
+        if [ -z "$component_list" ]; then continue; fi
         
-    while IFS= read -r component; do
-        local id=""
-        local path=""
-        local name=""
-        id=$(echo "$component" | jq -r '.id')
-        path=$(echo "$component" | jq -r '.path')
-        name=$(echo "$component" | jq -r '.name')
+        mapfile -t components_array <<< "$component_list"
+        
+        for component in "${components_array[@]}"; do
+            if [ -z "$component" ]; then continue; fi
+            local id=""
+            local path=""
+            local name=""
+            id=$(echo "$component" | jq -r '.id')
+            path=$(echo "$component" | jq -r '.path')
+            name=$(echo "$component" | jq -r '.name')
             local dependencies
             dependencies=$(echo "$component" | jq -r '.dependencies[]?' 2>/dev/null)
             
@@ -403,8 +423,8 @@ validate_component_dependencies() {
                         ;;
                 esac
             done <<< "$dependencies"
-        done <<< "$components"
-    done <<< "$component_types"
+        done
+    done
 }
 
 #############################################################################

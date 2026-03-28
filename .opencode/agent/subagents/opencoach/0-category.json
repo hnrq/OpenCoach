@@ -1,0 +1,25 @@
+{
+  "name": "OpenCoach",
+  "description": "Health and fitness coaching specialists",
+  "icon": "🏋️",
+  "agents": {
+    "opencoach-analyst": {
+      "description": "Expert in anthropometric data analysis and progress tracking",
+      "commonSubagents": [],
+      "commonTools": ["bash", "jq", "ls"],
+      "commonContext": []
+    },
+    "opencoach-dietitian": {
+      "description": "Expert in nutritional planning and Michaels methodology",
+      "commonSubagents": [],
+      "commonTools": ["bash", "read", "write"],
+      "commonContext": []
+    },
+    "opencoach-programmer": {
+      "description": "Expert in training routine design and exercise selection",
+      "commonSubagents": [],
+      "commonTools": ["bash", "read", "write"],
+      "commonContext": []
+    }
+  }
+}

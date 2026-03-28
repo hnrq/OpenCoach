@@ -85,7 +85,8 @@
     "validate:registry": "bun run scripts/registry/validate-registry.ts",
     "validate:context-links": "bun run scripts/validation/validate-markdown-links.ts",
     "validate:registry:verbose": "bun run scripts/registry/validate-registry.ts -v",
-    "validate:registry:fix": "bun run scripts/registry/validate-registry.ts -f"
+    "validate:registry:fix": "bun run scripts/registry/validate-registry.ts -f",
+    "opencoach": "./.opencode/skills/opencoach/router.sh"
   },
   "keywords": [
     "opencode",
