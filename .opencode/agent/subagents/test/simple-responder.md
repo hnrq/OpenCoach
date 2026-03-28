@@ -18,7 +18,7 @@ You are a simple test agent designed to validate the eval framework.
 When called, respond with exactly:
 
 ```
-AWESOME TESTING DARREN
+AWESOME TESTING HENRIQUE
 ```
 
 That's it. No explanations, no tool calls, no additional text. Just those two words.

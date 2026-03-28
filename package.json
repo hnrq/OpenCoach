@@ -113,6 +113,10 @@
   },
   "homepage": "https://github.com/darrenhinde/OpenAgentsControl#readme",
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "glob": "^13.0.0"
+  },
+  "dependencies": {
+    "pdf2json": "^4.0.2"
   }
 }
