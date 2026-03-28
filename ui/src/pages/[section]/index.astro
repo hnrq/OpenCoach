@@ -57,7 +57,7 @@ const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measu
           <span><span class="cyan-168-text">Carbs:</span> {entry.data.daily_targets.carbs_g}g</span>
           <span><span class="cyan-168-text">Fats:</span> {entry.data.daily_targets.fats_g}g</span>
         </span>
-        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
       </div>
     </Window>
   ))}
@@ -69,7 +69,7 @@ const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measu
           <span><span class="cyan-168-text">Circuits:</span> {entry.data.circuits.length}</span>
             <span><span class="cyan-168-text">Exercises:</span> {entry.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
         </span>
-        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
       </div>
     </Window>
   ))}
@@ -81,7 +81,7 @@ const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measu
           <span><span class="cyan-168-text">Weight:</span> {entry.data.core_metrics.weight} kg</span>
           <span><span class="cyan-168-text">BF%:</span> {entry.data.core_metrics.body_fat_pct}%</span>
         </span>
-        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
       </div>
     </Window>
     ))}

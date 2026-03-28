@@ -15,8 +15,7 @@ A read-only viewer for OpenCoach data (diet plans, training sessions, body measu
 ui/
 ├── public/
 │   ├── favicon.ico
-│   ├── favicon.svg
-│   └── tuicss.min.js
+│   └── favicon.svg
 ├── src/
 │   ├── components/
 │   │   ├── Window.astro        # Shared TuiCSS window wrapper (title prop + slot)
