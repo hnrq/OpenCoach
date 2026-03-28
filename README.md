@@ -118,7 +118,7 @@ opencode
 
 ## UI
 
-A read-only viewer for your data is available at the GitHub Pages URL for this repo.
+A read-only viewer for your data is available at **[hnrq.github.io/OpenCoach](https://hnrq.github.io/OpenCoach)**.
 
 Built with Astro 6 + TuiCSS (retro Turbo Vision style). Displays diet plans, training sessions, and body measurements. Deployed automatically on every push to `main`.
 
