@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Window from './Window.astro';
+
+interface Props {
+  entry: CollectionEntry<'training'>;
+}
+const { entry } = Astro.props;
+const { circuits, progression_logic } = entry.data;
+---
+
+<Window title={entry.id.replace('training-', '')}>
+
+  {circuits.map(circuit => (
+    <fieldset class="tui-fieldset cyan-168-border mb-4">
+      <legend class="cyan-168-text">{circuit.name}</legend>
+      <table class="tui-table full-width">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th class="center-align">Sets</th>
+            <th class="center-align">Reps</th>
+            <th class="center-align">RPE</th>
+          </tr>
+        </thead>
+        <tbody>
+          {circuit.exercises.map(ex => (
+            <tr>
+              <td>{ex.name}</td>
+              <td class="center-align">{ex.sets}</td>
+              <td class="center-align">{ex.reps}</td>
+              <td class="center-align">{ex.rpe ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </fieldset>
+  ))}
+
+  {progression_logic && (
+    <fieldset class="tui-fieldset yellow-168-border">
+      <legend class="yellow-168-text">Progression</legend>
+      <p class="m-0">{progression_logic}</p>
+    </fieldset>
+  )}
+
+</Window>

@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Window from '../../components/Window.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const [diet, training, measures] = await Promise.all([
+    getCollection('diet'),
+    getCollection('training'),
+    getCollection('measures'),
+  ]);
+  const sort = <T extends { id: string }>(arr: T[]) =>
+    [...arr].sort((a, b) => b.id.localeCompare(a.id));
+
+  return [
+    { params: { section: 'diet' },     props: { entries: sort(diet),     type: 'diet' as const } },
+    { params: { section: 'training' }, props: { entries: sort(training), type: 'training' as const } },
+    { params: { section: 'measures' }, props: { entries: sort(measures), type: 'measures' as const } },
+  ];
+}
+
+type Props =
+  | { entries: CollectionEntry<'diet'>[];     type: 'diet' }
+  | { entries: CollectionEntry<'training'>[];  type: 'training' }
+  | { entries: CollectionEntry<'measures'>[];  type: 'measures' };
+
+const { entries, type } = Astro.props;
+const { section } = Astro.params;
+const base = import.meta.env.BASE_URL;
+const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
+
+function formatDate(id: string) {
+  return id.replace(/^[a-z]+-/, '');
+}
+
+const dietEntries     = type === 'diet'     ? (entries as CollectionEntry<'diet'>[])     : [];
+const trainingEntries = type === 'training' ? (entries as CollectionEntry<'training'>[]) : [];
+const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measures'>[]) : [];
+---
+
+<Layout title={`${sectionLabel} — OpenCoach`} activePage={type}>
+
+  <h1 class="white-168-text mb-4">{sectionLabel}</h1>
+
+  <section class="grid grid-cols-1 auto-rows-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+  {entries.length === 0 && (
+    <p class="yellow-168-text">No {section} data found.</p>
+  )}
+
+  {type === 'diet' && dietEntries.map(entry => (
+    <Window title={formatDate(entry.id)}>
+      <div class="flex flex-col gap-2">
+        <span class="flex flex-col">
+          <span><span class="cyan-168-text">Calories:</span> {entry.data.daily_targets.calories} kcal</span>
+          <span><span class="cyan-168-text">Protein:</span> {entry.data.daily_targets.protein_g}g</span>
+          <span><span class="cyan-168-text">Carbs:</span> {entry.data.daily_targets.carbs_g}g</span>
+          <span><span class="cyan-168-text">Fats:</span> {entry.data.daily_targets.fats_g}g</span>
+        </span>
+        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+      </div>
+    </Window>
+  ))}
+
+  {type === 'training' && trainingEntries.map(entry => (
+    <Window title={formatDate(entry.id)}>
+      <div class="flex flex-col gap-2">
+        <span class="flex flex-col">
+          <span><span class="cyan-168-text">Circuits:</span> {entry.data.circuits.length}</span>
+            <span><span class="cyan-168-text">Exercises:</span> {entry.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
+        </span>
+        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+      </div>
+    </Window>
+  ))}
+
+  {type === 'measures' && measuresEntries.map(entry => (
+    <Window title={formatDate(entry.id)}>
+      <div class="flex flex-col gap-2">
+        <span class="flex flex-col">
+          <span><span class="cyan-168-text">Weight:</span> {entry.data.core_metrics.weight} kg</span>
+          <span><span class="cyan-168-text">BF%:</span> {entry.data.core_metrics.body_fat_pct}%</span>
+        </span>
+        <a href={`${base}${section}/${entry.id}`} class="tui-button m-0">View →</a>
+      </div>
+    </Window>
+    ))}
+    </section>
+
+</Layout>
