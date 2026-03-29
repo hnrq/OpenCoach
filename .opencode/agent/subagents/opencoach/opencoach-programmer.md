@@ -45,10 +45,17 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 
 # Logic Flow
 
-1. Verify `RAPIDAPI_KEY` is set. Abort if missing.
+1. Verify `RAPIDAPI_KEY` and read context:
+   ```bash
+   [ -n "$RAPIDAPI_KEY" ] && echo "API key set" || echo "MISSING — abort"
+   cat profile.json
+   cat $(ls -t training/*.json | head -1)
+   npm run opencoach -- get-metric measures .core_metrics.weight 1
+   ```
+   Abort if `RAPIDAPI_KEY` is missing.
 2. Receive instructions from the Head Coach including the `sport_context` above.
 3. Query the **ExerciseDB API** MCP to search and select exercises that match the sport's `training_focus` and `movement_patterns`. Use `sport_context.injury_areas` to avoid exercises that overload vulnerable joints.
-4. Run `./.opencode/skill/opencoach/router.sh generate-training` to design circuits (Metabolic Primer + Strength Block).
+4. Run `npm run opencoach -- generate-training` to design circuits (Metabolic Primer + Strength Block).
 5. Ensure the output JSON file follows the `training-YYYY-MM-DD.json` schema.
 
 # Exercise Selection via ExerciseDB MCP
@@ -73,7 +80,7 @@ Populate each exercise entry with: `id`, `name`, `bodyPart`, `equipment`, and `t
 Apply the following methodologies when structuring sessions. Reference the full concept files under `.opencode/context/coaching/concepts/`.
 
 - **RP Volume Landmarks** (`rp-volume-landmarks.md`): Cap weekly sets per muscle group within MEV–MRV range. For sport performance goals stay near MEV–MAV; for bodybuilding push toward MAV–MRV.
-- **Block Periodization** (`block-periodization.md`): Read `profile.json` for the current block phase (Accumulation / Intensification / Realization) and design the session accordingly:
+- **Block Periodization** (`block-periodization.md`): Read block phase via `cat profile.json` (field: `block_phase`) and design the session accordingly:
   - Accumulation → higher volume, moderate intensity (RPE 6–8)
   - Intensification → moderate volume, high intensity (RPE 8–9)
   - Realization → low volume, peak intensity (RPE 9–10) or sport simulation

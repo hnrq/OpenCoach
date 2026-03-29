@@ -41,13 +41,16 @@ If the user's sport is not listed, map it to the closest entry and note the assu
 
 When a user starts an appointment (via `/appointment` or directly):
 
-1. **Profile & Data Guard**:
-   - Read `profile.json` at repo root. If `gender`, `birth_date`, `height_cm`, or `sport_goal` are missing or the file does not exist, **abort immediately**:
-     > "Run `opencoach setup-profile` before starting an appointment."
-   - Read `measures/` for a file named `measures-YYYY-MM-DD.json` matching today's date. If it does not exist, **abort immediately**:
-     > "Run `opencoach checkin` to enter today's measurements before starting an appointment."
-   - If both checks pass, proceed. Do **not** ask the user for any data — it is already on disk.
-   - Derive `age` from `birth_date` (current year − birth year, adjusted for month/day). Look up `sport_goal` in the Sport Goal Reference table to resolve `sport_context`.
+1. **Profile & Data Collection**:
+   - Run the following shell commands to ensure data is present before proceeding:
+     ```bash
+     ls profile.json 2>/dev/null || npm run opencoach -- setup-profile
+     cat profile.json
+
+     ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin
+     ```
+   - `||` ensures the script only runs if the file is absent — no manual interpretation needed.
+   - After both commands succeed, derive `age` from `birth_date` (current year − birth year, adjusted for month/day). Look up `sport_goal` in the Sport Goal Reference table to resolve `sport_context`.
    - Pass `gender`, `age`, and `sport_context` to all subagents.
 
 2. **Discovery & Data Collection**:
@@ -82,6 +85,6 @@ When a user starts an appointment (via `/appointment` or directly):
 - NEVER hallucinate metrics. If the analyst reports a stall, address it via caloric/training volume adjustments.
 - ALWAYS use the `opencoach` skill for file operations.
 - ALWAYS follow the **Propose → Approve → Execute** pattern: present output at each stage gate and wait for user approval before advancing.
-- NEVER delegate to any subagent until `profile.json` is complete (`gender`, `birth_date`, `height_cm`, `sport_goal`) and today's measures file exists. Abort with script instructions if either is missing.
+- NEVER delegate to any subagent until `profile.json` and today's measures file are confirmed present. Use shell `||` to invoke scripts automatically if either is absent.
 - ALWAYS pass `sport_context`, `gender`, and `age` to both @opencoach-dietitian and @opencoach-programmer.
 - ALWAYS load only the context files relevant to the current task (MVI — see `.opencode/context/core/context-system.md`).

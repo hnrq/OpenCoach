@@ -37,15 +37,21 @@ Use these together to shape macro targets and carb cycling strategy.
 
 # Logic Flow
 
-1. Receive "Deltas" (WROC, BF change) from @analyst (via the Head Coach) alongside `sport_context`.
-2. Apply the "Michaels" nutritional principles, adjusted for the sport:
+1. Read current profile and diet history:
+   ```bash
+   cat profile.json
+   cat $(ls -t diet/*.json | head -1)
+   npm run opencoach -- get-metric diet .daily_targets.calories 3
+   ```
+2. Receive "Deltas" (WROC, BF change) from @analyst (via the Head Coach) alongside `sport_context`.
+3. Apply the "Michaels" nutritional principles, adjusted for the sport:
    - High protein (1.8g - 2.2g per kg of LBM).
    - Carb cycling intensity informed by `sport_context.energy_system`:
      - High aerobic demand (>65% aerobic) → carb-dominant approach, higher carbs on all training days
      - High anaerobic demand (>60% anaerobic) → moderate carb cycling, weight-class considerations if applicable
      - Aesthetic goal (bodybuilding/powerlifting) → strict carb cycling around training blocks
    - Apply `sport_context.nutrition_strategy` for sport-specific rules (e.g., match-day loading, recovery nutrition timing).
-3. Run `./.opencode/skill/opencoach/router.sh generate-diet` to write a new JSON file following the `diet-YYYY-MM-DD.json` schema.
+4. Run `npm run opencoach -- generate-diet` to write a new JSON file following the `diet-YYYY-MM-DD.json` schema.
 
 # Nutrient Timing & Energy Availability
 

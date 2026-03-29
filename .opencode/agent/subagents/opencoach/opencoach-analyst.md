@@ -23,8 +23,16 @@ You are the Data Specialist. You analyze anthropometric data in the `/measures` 
 
 # Logic Flow
 
-1. Fetch values from the $N$ most recent files (using `./.opencode/skill/opencoach/router.sh get-metric`).
-2. Run `./.opencode/skill/opencoach/router.sh analyze-progress` to calculate Weekly Rate of Change (WROC).
+1. Fetch values from the most recent files:
+   ```bash
+   ls -t measures/*.json | head -5
+   npm run opencoach -- get-metric measures .core_metrics.weight 5
+   npm run opencoach -- get-metric measures .core_metrics.body_fat_pct 5
+   ```
+2. Calculate Weekly Rate of Change (WROC):
+   ```bash
+   npm run opencoach -- analyze-progress
+   ```
 3. Report deltas (weight, body fat) to the Head Coach for the @dietitian and @programmer.
 
 # Constraints

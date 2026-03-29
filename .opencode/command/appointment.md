@@ -18,8 +18,9 @@ dependencies:
 
 <critical_rules priority="absolute" enforcement="strict">
   <rule id="scripts_first">
-    `profile.json` (complete) and today's `measures/measures-YYYY-MM-DD.json` MUST exist before the appointment begins.
-    If either is missing, abort and instruct the user to run `opencoach setup-profile` or `opencoach checkin`.
+    Run `ls profile.json 2>/dev/null || npm run opencoach -- setup-profile` and
+    `ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin`
+    before delegating to any subagent. Shell `||` handles the conditional — no manual checks needed.
   </rule>
   <rule id="goal_first">
     `sport_context` MUST be resolved from `profile.json` BEFORE generating any diet or training plan.
@@ -47,17 +48,19 @@ The `/appointment` command is the main entry point for a coaching session. It au
 
 ## Workflow
 
-### Stage 0: Guard Check
-- Read `profile.json`. If missing or any of `gender`, `birth_date`, `height_cm`, `sport_goal` are absent → abort:
-  > "Run `opencoach setup-profile` first."
-- Read `measures/measures-YYYY-MM-DD.json` for today's date. If absent → abort:
-  > "Run `opencoach checkin` first."
-- Resolve `sport_context` by looking up `sport_goal` in the Head Coach's Sport Goal Reference table.
-- Derive `age` from `birth_date`. No questions — all data is already on disk.
+### Stage 0: Data Collection
+```bash
+ls profile.json 2>/dev/null || npm run opencoach -- setup-profile
+cat profile.json
 
-### Stage 1: Data Confirmation / Import
+ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin
+```
+- Resolve `sport_context` from `sport_goal` via the Head Coach's Sport Goal Reference table.
+- Derive `age` from `birth_date`. No manual questions.
+
+### Stage 1: Confirmation / Import
 - Display a summary of the loaded profile and today's measurements to the user.
-- If the user provides a PDF: run `opencoach import-pdf <path>` to supplement the check-in data.
+- If the user provides a PDF: run `npm run opencoach -- import-pdf <path>` to supplement.
 
 ### Stage 2: Analysis (@analyst)
 - Run `opencoach analyze-progress`.
