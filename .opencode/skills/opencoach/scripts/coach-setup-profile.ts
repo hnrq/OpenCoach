@@ -69,13 +69,17 @@ async function main() {
     const name = await promptField(rl, 'Name', existing.name);
     if (!name) { console.error('Error: name is required.'); process.exit(1); }
 
-    // Gender
-    let gender = '';
-    while (!['male', 'female'].includes(gender)) {
-      gender = (await promptField(rl, 'Gender (male / female)', existing.gender)).toLowerCase();
-      if (!['male', 'female'].includes(gender)) {
-        console.log('  → Must be "male" or "female".');
-      }
+    // Gender — numbered selection
+    const GENDERS = ['male', 'female'] as const;
+    const currentGenderIdx = existing.gender ? GENDERS.indexOf(existing.gender) + 1 : undefined;
+    console.log(`  Gender${currentGenderIdx ? ` [current: ${existing.gender}]` : ''}:`);
+    GENDERS.forEach((g, i) => console.log(`    ${i + 1}. ${g.charAt(0).toUpperCase() + g.slice(1)}`));
+    let gender: typeof GENDERS[number] | '' = '';
+    while (!gender) {
+      const raw = await ask(rl, `  Choice [1/2]${currentGenderIdx ? ` (Enter = ${currentGenderIdx})` : ''}: `);
+      const idx = raw === '' && currentGenderIdx ? currentGenderIdx : parseInt(raw, 10);
+      if (idx >= 1 && idx <= GENDERS.length) gender = GENDERS[idx - 1];
+      else console.log('  → Enter 1 or 2.');
     }
 
     // Birth date

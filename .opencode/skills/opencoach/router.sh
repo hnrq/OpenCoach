@@ -16,7 +16,7 @@ case $COMMAND in
     ;;
   get-metric)
     # Usage: ./router.sh get-metric <type> <metric_path> [n]
-    bash "$SCRIPTS_DIR/coach-get-metric.sh" "$@"
+    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-get-metric.ts" "$@"
     ;;
   analyze-progress)
     # Usage: ./router.sh analyze-progress

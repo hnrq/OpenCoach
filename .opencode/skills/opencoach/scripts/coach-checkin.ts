@@ -58,7 +58,7 @@ function ask(rl: readline.Interface, question: string): Promise<string> {
   return new Promise(resolve => rl.question(question, answer => resolve(answer.trim())));
 }
 
-async function promptFloat(
+async function promptNumber(
   rl: readline.Interface,
   label: string,
   unit: string,
@@ -69,7 +69,7 @@ async function promptFloat(
   const hint = prev !== undefined ? ` (prev: ${prev})` : '';
   while (true) {
     const raw = await ask(rl, `  ${label}${hint} [${unit}]: `);
-    const val = parseFloat(raw);
+    const val = Number(raw);
     if (!isNaN(val) && val >= min && val <= max) return val;
     console.log(`  → Must be a number between ${min} and ${max}.`);
   }
@@ -97,17 +97,17 @@ async function main() {
 
   try {
     // Core metrics
-    const weight = await promptFloat(rl, 'Weight', 'kg', prev?.core_metrics.weight);
-    const body_fat_pct = await promptFloat(rl, 'Body fat %', '%', prev?.core_metrics.body_fat_pct, 1, 60);
+    const weight = await promptNumber(rl, 'Weight', 'kg', prev?.core_metrics.weight);
+    const body_fat_pct = await promptNumber(rl, 'Body fat %', '%', prev?.core_metrics.body_fat_pct, 1, 60);
 
     console.log('\n  — Tape measurements (cm) —');
-    const chest        = await promptFloat(rl, 'Chest',          'cm', prev?.mandatory_sites.chest);
-    const waist_narrowest = await promptFloat(rl, 'Waist narrowest', 'cm', prev?.mandatory_sites.waist_narrowest);
-    const umbilical    = await promptFloat(rl, 'Umbilical',      'cm', prev?.mandatory_sites.umbilical);
-    const hip_widest   = await promptFloat(rl, 'Hip widest',     'cm', prev?.mandatory_sites.hip_widest);
-    const thigh_mid    = await promptFloat(rl, 'Thigh mid',      'cm', prev?.mandatory_sites.thigh_mid);
-    const bicep_flexed = await promptFloat(rl, 'Bicep flexed',   'cm', prev?.mandatory_sites.bicep_flexed);
-    const forearm      = await promptFloat(rl, 'Forearm',        'cm', prev?.mandatory_sites.forearm);
+    const chest        = await promptNumber(rl, 'Chest',          'cm', prev?.mandatory_sites.chest);
+    const waist_narrowest = await promptNumber(rl, 'Waist narrowest', 'cm', prev?.mandatory_sites.waist_narrowest);
+    const umbilical    = await promptNumber(rl, 'Umbilical',      'cm', prev?.mandatory_sites.umbilical);
+    const hip_widest   = await promptNumber(rl, 'Hip widest',     'cm', prev?.mandatory_sites.hip_widest);
+    const thigh_mid    = await promptNumber(rl, 'Thigh mid',      'cm', prev?.mandatory_sites.thigh_mid);
+    const bicep_flexed = await promptNumber(rl, 'Bicep flexed',   'cm', prev?.mandatory_sites.bicep_flexed);
+    const forearm      = await promptNumber(rl, 'Forearm',        'cm', prev?.mandatory_sites.forearm);
 
     console.log('\n  — Subjective notes (optional) —');
     const prevGoal = prev?.appointment_notes.goal ?? '';
