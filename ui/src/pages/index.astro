@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Window from '../components/Window.astro';
+import BodyCompositionChart from '../components/BodyCompositionChart.astro';
 import { getCollection } from 'astro:content';
 
 const measures = (await getCollection('measures')).sort((a, b) => b.id.localeCompare(a.id));
@@ -19,7 +20,7 @@ const base = import.meta.env.BASE_URL;
 
 <Layout title="OpenCoach" activePage="home">
 
-  <div class="flex flex-col gap-2 pb-10">
+  <div class="flex flex-col gap-2 pb-10 w-full">
   {goal && (
     <fieldset class="tui-fieldset cyan-168-border mb-4">
       <legend class="cyan-168-text">Goal</legend>
@@ -33,6 +34,8 @@ const base = import.meta.env.BASE_URL;
       <p class="white-168-text m-0">{summary}</p>
     </fieldset>
     )}
+
+  {measures.length > 1 && <BodyCompositionChart measures={measures} />}
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">

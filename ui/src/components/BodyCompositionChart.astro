@@ -1,0 +1,205 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  measures: CollectionEntry<'measures'>[];
+}
+
+const { measures } = Astro.props;
+
+const sorted = [...measures].sort((a, b) => a.id.localeCompare(b.id));
+
+const points = sorted.map(m => {
+  const w  = m.data.core_metrics.weight;
+  const bf = m.data.core_metrics.body_fat_pct;
+  const parts = m.id.split('-');
+  return {
+    label:  `${parts[2]}/${parts[3]}/${parts[1].slice(2)}`,   // MM/DD/YY
+    weight: w,
+    lean:   +(w * (1 - bf / 100)).toFixed(1),
+    fat:    +(w * (bf  / 100)).toFixed(1),
+  };
+});
+---
+
+<fieldset class="tui-fieldset min-w-0 white-168-border mb-4 w-full">
+  <legend class="white-168-text">Body Composition Evolution</legend>
+  <div id="body-comp-wrapper" class="overflow-x-auto overflow-y-hidden">
+    <pre
+      id="body-comp-chart"
+      class="min-w-full w-max whitespace-pre break-normal font-mono text-xs leading-tight m-0 p-0"
+      data-points={JSON.stringify(points)}
+    ></pre>
+  </div>
+  <div class="flex gap-6 mt-2 text-xs white-168-text">
+    <span><span style="color:#5555ff">█</span> Weight (kg)</span>
+    <span><span style="color:#ff5555">█</span> Lean Mass (kg)</span>
+    <span><span style="color:#ffff55">█</span> Body Fat (kg)</span>
+  </div>
+</fieldset>
+
+<script>
+import { scaleLinear } from 'd3-scale';
+import { max } from 'd3-array';
+
+const CHART_HEIGHT  = 20;
+const Y_LABEL_WIDTH = 4;
+const BAR_WIDTH     = 3;
+const BAR_CHAR      = '█';
+const AXIS_V        = '│';
+const AXIS_H        = '─';
+const CORNER        = '└';
+const TICK          = '┤';
+const COLORS        = { weight: '#5555ff', lean: '#ff5555', fat: '#ffff55' } as const;
+const AXIS_COLOR    = '#a8a8a8';
+
+type Point = { label: string; weight: number; lean: number; fat: number };
+type Cell  = { char: string; color: string | null };
+
+function buildChart(points: Point[], totalCols: number): string {
+  const N       = points.length;
+  const GROUP_W = 3 * BAR_WIDTH;
+  const labelLen = points[0]?.label.length ?? 8;
+
+  const minGroupGap = N > 1 ? Math.max(2, labelLen - GROUP_W + 1) : 0;
+  const available   = totalCols - Y_LABEL_WIDTH - 1;
+  const minUsed     = N * GROUP_W + (N > 1 ? (N - 1) * minGroupGap : 0);
+  const extra       = Math.max(0, available - minUsed);
+  const groupGap    = N > 1 ? minGroupGap + Math.floor(extra / (N - 1)) : 0;
+
+  const actualBarCols   = N * GROUP_W + (N > 1 ? (N - 1) * groupGap : 0);
+  const groupStart      = (g: number) => Y_LABEL_WIDTH + 1 + g * (GROUP_W + groupGap);
+  const actualTotalCols = Math.max(
+    Y_LABEL_WIDTH + 1 + actualBarCols,
+    N > 0 ? groupStart(N - 1) + Math.floor(GROUP_W / 2) + Math.ceil(labelLen / 2) : 0
+  );
+
+  const maxVal  = max(points.flatMap(p => [p.weight, p.lean, p.fat])) ?? 100;
+  const yScale  = scaleLinear().domain([0, maxVal]).nice().range([0, CHART_HEIGHT]);
+  const yTicks  = yScale.ticks(5);
+  const barH      = (v: number) => Math.round(yScale(v));
+  const rowOfTick = (v: number) => CHART_HEIGHT - 1 - Math.round(yScale(v));
+
+  const blank = (): Cell => ({ char: ' ', color: null });
+  // Add 2 rows at top for bar labels, 1 for axis, 1 for x-labels
+  const grid: Cell[][] = Array.from({ length: CHART_HEIGHT + 4 }, () =>
+    Array.from({ length: actualTotalCols }, blank)
+  );
+
+  const GRID_OFFSET = 2; // Rows reserved at top
+
+  for (let r = 0; r < CHART_HEIGHT; r++) {
+    grid[r + GRID_OFFSET][Y_LABEL_WIDTH] = { char: AXIS_V, color: AXIS_COLOR };
+  }
+
+  for (const t of yTicks) {
+    const r = rowOfTick(t);
+    if (r < 0 || r >= CHART_HEIGHT) continue;
+    const lbl = String(Math.round(t)).padStart(3) + ' ';
+    for (let i = 0; i < Y_LABEL_WIDTH; i++) grid[r + GRID_OFFSET][i] = { char: lbl[i], color: AXIS_COLOR };
+    grid[r + GRID_OFFSET][Y_LABEL_WIDTH] = { char: TICK, color: AXIS_COLOR };
+  }
+
+  grid[CHART_HEIGHT + GRID_OFFSET][Y_LABEL_WIDTH] = { char: CORNER, color: AXIS_COLOR };
+  for (let c = Y_LABEL_WIDTH + 1; c < actualTotalCols; c++) {
+    grid[CHART_HEIGHT + GRID_OFFSET][c] = { char: AXIS_H, color: AXIS_COLOR };
+  }
+
+  const barDefs = [
+    { key: 'weight' as const, color: COLORS.weight },
+    { key: 'lean'   as const, color: COLORS.lean   },
+    { key: 'fat'    as const, color: COLORS.fat     },
+  ];
+
+  for (let g = 0; g < N; g++) {
+    const gs = groupStart(g);
+    for (let b = 0; b < 3; b++) {
+      const { key, color } = barDefs[b];
+      const startCol = gs + b * BAR_WIDTH;
+      const val = points[g][key];
+      const h = barH(val);
+
+      // Draw Bar
+      for (let r = 0; r < CHART_HEIGHT; r++) {
+        if ((CHART_HEIGHT - 1 - r) < h) {
+          for (let bw = 0; bw < BAR_WIDTH; bw++) {
+            grid[r + GRID_OFFSET][startCol + bw] = { char: BAR_CHAR, color };
+          }
+        }
+      }
+
+      // Draw Value Label over bar
+      const valStr = val.toString();
+      const valStartCol = startCol + Math.floor(BAR_WIDTH / 2) - Math.floor(valStr.length / 2);
+      const valRow = (CHART_HEIGHT - h - 1) + GRID_OFFSET;
+      if (valRow >= 0) {
+        for (let i = 0; i < valStr.length; i++) {
+          const c = valStartCol + i;
+          if (c >= 0 && c < actualTotalCols) {
+            grid[valRow][c] = { char: valStr[i], color };
+          }
+        }
+      }
+    }
+  }
+
+  for (let g = 0; g < N; g++) {
+    const lbl      = points[g].label;
+    const center   = groupStart(g) + Math.floor(GROUP_W / 2);
+    const startCol = center - Math.floor(lbl.length / 2);
+    for (let i = 0; i < lbl.length; i++) {
+      const c = startCol + i;
+      if (c >= 0 && c < actualTotalCols) {
+        grid[CHART_HEIGHT + GRID_OFFSET + 1][c] = { char: lbl[i], color: AXIS_COLOR };
+      }
+    }
+  }
+
+  return grid.map(row =>
+    row.map(c => {
+      let content = c.char;
+      if (c.color) content = `<span style="color:${c.color}">${content}</span>`;
+      return content;
+    }).join('')
+  ).join('\n');
+}
+
+const pre     = document.getElementById('body-comp-chart')  as HTMLPreElement | null;
+const wrapper = document.getElementById('body-comp-wrapper') as HTMLElement | null;
+if (pre && wrapper) {
+  const points: Point[] = JSON.parse(pre.dataset.points ?? '[]');
+  let charWidth = 0;
+
+  function measureCharWidth() {
+    const span = document.createElement('span');
+    span.textContent = 'W';
+    span.style.cssText = 'visibility:hidden;position:absolute;white-space:pre';
+    pre!.appendChild(span);
+    const w = span.getBoundingClientRect().width;
+    span.remove();
+    return w || 7.2;
+  }
+
+  function render() {
+    if (!charWidth) charWidth = measureCharWidth();
+    const N       = points.length;
+    const GROUP_W = 3 * BAR_WIDTH;
+    const labelLen = points[0]?.label.length ?? 8;
+    const minGap   = N > 1 ? Math.max(2, labelLen - GROUP_W + 1) : 0;
+
+    const actualBarCols = N * GROUP_W + (N > 1 ? (N - 1) * minGap : 0);
+    const lastLabelEnd = N > 0 ? (Y_LABEL_WIDTH + 1 + (N - 1) * (GROUP_W + minGap) + Math.floor(GROUP_W / 2) + Math.ceil(labelLen / 2)) : 0;
+    const naturalMin = Math.max(Y_LABEL_WIDTH + 1 + actualBarCols, lastLabelEnd);
+
+    const totalCols = Math.max(naturalMin, Math.floor(wrapper!.clientWidth / charWidth));
+
+    pre!.innerHTML = buildChart(points, totalCols);
+    
+    // Scroll to the right so most recent data is visible
+    if (wrapper) wrapper.scrollLeft = wrapper.scrollWidth;
+  }
+
+  render();
+  new ResizeObserver(render).observe(wrapper!);
+}
+</script>
