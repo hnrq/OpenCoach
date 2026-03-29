@@ -34,9 +34,17 @@ case $COMMAND in
     # Usage: ./router.sh import-pdf <pdf_file_path>
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-import-pdf.ts" "$@"
     ;;
+  setup-profile)
+    # Usage: ./router.sh setup-profile
+    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-setup-profile.ts" "$@"
+    ;;
+  checkin)
+    # Usage: ./router.sh checkin
+    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-checkin.ts" "$@"
+    ;;
   *)
     echo "Unknown command: $COMMAND"
-    echo "Usage: ./router.sh {save-session|get-metric|analyze-progress|generate-diet|generate-training|import-pdf}"
+    echo "Usage: ./router.sh {save-session|get-metric|analyze-progress|generate-diet|generate-training|import-pdf|setup-profile|checkin}"
     exit 1
     ;;
 esac

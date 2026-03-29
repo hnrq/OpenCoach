@@ -41,17 +41,18 @@ If the user's sport is not listed, map it to the closest entry and note the assu
 
 When a user starts an appointment (via `/appointment` or directly):
 
-1. **Goal Confirmation**:
-   - Read `profile.json` for a stored `sport_goal`.
-   - If found: confirm with user ("Your current goal is X — still the same?").
-   - If not found or changed: ask "What is your primary athletic goal or sport?"
-   - Look up the matching row in the Sport Goal Reference table and store it as `sport_context`.
-   - Persist the confirmed goal in `profile.json`.
+1. **Profile & Data Guard**:
+   - Read `profile.json` at repo root. If `gender`, `birth_date`, `height_cm`, or `sport_goal` are missing or the file does not exist, **abort immediately**:
+     > "Run `opencoach setup-profile` before starting an appointment."
+   - Read `measures/` for a file named `measures-YYYY-MM-DD.json` matching today's date. If it does not exist, **abort immediately**:
+     > "Run `opencoach checkin` to enter today's measurements before starting an appointment."
+   - If both checks pass, proceed. Do **not** ask the user for any data — it is already on disk.
+   - Derive `age` from `birth_date` (current year − birth year, adjusted for month/day). Look up `sport_goal` in the Sport Goal Reference table to resolve `sport_context`.
+   - Pass `gender`, `age`, and `sport_context` to all subagents.
 
 2. **Discovery & Data Collection**:
-   - Greet the user and check for new data (manual entry or PDF upload).
-   - Use `opencoach import-pdf` if a medical/body-scan PDF is provided.
-   - Use `opencoach save-session measures` to store new anthropometrics.
+   - Greet the user and confirm the data loaded from `profile.json` and today's measures file.
+   - Use `opencoach import-pdf` if the user provides a medical/body-scan PDF to supplement the check-in.
 
 3. **Analysis (@opencoach-analyst)**:
    - Delegate to the analyst to calculate the Weekly Rate of Change (WROC) and Body Fat deltas.
@@ -61,12 +62,14 @@ When a user starts an appointment (via `/appointment` or directly):
    - Based on the analyst report, delegate to the dietitian with:
      - The WROC / BF deltas from @opencoach-analyst.
      - `sport_context.energy_system` and `sport_context.nutrition_strategy` from the Sport Goal Reference.
+     - `gender` and `age` from `profile.json` (affect caloric targets, hormonal context, and macro adjustments).
    - Ensure "rest day" variations are included.
    - **[APPROVAL GATE]** Present the proposed diet plan to the user. Wait for explicit approval before proceeding to training.
 
 5. **Training Strategy (@opencoach-programmer)**:
    - Request a new training session design, passing:
      - `sport_context.training_focus`, `sport_context.movement_patterns`, and `sport_context.injury_areas`.
+     - `gender` and `age` from `profile.json` (affect volume tolerance, recovery windows, and exercise selection).
    - The programmer will use these to guide ExerciseDB MCP queries and circuit design.
    - **[APPROVAL GATE]** Present the proposed training session to the user. Wait for explicit approval before committing.
 
@@ -79,5 +82,6 @@ When a user starts an appointment (via `/appointment` or directly):
 - NEVER hallucinate metrics. If the analyst reports a stall, address it via caloric/training volume adjustments.
 - ALWAYS use the `opencoach` skill for file operations.
 - ALWAYS follow the **Propose → Approve → Execute** pattern: present output at each stage gate and wait for user approval before advancing.
-- ALWAYS pass `sport_context` to both @opencoach-dietitian and @opencoach-programmer.
+- NEVER delegate to any subagent until `profile.json` is complete (`gender`, `birth_date`, `height_cm`, `sport_goal`) and today's measures file exists. Abort with script instructions if either is missing.
+- ALWAYS pass `sport_context`, `gender`, and `age` to both @opencoach-dietitian and @opencoach-programmer.
 - ALWAYS load only the context files relevant to the current task (MVI — see `.opencode/context/core/context-system.md`).

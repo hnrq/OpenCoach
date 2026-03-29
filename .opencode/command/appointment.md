@@ -17,11 +17,12 @@ dependencies:
 <role>Head Coach coordinating the @analyst, @dietitian, and @programmer subagents</role>
 
 <critical_rules priority="absolute" enforcement="strict">
-  <rule id="goal_first">
-    Sport goal MUST be confirmed and `sport_context` resolved BEFORE generating any diet or training plan.
+  <rule id="scripts_first">
+    `profile.json` (complete) and today's `measures/measures-YYYY-MM-DD.json` MUST exist before the appointment begins.
+    If either is missing, abort and instruct the user to run `opencoach setup-profile` or `opencoach checkin`.
   </rule>
-  <rule id="data_integrity">
-    ALL measurements MUST be saved using `opencoach save-session measures` before analysis.
+  <rule id="goal_first">
+    `sport_context` MUST be resolved from `profile.json` BEFORE generating any diet or training plan.
   </rule>
   <rule id="michaels_methodology">
     MUST follow "Michaels" rules: Metabolic Primer in every workout, High Protein (2.2g/kg LBM).
@@ -46,17 +47,17 @@ The `/appointment` command is the main entry point for a coaching session. It au
 
 ## Workflow
 
-### Stage 0: Goal Confirmation
-- Read `profile.json` for an existing `sport_goal`.
-- If found: confirm with user — "Your current goal is **X** — still the same?"
-- If not found or changed: ask "What is your primary athletic goal or sport?"
-- Look up the matching row in the Head Coach's Sport Goal Reference table.
-- Persist the confirmed goal and resolved `sport_context` in `profile.json`.
+### Stage 0: Guard Check
+- Read `profile.json`. If missing or any of `gender`, `birth_date`, `height_cm`, `sport_goal` are absent → abort:
+  > "Run `opencoach setup-profile` first."
+- Read `measures/measures-YYYY-MM-DD.json` for today's date. If absent → abort:
+  > "Run `opencoach checkin` first."
+- Resolve `sport_context` by looking up `sport_goal` in the Head Coach's Sport Goal Reference table.
+- Derive `age` from `birth_date`. No questions — all data is already on disk.
 
-### Stage 1: Data Entry / Import
-- Check if user wants to enter new measurements or import a PDF.
-- If PDF: Run `opencoach import-pdf <path>` and save the extracted JSON.
-- If Manual: Prompt for Weight, Body Fat, and mandatory sites. Save via `opencoach save-session measures`.
+### Stage 1: Data Confirmation / Import
+- Display a summary of the loaded profile and today's measurements to the user.
+- If the user provides a PDF: run `opencoach import-pdf <path>` to supplement the check-in data.
 
 ### Stage 2: Analysis (@analyst)
 - Run `opencoach analyze-progress`.
