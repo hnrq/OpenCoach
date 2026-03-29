@@ -111,13 +111,13 @@ The Programmer subagent will refuse to generate training sessions without this k
 ### First-time setup
 
 ```bash
-opencoach setup-profile   # enter name, gender, birth date, height, sport goal
+npm run opencoach -- setup-profile
 ```
 
 ### Weekly check-in (before every appointment)
 
 ```bash
-opencoach checkin         # enter weight, body fat %, and 7 tape measurements
+npm run opencoach -- checkin
 ```
 
 ### Start a coaching session
@@ -125,6 +125,14 @@ opencoach checkin         # enter weight, body fat %, and 7 tape measurements
 ```bash
 opencode
 > /appointment
+```
+
+### Other commands
+
+```bash
+npm run opencoach -- get-metric measures .core_metrics.weight 3  # last 3 weights
+npm run opencoach -- analyze-progress
+npm run opencoach -- import-pdf <path>
 ```
 
 ---
