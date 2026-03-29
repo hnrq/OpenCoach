@@ -11,19 +11,20 @@ OpenCoach automates your check-in appointments: it analyzes your body compositio
 Every coaching session follows the **Propose → Approve → Execute** pattern:
 
 ```
+opencoach setup-profile   # one-time: name, gender, birth date, height, sport goal
+opencoach checkin         # weekly: weight, BF%, 7 tape measurements
+    ↓
 /appointment
     ↓
-1. Goal Confirmation     → reads/writes profile.json
+1. Guard Check           → reads profile.json + today's measures file
     ↓
-2. Data Collection       → measures saved to /measures
+2. Analysis              → WROC + BF% deltas         [APPROVAL GATE]
     ↓
-3. Analysis              → WROC + BF% deltas         [APPROVAL GATE]
+3. Nutrition Plan        → diet file generated        [APPROVAL GATE]
     ↓
-4. Nutrition Plan        → diet file generated        [APPROVAL GATE]
+4. Training Plan         → training file generated    [APPROVAL GATE]
     ↓
-5. Training Plan         → training file generated    [APPROVAL GATE]
-    ↓
-6. Commit                → all files committed to git
+5. Commit                → all files committed to git
 ```
 
 ---
@@ -82,7 +83,7 @@ OpenCoach adapts training and nutrition to your athletic goal. Supported profile
 ├── measures/          # Body measurement JSON files (measures-YYYY-MM-DD.json)
 ├── diet/              # Diet plan JSON files (diet-YYYY-MM-DD.json)
 ├── training/          # Training session JSON files (training-YYYY-MM-DD.json)
-├── profile.json       # User sport goal and current block phase
+├── profile.json       # Demographics: name, gender, birth_date, height_cm, sport_goal
 ├── .opencode/
 │   ├── agent/
 │   │   ├── core/opencoach.md           # Head Coach
@@ -107,7 +108,19 @@ export RAPIDAPI_KEY=your_key_here
 
 The Programmer subagent will refuse to generate training sessions without this key set.
 
-### Start a Session
+### First-time setup
+
+```bash
+opencoach setup-profile   # enter name, gender, birth date, height, sport goal
+```
+
+### Weekly check-in (before every appointment)
+
+```bash
+opencoach checkin         # enter weight, body fat %, and 7 tape measurements
+```
+
+### Start a coaching session
 
 ```bash
 opencode
