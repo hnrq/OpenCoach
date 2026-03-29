@@ -4,6 +4,7 @@ import DietCard from '../../components/DietCard.astro';
 import TrainingCard from '../../components/TrainingCard.astro';
 import MeasuresCard from '../../components/MeasuresCard.astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const [diet, training, measures] = await Promise.all([
@@ -29,13 +30,12 @@ export async function getStaticPaths() {
 }
 
 type Props =
-  | { entry: Awaited<ReturnType<typeof getCollection<'diet'>>>[number];     type: 'diet' }
-  | { entry: Awaited<ReturnType<typeof getCollection<'training'>>>[number]; type: 'training' }
-  | { entry: Awaited<ReturnType<typeof getCollection<'measures'>>>[number]; type: 'measures' };
+  | { entry: CollectionEntry<'diet'>;     type: 'diet' }
+  | { entry: CollectionEntry<'training'>; type: 'training' }
+  | { entry: CollectionEntry<'measures'>; type: 'measures' };
 
 const { entry, type } = Astro.props;
 const { section } = Astro.params;
-const base = import.meta.env.BASE_URL;
 
 const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
 ---
@@ -44,13 +44,8 @@ const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
   title={`${entry.id} — OpenCoach`}
   activePage={type}
 >
-
-  <div style="margin-bottom: 1rem;">
-    <a href={`${base}${section}`} class="cyan-168-text">← Back to {sectionLabel}</a>
-  </div>
-
-  {type === 'diet'     && <DietCard     entry={entry as Awaited<ReturnType<typeof getCollection<'diet'>>>[number]} />}
-  {type === 'training' && <TrainingCard entry={entry as Awaited<ReturnType<typeof getCollection<'training'>>>[number]} />}
-  {type === 'measures' && <MeasuresCard entry={entry as Awaited<ReturnType<typeof getCollection<'measures'>>>[number]} />}
-
+  <h1>{sectionLabel}</h1>
+  {type === 'diet'     && <DietCard     entry={entry} />}
+  {type === 'training' && <TrainingCard entry={entry} />}
+  {type === 'measures' && <MeasuresCard entry={entry} />}
 </Layout>
