@@ -32,31 +32,31 @@ interface MeasuresSession {
   };
 }
 
+// New schema: day_types + weekly_schedule + michaels_floors
+// Legacy schema (flat daily_targets) is also accepted for backwards compatibility
 interface DietSession {
-  daily_targets: {
-    calories: number;
-    protein_g: number;
-    carbs_g: number;
-    fats_g: number;
-  };
-  meal_structure: {
-    pre_workout?: string;
-    post_workout?: string;
-  };
-  adjustments: string;
+  day_types?: Record<string, { total_targets?: { calories: number; protein_g: number } }>;
+  // legacy flat schema
+  daily_targets?: { calories: number; protein_g: number };
+  weekly_schedule?: Record<string, string>;
+  michaels_floors?: { protein_floor_g: number; fat_floor_g: number };
 }
 
+// New schema: sessions[] with full exercise detail per session
+// Legacy schema (circuits[]) is also accepted for backwards compatibility
 interface TrainingSession {
-  circuits: Array<{
-    name: string;
-    exercises: Array<{
-      name: string;
-      sets: number;
-      reps: string;
-      rpe?: number;
-    }>;
+  sessions?: Array<{
+    id: string;
+    day: string;
+    exercises: Array<{ name: string }>;
   }>;
-  progression_logic: string;
+  // legacy schema
+  circuits?: Array<{
+    name: string;
+    exercises: Array<{ name: string; sets: number; reps: string; rpe?: number }>;
+  }>;
+  progression_rule?: string;
+  progression_logic?: string;
 }
 
 type SessionType = 'measures' | 'diet' | 'training';
@@ -115,11 +115,18 @@ function validate(type: SessionType, data: any) {
     }
   } else if (type === 'diet') {
     const d = data as DietSession;
-    if (!d.daily_targets?.calories || !d.daily_targets?.protein_g) throw new Error('Missing daily_targets (calories or protein)');
-    // Michaels rule: 2.0g/kg floor (roughly, logic should be handled by head coach, but we check presence)
+    const hasNewSchema = d.day_types && typeof d.day_types === 'object' && Object.keys(d.day_types).length > 0;
+    const hasLegacySchema = d.daily_targets?.calories && d.daily_targets?.protein_g;
+    if (!hasNewSchema && !hasLegacySchema) {
+      throw new Error('Diet file must have either day_types (new schema) or daily_targets (legacy schema)');
+    }
   } else if (type === 'training') {
     const t = data as TrainingSession;
-    if (!t.circuits || t.circuits.length === 0) throw new Error('Training session must have at least one circuit');
+    const hasNewSchema = t.sessions && t.sessions.length > 0;
+    const hasLegacySchema = t.circuits && t.circuits.length > 0;
+    if (!hasNewSchema && !hasLegacySchema) {
+      throw new Error('Training file must have either sessions[] (new schema) or circuits[] (legacy schema)');
+    }
   }
 }
 

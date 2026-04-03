@@ -48,18 +48,22 @@ The `/appointment` command is the main entry point for a coaching session. It au
 
 ## Workflow
 
-### Stage 0: Data Collection
+### Stage 0: Intake (complete before any analysis)
 ```bash
 ls profile.json 2>/dev/null || npm run opencoach -- setup-profile
 cat profile.json
 
 ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin
+
+cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing"
 ```
+- Verify all required fields per `guides/intake.md` are present. Collect any missing fields in a single message.
+- Ask: **"Any current pain, soreness, or injury I should know about?"** Update `profile.json → injuries`.
 - Resolve `sport_context` from `sport_goal` via the Head Coach's Sport Goal Reference table.
-- Derive `age` from `birth_date`. No manual questions.
+- Derive `age` from `birth_date`. No other manual questions at this stage.
 
 ### Stage 1: Confirmation / Import
-- Display a summary of the loaded profile and today's measurements to the user.
+- Display a summary of the loaded profile, today's measurements, and current WROC status.
 - If the user provides a PDF: run `npm run opencoach -- import-pdf <path>` to supplement.
 
 ### Stage 2: Analysis (@analyst)

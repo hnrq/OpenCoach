@@ -41,20 +41,23 @@ If the user's sport is not listed, map it to the closest entry and note the assu
 
 When a user starts an appointment (via `/appointment` or directly):
 
-1. **Profile & Data Collection**:
+1. **Intake & Data Collection**:
    - Run the following shell commands to ensure data is present before proceeding:
      ```bash
      ls profile.json 2>/dev/null || npm run opencoach -- setup-profile
      cat profile.json
 
      ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin
+
+     cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing — analyst will derive from measures history"
      ```
    - `||` ensures the script only runs if the file is absent — no manual interpretation needed.
    - After both commands succeed, derive `age` from `birth_date` (current year − birth year, adjusted for month/day). Look up `sport_goal` in the Sport Goal Reference table to resolve `sport_context`.
-   - Pass `gender`, `age`, and `sport_context` to all subagents.
+   - Pass `gender`, `age`, `sport_context`, and the full `wroc.json` content to all subagents.
 
-2. **Discovery & Data Collection**:
-   - Greet the user and confirm the data loaded from `profile.json` and today's measures file.
+2. **Discovery & Injury Check**:
+   - Greet the user and ask: **"Any current pain, soreness, or injury I should know about before building your plan?"**
+   - Record the answer and update `profile.json → injuries` before proceeding.
    - Use `opencoach import-pdf` if the user provides a medical/body-scan PDF to supplement the check-in.
 
 3. **Analysis (@opencoach-analyst)**:
