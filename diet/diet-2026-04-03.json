@@ -1,0 +1,325 @@
+{
+  "day_types": {
+    "gym_day": {
+      "label": "Day Type A — Gym Only (Mon / Wed / Fri)",
+      "total_targets": {
+        "calories": 3177,
+        "protein_g": 154,
+        "carbs_g": 380,
+        "fats_g": 72
+      },
+      "meals": [
+        {
+          "meal": "Breakfast (pre-gym)",
+          "timing": "~60 min before gym",
+          "foods": [
+            "80g rolled oats (dry)",
+            "1 scoop whey protein (30g protein)",
+            "1 medium banana",
+            "200ml whole milk"
+          ],
+          "macros": { "calories": 650, "protein_g": 42, "carbs_g": 90, "fats_g": 12 }
+        },
+        {
+          "meal": "Post-Workout Shake",
+          "timing": "Within 30 min of finishing gym",
+          "foods": [
+            "1 scoop whey protein (30g protein)",
+            "40g maltodextrin or dextrose",
+            "300ml water"
+          ],
+          "macros": { "calories": 300, "protein_g": 30, "carbs_g": 40, "fats_g": 2 }
+        },
+        {
+          "meal": "Brazilian Lunch",
+          "timing": "12:00–13:30",
+          "foods": [
+            "180g cooked white rice",
+            "180g cooked black beans",
+            "200g grilled chicken breast",
+            "Large mixed salad (lettuce, tomato, cucumber) with olive oil drizzle",
+            "1 tsp olive oil"
+          ],
+          "macros": { "calories": 890, "protein_g": 52, "carbs_g": 110, "fats_g": 18 }
+        },
+        {
+          "meal": "Afternoon Snack",
+          "timing": "15:30–16:30",
+          "foods": [
+            "200g Greek yogurt (full fat)",
+            "30g mixed nuts",
+            "1 medium apple"
+          ],
+          "macros": { "calories": 420, "protein_g": 18, "carbs_g": 38, "fats_g": 22 }
+        },
+        {
+          "meal": "Dinner",
+          "timing": "19:30–20:30",
+          "foods": [
+            "150g cooked brown rice or sweet potato",
+            "200g lean beef or salmon",
+            "200g steamed broccoli or green beans",
+            "1 tsp olive oil"
+          ],
+          "macros": { "calories": 680, "protein_g": 48, "carbs_g": 72, "fats_g": 14 }
+        },
+        {
+          "meal": "Evening / Pre-Sleep",
+          "timing": "21:30–22:00",
+          "foods": [
+            "200g cottage cheese or 1 scoop casein protein",
+            "15g almond butter"
+          ],
+          "macros": { "calories": 237, "protein_g": 24, "carbs_g": 8, "fats_g": 12 }
+        }
+      ]
+    },
+    "futsal_day": {
+      "label": "Day Type B — Gym (morning) + Futsal (night) — Tue / Thu",
+      "timing_note": "Gym is in the morning. Futsal is at night. All meals are timed around both sessions. Keep the pre-futsal meal low in fat for fast digestion.",
+      "total_targets": {
+        "calories": 3177,
+        "protein_g": 154,
+        "carbs_g": 380,
+        "fats_g": 72
+      },
+      "meals": [
+        {
+          "meal": "Breakfast (pre-gym)",
+          "timing": "~60 min before gym (e.g., 07:00–07:30)",
+          "foods": [
+            "80g rolled oats (dry)",
+            "1 scoop whey protein (30g protein)",
+            "1 medium banana",
+            "200ml whole milk"
+          ],
+          "macros": { "calories": 650, "protein_g": 42, "carbs_g": 90, "fats_g": 12 }
+        },
+        {
+          "meal": "Post-Gym Shake",
+          "timing": "Within 30 min of finishing gym (e.g., 10:00–10:30)",
+          "foods": [
+            "1 scoop whey protein (30g protein)",
+            "40g maltodextrin or dextrose",
+            "300ml water"
+          ],
+          "macros": { "calories": 300, "protein_g": 30, "carbs_g": 40, "fats_g": 2 }
+        },
+        {
+          "meal": "Brazilian Lunch",
+          "timing": "12:00–13:30",
+          "foods": [
+            "180g cooked white rice",
+            "180g cooked black beans",
+            "200g grilled chicken breast",
+            "Large mixed salad (lettuce, tomato, cucumber) with olive oil drizzle",
+            "1 tsp olive oil"
+          ],
+          "macros": { "calories": 890, "protein_g": 52, "carbs_g": 110, "fats_g": 18 }
+        },
+        {
+          "meal": "Afternoon Snack",
+          "timing": "15:30–16:30",
+          "foods": [
+            "200g Greek yogurt (full fat)",
+            "1 medium apple",
+            "30g oats or 2 rice cakes"
+          ],
+          "macros": { "calories": 360, "protein_g": 16, "carbs_g": 52, "fats_g": 8 }
+        },
+        {
+          "meal": "Pre-Futsal Meal",
+          "timing": "90–120 min before futsal (e.g., 18:00–18:30)",
+          "foods": [
+            "150g cooked white rice",
+            "150g grilled chicken breast",
+            "100g steamed vegetables (carrots, green beans)",
+            "No added fat — keep lean for fast gastric clearance"
+          ],
+          "macros": { "calories": 520, "protein_g": 42, "carbs_g": 62, "fats_g": 6 }
+        },
+        {
+          "meal": "Post-Futsal Recovery",
+          "timing": "Within 30 min of finishing futsal (e.g., 22:00–22:30)",
+          "foods": [
+            "1 scoop whey protein (30g protein)",
+            "1 medium banana or 30g dextrose",
+            "200ml low-fat milk"
+          ],
+          "macros": { "calories": 330, "protein_g": 36, "carbs_g": 36, "fats_g": 4 }
+        },
+        {
+          "meal": "Pre-Sleep (optional if still hungry)",
+          "timing": "23:00",
+          "foods": [
+            "150g cottage cheese",
+            "10g almond butter"
+          ],
+          "macros": { "calories": 190, "protein_g": 18, "carbs_g": 6, "fats_g": 10 }
+        }
+      ]
+    },
+    "leg_day": {
+      "label": "Day Type C — Leg Day (Saturday)",
+      "note": "Highest carb day. Legs are the largest muscle group and demand maximum glycogen. No futsal on this day.",
+      "total_targets": {
+        "calories": 3177,
+        "protein_g": 154,
+        "carbs_g": 400,
+        "fats_g": 68
+      },
+      "meals": [
+        {
+          "meal": "Breakfast (pre-leg session)",
+          "timing": "~75 min before gym",
+          "foods": [
+            "100g rolled oats (dry)",
+            "1 scoop whey protein (30g protein)",
+            "1 large banana",
+            "250ml whole milk",
+            "5g creatine monohydrate"
+          ],
+          "macros": { "calories": 740, "protein_g": 44, "carbs_g": 110, "fats_g": 13 }
+        },
+        {
+          "meal": "Post-Workout Shake",
+          "timing": "Within 30 min of finishing gym",
+          "foods": [
+            "1 scoop whey protein (30g protein)",
+            "50g maltodextrin or dextrose",
+            "300ml water"
+          ],
+          "macros": { "calories": 340, "protein_g": 30, "carbs_g": 50, "fats_g": 2 }
+        },
+        {
+          "meal": "Brazilian Lunch",
+          "timing": "12:00–13:30",
+          "foods": [
+            "200g cooked white rice",
+            "200g cooked black beans",
+            "200g grilled beef (fraldinha or patinho)",
+            "Large salad with tomato, onion, olive oil",
+            "1 tsp olive oil"
+          ],
+          "macros": { "calories": 970, "protein_g": 58, "carbs_g": 118, "fats_g": 20 }
+        },
+        {
+          "meal": "Afternoon Snack",
+          "timing": "15:30–16:30",
+          "foods": [
+            "200g Greek yogurt",
+            "50g granola",
+            "1 medium orange"
+          ],
+          "macros": { "calories": 420, "protein_g": 16, "carbs_g": 62, "fats_g": 10 }
+        },
+        {
+          "meal": "Dinner",
+          "timing": "19:30–20:30",
+          "foods": [
+            "150g cooked brown rice",
+            "200g grilled salmon",
+            "200g steamed asparagus or broccoli",
+            "1 tbsp olive oil"
+          ],
+          "macros": { "calories": 710, "protein_g": 50, "carbs_g": 60, "fats_g": 23 }
+        }
+      ]
+    },
+    "rest_day": {
+      "label": "Day Type D — Rest Day (Sunday)",
+      "note": "Carbs reduced ~100g below training days. Fats slightly higher to support recovery and hormonal function. Protein floor unchanged.",
+      "total_targets": {
+        "calories": 2248,
+        "protein_g": 154,
+        "carbs_g": 180,
+        "fats_g": 72
+      },
+      "meals": [
+        {
+          "meal": "Breakfast",
+          "timing": "08:00–09:00",
+          "foods": [
+            "4 whole eggs scrambled",
+            "100g smoked salmon or turkey breast",
+            "1 slice whole grain bread",
+            "Large black coffee (no sugar)"
+          ],
+          "macros": { "calories": 520, "protein_g": 48, "carbs_g": 22, "fats_g": 26 }
+        },
+        {
+          "meal": "Brazilian Lunch",
+          "timing": "12:00–13:30",
+          "foods": [
+            "120g cooked white rice",
+            "180g cooked black beans",
+            "200g grilled chicken thigh (skin removed)",
+            "Large salad with olive oil",
+            "1 tsp olive oil"
+          ],
+          "macros": { "calories": 740, "protein_g": 50, "carbs_g": 78, "fats_g": 18 }
+        },
+        {
+          "meal": "Afternoon Snack",
+          "timing": "15:30",
+          "foods": [
+            "200g Greek yogurt",
+            "40g walnuts or mixed nuts",
+            "1 small pear"
+          ],
+          "macros": { "calories": 420, "protein_g": 18, "carbs_g": 28, "fats_g": 24 }
+        },
+        {
+          "meal": "Dinner",
+          "timing": "19:30–20:30",
+          "foods": [
+            "200g grilled chicken breast or white fish",
+            "300g roasted vegetables (zucchini, bell pepper, onion, eggplant)",
+            "1 tbsp olive oil",
+            "50g cooked lentils"
+          ],
+          "macros": { "calories": 568, "protein_g": 50, "carbs_g": 32, "fats_g": 24 }
+        }
+      ]
+    }
+  },
+  "weekly_schedule": {
+    "monday": "gym_day",
+    "tuesday": "futsal_day",
+    "wednesday": "gym_day",
+    "thursday": "futsal_day",
+    "friday": "gym_day",
+    "saturday": "leg_day",
+    "sunday": "rest_day"
+  },
+  "michaels_floors": {
+    "protein_g_per_kg_lbm": 2.2,
+    "fat_g_per_kg_total_bw": 0.8,
+    "lbm_kg": 70.0,
+    "total_bw_kg": 79.9,
+    "protein_floor_g": 154,
+    "fat_floor_g": 64,
+    "notes": "LBM derived from 79.9kg at 12.4% BF. Protein floor is non-negotiable on all days. Fat floor is 64g; rest days are above floor by design to support hormonal health."
+  },
+  "sport_context": {
+    "sport": "Futsal",
+    "mapped_to": "Soccer",
+    "energy_system": "70% aerobic / 30% anaerobic",
+    "nutrition_strategy": "Carb-dominant; match-day carb loading",
+    "injury_areas": "Knees, ankles, hamstrings",
+    "notes": "Futsal mapped to Soccer in Sport Goal Reference. High carb on futsal days to support repeated sprints and rapid directional changes. Pre-futsal meal is timed 90-120 min before match to avoid digestive discomfort."
+  },
+  "target_weight_kg": "72-74",
+  "next_wroc_review": "2026-04-17",
+  "adjustments": {
+    "current_weight_kg": 79.9,
+    "current_bf_pct": 12.4,
+    "lbm_kg": 70.0,
+    "wroc_target_kg": "-0.5 to -0.7 kg/week",
+    "wroc_status": "Stall — weight unchanged from last session",
+    "action_taken": "Increased training volume (added Saturday leg day). Carb cycling introduced across 4 day types. Futsal days restructured for morning gym + night futsal double-session protocol.",
+    "caloric_deficit_strategy": "Deficit comes primarily from rest-day carb reduction. Training days remain at maintenance+ to protect futsal performance and gym output.",
+    "hydration": "Minimum 3L water/day. Electrolytes (sodium, potassium) on futsal days post-match.",
+    "supplements": "5g creatine monohydrate daily (pre-workout on training days, with breakfast on rest days)"
+  }
+}
