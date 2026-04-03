@@ -35,6 +35,12 @@ interface UserProfile {
   equipment: string[];
 }
 
+const DEFAULT_EQUIPMENT = [
+  'barbell', 'dumbbells', 'cables', 'pull-up bar',
+  'leg press', 'bench', 'box', 'ab wheel',
+  'resistance bands', 'medicine ball'
+];
+
 const PROFILE_PATH = path.join(process.cwd(), 'profile.json');
 const TEMP_PATH = path.join(process.cwd(), 'profile.json.tmp');
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -75,14 +81,18 @@ async function promptField(
   return answer !== '' ? answer : (defaultVal !== undefined ? String(defaultVal) : '');
 }
 
-/** Prompt for a comma-separated list. Returns array of trimmed non-empty strings. */
+/** Prompt for a comma-separated list. Returns array of trimmed non-empty strings.
+ *  Items may contain spaces — the separator is the comma, not the space.
+ *  e.g. "greek yogurt, chicken breast, tapioca starch" → 3 items correctly.
+ */
 async function promptList(
   rl: readline.Interface,
   label: string,
+  example: string,
   existing?: string[]
 ): Promise<string[]> {
-  const hint = existing?.length ? ` [${existing.join(', ')}]` : '';
-  const answer = await ask(rl, `  ${label} (comma-separated)${hint}: `);
+  const hint = existing?.length ? ` [${existing.join(', ')}]` : ` (e.g. ${example})`;
+  const answer = await ask(rl, `  ${label}${hint}: `);
   if (answer === '' && existing?.length) return existing;
   return answer.split(',').map(s => s.trim()).filter(Boolean);
 }
@@ -192,7 +202,12 @@ async function main() {
     // ── Food Preferences ──────────────────────────
     console.log('\n  [ Food Preferences ]');
 
-    const primary = await promptList(rl, 'Primary ingredients', existing.food_preferences?.primary);
+    const primary = await promptList(
+      rl,
+      'Primary ingredients',
+      'eggs, chicken breast, greek yogurt, tapioca starch',
+      existing.food_preferences?.primary
+    );
 
     const fixedMeals: Record<string, string> = existing.food_preferences?.fixed_meals ?? {};
     const addFixed = await ask(rl, `  Add / update a fixed meal? (e.g. "lunch: rice, beans, meat") [Enter to skip]: `);
@@ -209,11 +224,9 @@ async function main() {
       rl, 'Food notes (optional)', existing.food_preferences?.notes ?? ''
     );
 
-    // ── Equipment ─────────────────────────────────
-    console.log('\n  [ Equipment & Health ]');
-
-    const equipment = await promptList(rl, 'Available gym equipment', existing.equipment);
-    const injuries = await promptList(rl, 'Active injuries (leave blank if none)', existing.injuries?.length ? existing.injuries : undefined);
+    // Equipment defaults to standard commercial gym. Agent asks about injuries conversationally.
+    const equipment = existing.equipment?.length ? existing.equipment : DEFAULT_EQUIPMENT;
+    const injuries: string[] = existing.injuries ?? [];
 
     // ── Build & save ──────────────────────────────
     const profile: UserProfile = {
@@ -249,7 +262,8 @@ async function main() {
     console.log(`  Gym days: ${gym_days.join(', ')}`);
     console.log(`  Futsal days: ${futsal_days.join(', ')} (${futsal_timing})`);
     console.log(`  Foods: ${primary.slice(0, 4).join(', ')}${primary.length > 4 ? ` +${primary.length - 4} more` : ''}`);
-    if (injuries.length) console.log(`  Active injuries: ${injuries.join(', ')}`);
+    console.log(`  Equipment: standard commercial gym${equipment === DEFAULT_EQUIPMENT ? ' (default)' : ' (custom)'}`);
+    console.log(`  Injuries: asked by coach during appointment`);
     console.log();
   } finally {
     rl.close();

@@ -22,8 +22,8 @@ Load `profile.json` first. For each field marked ✗ or missing, ask the athlete
 | Training schedule (days + timing) | `profile.json` | Yes |
 | Food preferences (primary list) | `profile.json` | Yes |
 | Fixed meals | `profile.json` | Yes |
-| Available equipment | `profile.json` | Yes |
-| Active injuries | `profile.json` | Yes (can be empty) |
+| Available equipment | `profile.json` (defaults to standard commercial gym) | Yes |
+| Active injuries | Ask athlete at start of appointment | Yes |
 
 ## Checklist Before Analyst Runs
 
@@ -34,6 +34,13 @@ Load `profile.json` first. For each field marked ✗ or missing, ask the athlete
 [ ] profile.json has target_weight_kg populated
 [ ] analytics/wroc.json exists (create if missing from measures history)
 ```
+
+## Injuries — Always Ask at Appointment Start
+
+Even if `profile.json` has no injuries listed, always open with:
+> "Any current pain, soreness, or injury I should know about before building your plan?"
+
+Update `profile.json → injuries` with the answer. Do not skip this — injury status changes between sessions.
 
 ## If Fields Are Missing
 
