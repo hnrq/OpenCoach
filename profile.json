@@ -3,5 +3,32 @@
   "gender": "male",
   "birth_date": "1999-08-21",
   "height_cm": 171,
-  "sport_goal": "Futsal"
+  "sport_goal": "Futsal",
+  "target_weight_kg": { "min": 72, "max": 74 },
+  "training_schedule": {
+    "futsal_days": ["tuesday", "thursday"],
+    "futsal_timing": "evening",
+    "gym_days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+    "gym_timing_on_futsal_days": "morning",
+    "rest_days": ["sunday"]
+  },
+  "food_preferences": {
+    "primary": [
+      "eggs",
+      "chicken breast",
+      "banana",
+      "apple",
+      "granola",
+      "greek yogurt",
+      "whey isolate",
+      "cheese",
+      "tapioca starch"
+    ],
+    "fixed_meals": {
+      "lunch": "Brazilian lunch — rice, beans, and meat (beef or chicken) daily"
+    },
+    "notes": "Keep meals simple. Secondary ingredients allowed but primary list must be the backbone of every meal plan."
+  },
+  "injuries": [],
+  "equipment": ["barbell", "dumbbells", "cables", "pull-up bar", "leg press", "bench", "box", "ab wheel", "resistance bands", "medicine ball"]
 }

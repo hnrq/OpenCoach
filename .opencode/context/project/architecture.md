@@ -19,12 +19,18 @@ All structural decisions — agent organization, context loading, approval gates
 Every plan-generating step requires user approval before the next step executes.
 
 ```
-Analyst Report   → [USER APPROVES] → Diet Plan
-Diet Plan        → [USER APPROVES] → Training Plan
-Training Plan    → [USER APPROVES] → git commit
+Intake Check     → [ALL FIELDS GREEN] → Analyst Report
+Analyst Report   → [USER APPROVES] → Diet Plan + Training Plan (parallel)
+Diet + Training  → [USER APPROVES] → git commit
 ```
 
 Never advance a stage without explicit user confirmation. Silence is not approval.
+
+**Intake first:** Load `profile.json` and today's measures file before running the analyst. If any required field is missing, collect all missing fields in a single consolidated question. See `guides/intake.md`.
+
+**Training plans always include full exercise detail** — exercise name, sets, reps, RPE, and coaching note for every exercise in every session. Session name only is never sufficient output.
+
+**Subagent efficiency:** The Head Coach should run a single continuous session delegating inline rather than cold-spawning a new agent per stage. Each cold spawn re-derives context already available in the conversation. Only spawn a subagent when it has distinct file operations or context requirements (Rule 6).
 
 ---
 
