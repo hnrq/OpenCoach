@@ -72,15 +72,15 @@ cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing"
 - Identify if the user is in a "Stall", "Losing", or "Gaining" phase.
 
 ### Stage 3: Nutrition Update (@dietitian)
-- Based on @analyst report, run `opencoach generate-diet`.
-- Pass `sport_context.energy_system` and `sport_context.nutrition_strategy` to @dietitian.
-- Present new macros and calories to the user.
-- Explain the rationale (e.g., "Increasing carbs — soccer demands high aerobic output").
+- Delegate to @dietitian with: WROC/BF deltas, `sport_context`, `food_preferences` from `profile.json`.
+- Apply `guides/diet-ingredient-constraints.md` — primary ingredient list is a hard constraint.
+- Present day-type carb cycle (gym / futsal / legs / rest) to the user with per-day meal breakdown.
+- Explain the rationale (e.g., "Increasing carbs on futsal days — aerobic demand").
 
 ### Stage 4: Training Update (@programmer)
-- Run `opencoach generate-training`.
-- Pass `sport_context.training_focus`, `sport_context.movement_patterns`, and `sport_context.injury_areas` to @programmer.
-- Design a new session with a Metabolic Primer and Strength Block tailored to the sport goal.
+- Delegate to @programmer with: `sport_context.training_focus`, `sport_context.movement_patterns`, `sport_context.injury_areas`, `training_schedule` from `profile.json`.
+- Output full session detail: every session, every exercise, warmup + working sets, RPE, coaching note.
+- Never output session names only — full exercise list is mandatory.
 
 ### Stage 5: Summary & Wrap-up
 - Show a final summary of the new plan.

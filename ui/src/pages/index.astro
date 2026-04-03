@@ -56,8 +56,19 @@ const base = import.meta.env.BASE_URL;
       <Window title="Latest Diet">
         <div class="flex flex-col gap-4">
           <span class="flex flex-col">
-            <span><span class="cyan-168-text">Calories:</span> {latestDiet.data.daily_targets.calories} kcal</span>
-            <span><span class="cyan-168-text">Protein:</span> {latestDiet.data.daily_targets.protein_g}g</span>
+            {latestDiet.data.day_types ? (
+              <>
+                <span><span class="cyan-168-text">Day types:</span> {Object.keys(latestDiet.data.day_types).length}</span>
+                {latestDiet.data.day_types.gym_day?.total_targets && (
+                  <span><span class="cyan-168-text">Gym day:</span> {latestDiet.data.day_types.gym_day.total_targets.calories} kcal</span>
+                )}
+              </>
+            ) : latestDiet.data.daily_targets ? (
+              <>
+                <span><span class="cyan-168-text">Calories:</span> {latestDiet.data.daily_targets.calories} kcal</span>
+                <span><span class="cyan-168-text">Protein:</span> {latestDiet.data.daily_targets.protein_g}g</span>
+              </>
+            ) : null}
           </span>
           <a href={`${base}/diet/${latestDiet.id}`} class="tui-button m-0">View →</a>
         </div>
@@ -68,8 +79,17 @@ const base = import.meta.env.BASE_URL;
       <Window title="Latest Training">
         <div class="flex flex-col gap-4">
           <span class="flex flex-col">
-            <span><span class="cyan-168-text">Circuits:</span> {latestTraining.data.circuits.length}</span>
-            <span><span class="cyan-168-text">Exercises:</span> {latestTraining.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
+            {latestTraining.data.sessions ? (
+              <>
+                <span><span class="cyan-168-text">Sessions:</span> {latestTraining.data.sessions.length}</span>
+                <span><span class="cyan-168-text">Exercises:</span> {latestTraining.data.sessions.reduce((n, s) => n + (s.exercises?.length ?? 0), 0)}</span>
+              </>
+            ) : latestTraining.data.circuits ? (
+              <>
+                <span><span class="cyan-168-text">Circuits:</span> {latestTraining.data.circuits.length}</span>
+                <span><span class="cyan-168-text">Exercises:</span> {latestTraining.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
+              </>
+            ) : null}
           </span>
           <a href={`${base}/training/${latestTraining.id}`} class="tui-button m-0">View →</a>
         </div>

@@ -22,14 +22,6 @@ case $COMMAND in
     # Usage: ./router.sh analyze-progress
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-analyze-progress.ts" "$@"
     ;;
-  generate-diet)
-    # Usage: ./router.sh generate-diet
-    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-generate-diet.ts" "$@"
-    ;;
-  generate-training)
-    # Usage: ./router.sh generate-training
-    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-generate-training.ts" "$@"
-    ;;
   import-pdf)
     # Usage: ./router.sh import-pdf <pdf_file_path>
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-import-pdf.ts" "$@"
@@ -44,7 +36,7 @@ case $COMMAND in
     ;;
   *)
     echo "Unknown command: $COMMAND"
-    echo "Usage: ./router.sh {save-session|get-metric|analyze-progress|generate-diet|generate-training|import-pdf|setup-profile|checkin}"
+    echo "Usage: ./router.sh {save-session|get-metric|analyze-progress|import-pdf|setup-profile|checkin}"
     exit 1
     ;;
 esac

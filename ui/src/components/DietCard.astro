@@ -6,36 +6,84 @@ interface Props {
   entry: CollectionEntry<'diet'>;
 }
 const { entry } = Astro.props;
-const { daily_targets, meal_structure, adjustments } = entry.data;
+const { day_types, weekly_schedule, daily_targets, meal_structure, adjustments } = entry.data;
 ---
 
 <Window title={entry.id.replace('diet-', '')}>
 
-  <fieldset class="tui-fieldset cyan-168-border mb-4">
-    <legend class="cyan-168-text">Daily Targets</legend>
-    <table class="tui-table full-width">
-      <tbody>
-        <tr><td>Calories</td><td class="right-align">{daily_targets.calories} kcal</td></tr>
-        <tr><td>Protein</td><td class="right-align">{daily_targets.protein_g} g</td></tr>
-        <tr><td>Carbs</td><td class="right-align">{daily_targets.carbs_g} g</td></tr>
-        <tr><td>Fats</td><td class="right-align">{daily_targets.fats_g} g</td></tr>
-      </tbody>
-    </table>
-  </fieldset>
+  {day_types ? (
+    <>
+      {Object.entries(day_types).map(([key, dt]) => dt.total_targets && (
+        <fieldset class="tui-fieldset cyan-168-border mb-4">
+          <legend class="cyan-168-text">{dt.label ?? key}</legend>
+          <table class="tui-table full-width">
+            <tbody>
+              <tr><td>Calories</td><td class="right-align">{dt.total_targets.calories} kcal</td></tr>
+              <tr><td>Protein</td><td class="right-align">{dt.total_targets.protein_g} g</td></tr>
+              <tr><td>Carbs</td><td class="right-align">{dt.total_targets.carbs_g} g</td></tr>
+              <tr><td>Fats</td><td class="right-align">{dt.total_targets.fats_g} g</td></tr>
+            </tbody>
+          </table>
+          {dt.meals && dt.meals.length > 0 && (
+            <details class="mt-2">
+              <summary class="cyan-168-text" style="cursor:pointer">Meals ({dt.meals.length})</summary>
+              {dt.meals.map(m => (
+                <div class="mt-2 ml-2">
+                  <strong>{m.meal}</strong>{m.timing && <span class="white-168-text"> — {m.timing}</span>}
+                  <ul class="m-0 mt-1">
+                    {m.foods.map(f => <li>{f}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </details>
+          )}
+        </fieldset>
+      ))}
 
-  {meal_structure && (
-    <fieldset class="tui-fieldset yellow-168-border mb-4">
-      <legend class="yellow-168-text">Meal Structure</legend>
-      {meal_structure.pre_workout && <p class="m-0"><strong>Pre-workout:</strong> {meal_structure.pre_workout}</p>}
-      {meal_structure.post_workout && <p class="m-0"><strong>Post-workout:</strong> {meal_structure.post_workout}</p>}
-    </fieldset>
-  )}
+      {weekly_schedule && (
+        <fieldset class="tui-fieldset yellow-168-border mb-4">
+          <legend class="yellow-168-text">Weekly Schedule</legend>
+          <table class="tui-table full-width">
+            <tbody>
+              {Object.entries(weekly_schedule).map(([day, type]) => (
+                <tr><td class="capitalize">{day}</td><td class="right-align">{type}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </fieldset>
+      )}
+    </>
+  ) : (
+    <>
+      {daily_targets && (
+        <fieldset class="tui-fieldset cyan-168-border mb-4">
+          <legend class="cyan-168-text">Daily Targets</legend>
+          <table class="tui-table full-width">
+            <tbody>
+              <tr><td>Calories</td><td class="right-align">{daily_targets.calories} kcal</td></tr>
+              <tr><td>Protein</td><td class="right-align">{daily_targets.protein_g} g</td></tr>
+              <tr><td>Carbs</td><td class="right-align">{daily_targets.carbs_g} g</td></tr>
+              <tr><td>Fats</td><td class="right-align">{daily_targets.fats_g} g</td></tr>
+            </tbody>
+          </table>
+        </fieldset>
+      )}
 
-  {adjustments && (
-    <fieldset class="tui-fieldset white-168-border">
-      <legend class="white-168-text">Adjustments</legend>
-      <p class="m-0">{adjustments}</p>
-    </fieldset>
+      {meal_structure && (
+        <fieldset class="tui-fieldset yellow-168-border mb-4">
+          <legend class="yellow-168-text">Meal Structure</legend>
+          {meal_structure.pre_workout && <p class="m-0"><strong>Pre-workout:</strong> {meal_structure.pre_workout}</p>}
+          {meal_structure.post_workout && <p class="m-0"><strong>Post-workout:</strong> {meal_structure.post_workout}</p>}
+        </fieldset>
+      )}
+
+      {adjustments && (
+        <fieldset class="tui-fieldset white-168-border">
+          <legend class="white-168-text">Adjustments</legend>
+          <p class="m-0">{adjustments}</p>
+        </fieldset>
+      )}
+    </>
   )}
 
 </Window>
