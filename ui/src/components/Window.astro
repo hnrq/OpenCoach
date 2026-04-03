@@ -1,16 +1,16 @@
 ---
 interface Props {
-  title: string;
+	title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<div class="tui-window mb-4">
+<div class="tui-window mb-4 w-full">
   <fieldset class="tui-window-header blue-168 mx-2">
     <legend>{title}</legend>
   </fieldset>
-  <div class="content">
+  <div class="content flex flex-col gap-4">
     <slot />
   </div>
 </div>

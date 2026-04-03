@@ -1,29 +1,38 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Window from '../../components/Window.astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import Window from "../../components/Window.astro";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const [diet, training, measures] = await Promise.all([
-    getCollection('diet'),
-    getCollection('training'),
-    getCollection('measures'),
-  ]);
-  const sort = <T extends { id: string }>(arr: T[]) =>
-    [...arr].sort((a, b) => b.id.localeCompare(a.id));
+	const [diet, training, measures] = await Promise.all([
+		getCollection("diet"),
+		getCollection("training"),
+		getCollection("measures"),
+	]);
+	const sort = <T extends { id: string }>(arr: T[]) =>
+		[...arr].sort((a, b) => b.id.localeCompare(a.id));
 
-  return [
-    { params: { section: 'diet' },     props: { entries: sort(diet),     type: 'diet' as const } },
-    { params: { section: 'training' }, props: { entries: sort(training), type: 'training' as const } },
-    { params: { section: 'measures' }, props: { entries: sort(measures), type: 'measures' as const } },
-  ];
+	return [
+		{
+			params: { section: "diet" },
+			props: { entries: sort(diet), type: "diet" as const },
+		},
+		{
+			params: { section: "training" },
+			props: { entries: sort(training), type: "training" as const },
+		},
+		{
+			params: { section: "measures" },
+			props: { entries: sort(measures), type: "measures" as const },
+		},
+	];
 }
 
 type Props =
-  | { entries: CollectionEntry<'diet'>[];     type: 'diet' }
-  | { entries: CollectionEntry<'training'>[];  type: 'training' }
-  | { entries: CollectionEntry<'measures'>[];  type: 'measures' };
+	| { entries: CollectionEntry<"diet">[]; type: "diet" }
+	| { entries: CollectionEntry<"training">[]; type: "training" }
+	| { entries: CollectionEntry<"measures">[]; type: "measures" };
 
 const { entries, type } = Astro.props;
 const { section } = Astro.params;
@@ -31,12 +40,15 @@ const base = import.meta.env.BASE_URL;
 const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
 
 function formatDate(id: string) {
-  return id.replace(/^[a-z]+-/, '');
+	return id.replace(/^[a-z]+-/, "");
 }
 
-const dietEntries     = type === 'diet'     ? (entries as CollectionEntry<'diet'>[])     : [];
-const trainingEntries = type === 'training' ? (entries as CollectionEntry<'training'>[]) : [];
-const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measures'>[]) : [];
+const dietEntries =
+	type === "diet" ? (entries as CollectionEntry<"diet">[]) : [];
+const trainingEntries =
+	type === "training" ? (entries as CollectionEntry<"training">[]) : [];
+const measuresEntries =
+	type === "measures" ? (entries as CollectionEntry<"measures">[]) : [];
 ---
 
 <Layout title={`${sectionLabel} — OpenCoach`} activePage={type}>
@@ -48,31 +60,46 @@ const measuresEntries = type === 'measures' ? (entries as CollectionEntry<'measu
     <p class="yellow-168-text">No {section} data found.</p>
   )}
 
-  {type === 'diet' && dietEntries.map(entry => (
-    <Window title={formatDate(entry.id)}>
-      <div class="flex flex-col gap-2">
-        <span class="flex flex-col">
-          <span><span class="cyan-168-text">Calories:</span> {entry.data.daily_targets.calories} kcal</span>
-          <span><span class="cyan-168-text">Protein:</span> {entry.data.daily_targets.protein_g}g</span>
-          <span><span class="cyan-168-text">Carbs:</span> {entry.data.daily_targets.carbs_g}g</span>
-          <span><span class="cyan-168-text">Fats:</span> {entry.data.daily_targets.fats_g}g</span>
-        </span>
-        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
-      </div>
-    </Window>
-  ))}
+  {type === 'diet' && dietEntries.map(entry => {
+    const targets = entry.data.day_types?.gym_day?.total_targets ?? entry.data.daily_targets;
+    return (
+      <Window title={formatDate(entry.id)}>
+        <div class="flex flex-col gap-2">
+          <span class="flex flex-col">
+            {targets ? (
+              <>
+                <span><span class="cyan-168-text">Calories:</span> {targets.calories} kcal</span>
+                <span><span class="cyan-168-text">Protein:</span> {targets.protein_g}g</span>
+                <span><span class="cyan-168-text">Carbs:</span> {targets.carbs_g}g</span>
+                <span><span class="cyan-168-text">Fats:</span> {targets.fats_g}g</span>
+              </>
+            ) : (
+              <span class="white-168-text">Day-type plan</span>
+            )}
+          </span>
+          <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
+        </div>
+      </Window>
+    );
+  })}
 
-  {type === 'training' && trainingEntries.map(entry => (
-    <Window title={formatDate(entry.id)}>
-      <div class="flex flex-col gap-2">
-        <span class="flex flex-col">
-          <span><span class="cyan-168-text">Circuits:</span> {entry.data.circuits.length}</span>
-            <span><span class="cyan-168-text">Exercises:</span> {entry.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
-        </span>
-        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
-      </div>
-    </Window>
-  ))}
+  {type === 'training' && trainingEntries.map(entry => {
+    const sessionCount = entry.data.sessions?.length ?? entry.data.circuits?.length ?? 0;
+    const exerciseCount = entry.data.sessions
+      ? entry.data.sessions.reduce((n, s) => n + (s.exercises?.length ?? 0), 0)
+      : entry.data.circuits?.reduce((n, c) => n + c.exercises.length, 0) ?? 0;
+    return (
+      <Window title={formatDate(entry.id)}>
+        <div class="flex flex-col gap-2">
+          <span class="flex flex-col">
+            <span><span class="cyan-168-text">{entry.data.sessions ? 'Sessions' : 'Circuits'}:</span> {sessionCount}</span>
+            <span><span class="cyan-168-text">Exercises:</span> {exerciseCount}</span>
+          </span>
+          <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
+        </div>
+      </Window>
+    );
+  })}
 
   {type === 'measures' && measuresEntries.map(entry => (
     <Window title={formatDate(entry.id)}>

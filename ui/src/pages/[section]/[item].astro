@@ -1,50 +1,46 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import DietCard from '../../components/DietCard.astro';
-import TrainingCard from '../../components/TrainingCard.astro';
-import MeasuresCard from '../../components/MeasuresCard.astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import DietCard from "../../components/DietCard.astro";
+import MeasuresCard from "../../components/MeasuresCard.astro";
+import TrainingCard from "../../components/TrainingCard.astro";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const [diet, training, measures] = await Promise.all([
-    getCollection('diet'),
-    getCollection('training'),
-    getCollection('measures'),
-  ]);
+	const [diet, training, measures] = await Promise.all([
+		getCollection("diet"),
+		getCollection("training"),
+		getCollection("measures"),
+	]);
 
-  return [
-    ...diet.map(entry => ({
-      params: { section: 'diet', item: entry.id },
-      props: { entry, type: 'diet' as const },
-    })),
-    ...training.map(entry => ({
-      params: { section: 'training', item: entry.id },
-      props: { entry, type: 'training' as const },
-    })),
-    ...measures.map(entry => ({
-      params: { section: 'measures', item: entry.id },
-      props: { entry, type: 'measures' as const },
-    })),
-  ];
+	return [
+		...diet.map((entry) => ({
+			params: { section: "diet", item: entry.id },
+			props: { entry, type: "diet" as const },
+		})),
+		...training.map((entry) => ({
+			params: { section: "training", item: entry.id },
+			props: { entry, type: "training" as const },
+		})),
+		...measures.map((entry) => ({
+			params: { section: "measures", item: entry.id },
+			props: { entry, type: "measures" as const },
+		})),
+	];
 }
 
 type Props =
-  | { entry: CollectionEntry<'diet'>;     type: 'diet' }
-  | { entry: CollectionEntry<'training'>; type: 'training' }
-  | { entry: CollectionEntry<'measures'>; type: 'measures' };
+	| { entry: CollectionEntry<"diet">; type: "diet" }
+	| { entry: CollectionEntry<"training">; type: "training" }
+	| { entry: CollectionEntry<"measures">; type: "measures" };
 
 const { entry, type } = Astro.props;
-const { section } = Astro.params;
-
-const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
 ---
 
 <Layout
   title={`${entry.id} — OpenCoach`}
   activePage={type}
 >
-  <h1>{sectionLabel}</h1>
   {type === 'diet'     && <DietCard     entry={entry} />}
   {type === 'training' && <TrainingCard entry={entry} />}
   {type === 'measures' && <MeasuresCard entry={entry} />}

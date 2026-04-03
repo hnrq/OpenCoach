@@ -1,24 +1,24 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  measures: CollectionEntry<'measures'>[];
+	measures: CollectionEntry<"measures">[];
 }
 
 const { measures } = Astro.props;
 
 const sorted = [...measures].sort((a, b) => a.id.localeCompare(b.id));
 
-const points = sorted.map(m => {
-  const w  = m.data.core_metrics.weight;
-  const bf = m.data.core_metrics.body_fat_pct;
-  const parts = m.id.split('-');
-  return {
-    label:  `${parts[2]}/${parts[3]}/${parts[1].slice(2)}`,   // MM/DD/YY
-    weight: w,
-    lean:   +(w * (1 - bf / 100)).toFixed(1),
-    fat:    +(w * (bf  / 100)).toFixed(1),
-  };
+const points = sorted.map((m) => {
+	const w = m.data.core_metrics.weight;
+	const bf = m.data.core_metrics.body_fat_pct;
+	const parts = m.id.split("-");
+	return {
+		label: `${parts[2]}/${parts[3]}/${parts[1].slice(2)}`, // MM/DD/YY
+		weight: w,
+		lean: +(w * (1 - bf / 100)).toFixed(1),
+		fat: +(w * (bf / 100)).toFixed(1),
+	};
 });
 ---
 

@@ -1,19 +1,19 @@
 ---
-import 'tuicss/dist/tuicss.min.css';
-import '../styles/global.css';
+import "tuicss/dist/tuicss.min.css";
+import "../styles/global.css";
 
 interface Props {
-  title?: string;
-  activePage?: 'home' | 'diet' | 'training' | 'measures';
+	title?: string;
+	activePage?: "home" | "diet" | "training" | "measures";
 }
 
-const { title = "Henrique's Progress", activePage = 'home' } = Astro.props;
+const { title = "Henrique's Progress", activePage = "home" } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const nav = [
-{ label: 'Diet',      href: `${base}/diet`,      key: 'diet' },
-{ label: 'Training',  href: `${base}/training`,  key: 'training' },
-{ label: 'Measures',  href: `${base}/measures`,  key: 'measures' },
+	{ label: "Diet", href: `${base}/diet`, key: "diet" },
+	{ label: "Training", href: `${base}/training`, key: "training" },
+	{ label: "Measures", href: `${base}/measures`, key: "measures" },
 ];
 ---
 
