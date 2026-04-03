@@ -80,9 +80,9 @@ install_plugin() {
 
 # Verify installation
 verify() {
-    if [ ! -f "$PLUGIN_DEST/agents/core/openagent.md" ]; then
+    if [ ! -f "$PLUGIN_DEST/agents/core/opencoach.md" ]; then
         echo -e "${RED}✗ Installation verification failed${NC}" >&2
-        echo "  Expected: $PLUGIN_DEST/agents/core/openagent.md" >&2
+        echo "  Expected: $PLUGIN_DEST/agents/core/opencoach.md" >&2
         exit 1
     fi
 

@@ -56,14 +56,23 @@ function parseFrontmatter(content) {
 }
 
 /**
+ * Strips surrounding quotes added by the line-by-line YAML parser
+ */
+function stripQuotes(value) {
+  if (typeof value !== 'string') return value;
+  return value.replace(/^["']|["']$/g, '');
+}
+
+/**
  * Converts OpenCode frontmatter to Claude format
  */
-function convertFrontmatter(ocFrontmatter) {
+function convertFrontmatter(ocFrontmatter, filePath) {
   const claude = {};
-  
+
   // Map OpenCode fields to Claude fields
-  claude.name = ocFrontmatter.id || ocFrontmatter.name;
-  claude.description = ocFrontmatter.description;
+  // Fall back to filename stem if neither id nor name is set (e.g. Head Coach)
+  claude.name = ocFrontmatter.id || ocFrontmatter.name || path.basename(filePath, '.md');
+  claude.description = stripQuotes(ocFrontmatter.description) || claude.name;
   
   // Map tools from OpenCode permissions to Claude
   if (ocFrontmatter.tools) {
@@ -149,7 +158,7 @@ function processAgent(filePath) {
     return;
   }
   
-  const claudeFrontmatter = convertFrontmatter(frontmatter);
+  const claudeFrontmatter = convertFrontmatter(frontmatter, filePath);
   const claudeMarkdown = generateClaudeMarkdown(claudeFrontmatter, body);
   
   // Determine output path
