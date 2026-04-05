@@ -55,8 +55,14 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
    Abort if `RAPIDAPI_KEY` is missing.
 2. Receive instructions from the Head Coach including the `sport_context` above.
 3. Query the **ExerciseDB API** MCP to search and select exercises that match the sport's `training_focus` and `movement_patterns`. Use `sport_context.injury_areas` to avoid exercises that overload vulnerable joints.
-4. Run `npm run opencoach -- generate-training` to design circuits (Metabolic Primer + Strength Block).
-5. Ensure the output JSON file follows the `training-YYYY-MM-DD.json` schema.
+4. Write the training plan:
+   ```bash
+   # Generate skeleton — creates training/training-YYYY-MM-DD.json with the correct structure
+   npm run opencoach -- new-session training --date $(date +%Y-%m-%d)
+   # Overwrite the skeleton with the full plan (populate sessions[] with exercises)
+   ```
+   The Head Coach validates and commits all files — do not call `save-session` yourself.
+5. The output JSON must follow the `training-YYYY-MM-DD.json` schema: `sessions[]` with exercises, `weekly_schedule`, `constraints`, `progression`. See `schemas/training.schema.json` for the full structure.
 
 # Exercise Selection via ExerciseDB MCP
 

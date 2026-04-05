@@ -51,7 +51,13 @@ Use these together to shape macro targets and carb cycling strategy.
      - High anaerobic demand (>60% anaerobic) → moderate carb cycling, weight-class considerations if applicable
      - Aesthetic goal (bodybuilding/powerlifting) → strict carb cycling around training blocks
    - Apply `sport_context.nutrition_strategy` for sport-specific rules (e.g., match-day loading, recovery nutrition timing).
-4. Run `npm run opencoach -- generate-diet` to write a new JSON file following the `diet-YYYY-MM-DD.json` schema.
+4. Write the diet plan:
+   ```bash
+   # Generate skeleton — creates diet/diet-YYYY-MM-DD.json with the correct structure
+   npm run opencoach -- new-session diet --date $(date +%Y-%m-%d)
+   # Overwrite the skeleton with the fully computed plan (write the JSON directly)
+   ```
+   The Head Coach validates and commits all files — do not call `save-session` yourself.
 
 # Nutrient Timing & Energy Availability
 
