@@ -18,6 +18,7 @@ permission:
 # Context
 
 Load only the following files (MVI — do not load nutrition or dietitian context):
+- `.opencode/context/coaching/schemas/training-schema.md`
 - `.opencode/context/coaching/concepts/michaels-methodology.md`
 - `.opencode/context/coaching/concepts/rp-volume-landmarks.md`
 - `.opencode/context/coaching/concepts/block-periodization.md`
@@ -45,18 +46,37 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 
 # Logic Flow
 
-1. Verify `RAPIDAPI_KEY` and read context:
+1. **Prerequisites & Profile**:
    ```bash
-   [ -n "$RAPIDAPI_KEY" ] && echo "API key set" || echo "MISSING — abort"
-   cat profile.json
-   cat $(ls -t training/*.json | head -1)
-   npm run opencoach -- get-metric measures .core_metrics.weight 1
+   [ -n "$RAPIDAPI_KEY" ] || { echo "MISSING RAPIDAPI_KEY — abort"; exit 1; }
+   jq '{equipment, injuries, training_schedule, block_phase}' profile.json
+   jq '{progression, constraints, weekly_schedule, warmup_template, sessions, circuits}' $(ls -t training/*.json | head -1)
    ```
-   Abort if `RAPIDAPI_KEY` is missing.
-2. Receive instructions from the Head Coach including the `sport_context` above.
-3. Query the **ExerciseDB API** MCP to search and select exercises that match the sport's `training_focus` and `movement_patterns`. Use `sport_context.injury_areas` to avoid exercises that overload vulnerable joints.
-4. Run `npm run opencoach -- generate-training` to design circuits (Metabolic Primer + Strength Block).
-5. Ensure the output JSON file follows the `training-YYYY-MM-DD.json` schema.
+2. **Receive Derived Context** from Head Coach:
+   - `age`
+   - `sport_context` (`training_focus`, `movement_patterns`, `injury_areas`)
+   - `michaels_floors` (for intensity/recovery correlation)
+   - **WROC / BF deltas**
+
+3. **Exercise Selection (ExerciseDB)**:
+   - Query ExerciseDB based on `sport_context.movement_patterns`.
+   - **Strict Equipment Filter**: Only select exercises that match `profile.json → equipment`.
+   - **Injury Filter**: Cross-reference ExerciseDB target muscles with `sport_context.injury_areas` and `profile.json → injuries`. Avoid direct stress on compromised joints.
+
+4. **Volume & Periodization**:
+   - Determine **Block Phase** from `profile.json → block_phase` (default to Accumulation if missing).
+   - Apply **RP Volume Landmarks**:
+     - Pull MRV (Maximum Recoverable Volume) from `.opencode/context/coaching/concepts/rp-volume-landmarks.md`.
+     - Cap weekly sets per muscle group.
+     - Adjust sets/RPE based on the phase (Accumulation/Intensification/Realization).
+
+5. **Write Training Plan**:
+   ```bash
+   # Generate skeleton
+   npm run opencoach -- new-session training --date $(date +%Y-%m-%d)
+   # Populate training/training-YYYY-MM-DD.json
+   ```
+   Follow the field guide in `.opencode/context/coaching/schemas/training-schema.md`. Use `sessions[]` (not `circuits`). Run `new-session training --date` to get a valid skeleton. Must include a **Metabolic Primer** (AMRAP/Tabata) for every session.
 
 # Exercise Selection via ExerciseDB MCP
 

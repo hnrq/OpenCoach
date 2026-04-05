@@ -5,7 +5,10 @@
   "workspaces": [
     "evals/framework",
     "packages/cli",
-    "packages/compatibility-layer"
+    "packages/compatibility-layer",
+    "packages/plugin-abilities",
+    "packages/schemas",
+    "ui"
   ],
   "bin": {
     "oac": "./bin/oac.js"
@@ -115,7 +118,8 @@
   "homepage": "https://github.com/darrenhinde/OpenAgentsControl#readme",
   "devDependencies": {
     "@types/node": "^25.5.0",
-    "glob": "^13.0.0"
+    "glob": "^13.0.0",
+    "vite": "^6.0.0"
   },
   "dependencies": {
     "pdf2json": "^4.0.2"
