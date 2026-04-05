@@ -1,0 +1,21 @@
+{
+  "core_metrics": {
+    "weight": 80,
+    "body_fat_pct": 12.5
+  },
+  "mandatory_sites": {
+    "chest": 100,
+    "waist_narrowest": 81,
+    "umbilical": 84,
+    "hip_widest": 103,
+    "thigh_mid": 58,
+    "bicep_flexed": 38.5,
+    "forearm": 28
+  },
+  "appointment_notes": {
+    "goal": "Improve performance as a futsal winger; reduce weight to 72–74 kg",
+    "energy_levels": "Not specified",
+    "sleep": "Not specified",
+    "coach_summary": ""
+  }
+}

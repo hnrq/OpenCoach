@@ -19,7 +19,8 @@
       "banana",
       "apple",
       "granola",
-      "greek yogurt",
+      "kefir",
+      "milk",
       "whey isolate",
       "cheese",
       "tapioca starch"
@@ -30,5 +31,5 @@
     "notes": "Keep meals simple. Secondary ingredients allowed but primary list must be the backbone of every meal plan."
   },
   "injuries": [],
-  "equipment": ["barbell", "dumbbells", "cables", "pull-up bar", "leg press", "bench", "box", "ab wheel", "resistance bands", "medicine ball"]
+  "equipment": ["barbell", "dumbbells", "cables", "pull-up bar", "leg press", "bench", "ab wheel", "resistance bands", "bike", "treadmill", "hip thrust setup", "adductor machine", "seated leg curl", "lying leg curl"]
 }

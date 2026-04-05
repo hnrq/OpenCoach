@@ -1,0 +1,143 @@
+{
+  "athlete": "Henrique Ramos",
+  "date": "2026-04-05",
+  "methodology": "Michaels",
+  "sport_context": {
+    "sport": "Futsal",
+    "mapped_to": "Soccer",
+    "energy_system": "70% aerobic / 30% anaerobic",
+    "nutrition_strategy": "Carb-dominant; match-day carb loading"
+  },
+  "targets": {
+    "target_weight_kg": {
+      "min": 72,
+      "max": 74
+    },
+    "target_wroc_kg_week": {
+      "min": -0.7,
+      "max": -0.5
+    },
+    "next_review_date": "2026-04-17"
+  },
+  "inputs": {
+    "weight_kg": 80,
+    "body_fat_pct": 12.5,
+    "lbm_kg": 70,
+    "fixed_meals": {
+      "lunch": "Brazilian lunch — rice, beans, and meat (beef or chicken) daily"
+    },
+    "primary_ingredients": [
+      "eggs",
+      "chicken breast",
+      "banana",
+      "apple",
+      "granola",
+      "kefir",
+      "milk",
+      "whey isolate",
+      "cheese",
+      "tapioca starch"
+    ],
+    "notes": "Greek yogurt replaced with kefir/milk. Add 1/4–1/2 scoop whey isolate to kefir/milk servings as needed to keep protein on target. Lunch is fixed daily."
+  },
+  "macro_rules": {
+    "protein_g_per_kg_lbm": 2.2,
+    "fat_g_per_kg_bodyweight": 0.8,
+    "protein_g": 154,
+    "fat_g": 64,
+    "carb_cycling": {
+      "gymOnly": {
+        "carbs_g": 300,
+        "kcal": 2392
+      },
+      "legsDay": {
+        "carbs_g": 350,
+        "kcal": 2592
+      },
+      "futsalGym": {
+        "carbs_g": 450,
+        "kcal": 2992
+      },
+      "restDay": {
+        "carbs_g": 230,
+        "kcal": 2112
+      }
+    }
+  },
+  "day_types": {
+    "gymOnly": {
+      "days": [
+        "monday",
+        "wednesday",
+        "friday",
+        "saturday"
+      ],
+      "macros_g": {
+        "protein": 154,
+        "carbs": 300,
+        "fat": 64
+      },
+      "meal_templates": [
+        "Breakfast (pre-gym): tapioca + eggs + cheese + banana",
+        "Post-gym/snack: whey isolate + kefir/milk + granola + apple",
+        "Lunch (fixed): rice + beans + meat (prefer chicken breast most days)",
+        "Dinner: chicken breast + rice/beans (portion to hit carbs) + vegetables"
+      ]
+    },
+    "legsDay": {
+      "days": [
+        "wednesday"
+      ],
+      "macros_g": {
+        "protein": 154,
+        "carbs": 350,
+        "fat": 64
+      },
+      "meal_templates": [
+        "Breakfast (pre-gym): bigger tapioca + eggs + cheese + banana",
+        "Post-gym: whey isolate + apple (+ granola if needed)",
+        "Lunch (fixed): rice + beans + meat (push rice higher)",
+        "Dinner: chicken breast + rice (or small second tapioca) + vegetables"
+      ]
+    },
+    "futsalGym": {
+      "days": [
+        "tuesday",
+        "thursday"
+      ],
+      "macros_g": {
+        "protein": 154,
+        "carbs": 450,
+        "fat": 64
+      },
+      "meal_templates": [
+        "Breakfast (pre-gym): tapioca + eggs + cheese + banana",
+        "Post-gym: whey isolate + apple (+ kefir/milk optional)",
+        "Lunch (fixed): rice + beans + meat (prioritize rice; keep fats moderate)",
+        "Pre-futsal (60–120 min): kefir/milk + granola + banana",
+        "Post-futsal dinner: chicken breast + rice/beans (+ fruit if carbs short)"
+      ]
+    },
+    "restDay": {
+      "days": [
+        "sunday"
+      ],
+      "macros_g": {
+        "protein": 154,
+        "carbs": 230,
+        "fat": 64
+      },
+      "meal_templates": [
+        "Breakfast: smaller tapioca + eggs + cheese (banana optional)",
+        "Lunch (fixed): rice + beans + meat (smaller rice portion)",
+        "Snack: kefir/milk + granola + apple",
+        "Dinner (optional if needed): chicken breast + vegetables (or whey isolate if protein short)"
+      ]
+    }
+  },
+  "rationale": [
+    "Protein fixed high (154g) to protect LBM while cutting.",
+    "Carbs peak on futsal days (Tue/Thu) to support repeated sprints and directional changes.",
+    "Rest day is lower-carb to drive weekly deficit without underfueling futsal sessions."
+  ]
+}

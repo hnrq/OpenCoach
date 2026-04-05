@@ -1,0 +1,398 @@
+{
+  "athlete": "Henrique Ramos",
+  "date": "2026-04-05",
+  "methodology": "Michaels (primer skipped by athlete preference)",
+  "sport_context": {
+    "sport": "Futsal",
+    "mapped_to": "Soccer",
+    "training_focus": "Aerobic base + explosive power + agility",
+    "movement_patterns": "Sprinting, lateral cuts, kicking",
+    "injury_areas": [
+      "knees",
+      "ankles",
+      "hamstrings"
+    ]
+  },
+  "constraints": {
+    "no_jumping": true,
+    "small_space": true,
+    "gym_only": true,
+    "futsal_evenings": [
+      "tuesday",
+      "thursday"
+    ],
+    "legs_day": "saturday",
+    "cardio": "Optional 5-min warm-up only; no added conditioning blocks"
+  },
+  "progression": {
+    "rpe_targets": {
+      "main_lifts": "7–8",
+      "accessories": "7–8",
+      "speed_work": "6–7 (fast, crisp)"
+    },
+    "rule": "If last set is clean and <=RPE7, add 2.5–5% or +1 rep next week. If >=RPE9 or pain, reduce 5–10%."
+  },
+  "weekly_schedule": {
+    "monday": "Upper Strength",
+    "tuesday_am": "Posterior Chain + Adductors + Ankles (low soreness)",
+    "wednesday": "Upper Hypertrophy",
+    "thursday_am": "Neural + Prehab (fresh for futsal)",
+    "saturday": "Lower Strength (main legs day)",
+    "friday": "Off (gym)",
+    "sunday": "Off (gym)"
+  },
+  "warmup_template": {
+    "optional": [
+      "Bike or treadmill 5 min easy"
+    ],
+    "mobility": [
+      "Ankle rocks 10/side",
+      "Band pull-aparts 2x15"
+    ],
+    "ramp_sets": "2–4 ramp sets for first lift"
+  },
+  "sessions": [
+    {
+      "day": "Monday",
+      "focus": "Upper Strength",
+      "exercises": [
+        {
+          "name": "Barbell Bench Press",
+          "sets": 5,
+          "reps": "3–5",
+          "rest": "2–3 min",
+          "rpe": "7–8",
+          "note": "Consistent touch point; leg drive; no grinders."
+        },
+        {
+          "name": "Weighted Pull-Up (or Strict)",
+          "sets": 5,
+          "reps": "3–5",
+          "rest": "2–3 min",
+          "rpe": "7–8",
+          "note": "Dead hang each rep; chest-to-bar path."
+        },
+        {
+          "name": "1-Arm Cable Row",
+          "sets": 4,
+          "reps": "8–10/side",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Row to hip; 1s pause."
+        },
+        {
+          "name": "Standing Dumbbell Overhead Press",
+          "sets": 4,
+          "reps": "6",
+          "rest": "2 min",
+          "rpe": "7–8",
+          "note": "Glutes tight; no excessive back arch."
+        },
+        {
+          "name": "Face Pull",
+          "sets": 3,
+          "reps": "15",
+          "rest": "60 sec",
+          "rpe": "7",
+          "note": "Hands to eyebrows; elbows high."
+        },
+        {
+          "name": "Pallof Press",
+          "sets": 3,
+          "reps": "10/side",
+          "rest": "60 sec",
+          "rpe": "7",
+          "note": "Anti-rotation for cutting/kicking stability."
+        },
+        {
+          "name": "Cable External Rotation",
+          "sets": 2,
+          "reps": "15/side",
+          "rest": "45–60 sec",
+          "rpe": "easy",
+          "note": "Shoulder health."
+        }
+      ]
+    },
+    {
+      "day": "Tuesday (AM)",
+      "focus": "Posterior Chain + Adductors + Ankles (keep fresh for futsal PM)",
+      "exercises": [
+        {
+          "name": "Romanian Deadlift (RDL / 'Stiff')",
+          "sets": 4,
+          "reps": "4–6",
+          "rest": "2–3 min",
+          "rpe": "~7",
+          "note": "Leave reps in tank; bar close; hamstring stretch; no soreness chasing."
+        },
+        {
+          "name": "Cable Pull-Through",
+          "sets": 3,
+          "reps": "10–12",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Explosive hip extension; control return."
+        },
+        {
+          "name": "Adductor Machine",
+          "sets": 3,
+          "reps": "12",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Groin resilience for cuts."
+        },
+        {
+          "name": "Seated (or Bent-Knee) Calf Raise",
+          "sets": 5,
+          "reps": "10–12",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "Full ROM; 1s pause stretched."
+        },
+        {
+          "name": "Tibialis Raises (band)",
+          "sets": 4,
+          "reps": "15–20",
+          "rest": "45 sec",
+          "rpe": "7–8",
+          "note": "Ankle/shin balance for sprint volume."
+        },
+        {
+          "name": "Dead Bug",
+          "sets": 3,
+          "reps": "8/side",
+          "rest": "45–60 sec",
+          "rpe": "controlled",
+          "note": "Low-back neutral; slow reps."
+        },
+        {
+          "name": "Banded TKE",
+          "sets": 2,
+          "reps": "15/side",
+          "rest": "45 sec",
+          "rpe": "easy",
+          "note": "Knee tendon / quad activation."
+        }
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "focus": "Upper Hypertrophy",
+      "exercises": [
+        {
+          "name": "Incline Dumbbell Press",
+          "sets": 4,
+          "reps": "8–10",
+          "rest": "90 sec",
+          "rpe": "8",
+          "note": "Smooth reps; keep shoulders down."
+        },
+        {
+          "name": "Lat Pulldown",
+          "sets": 4,
+          "reps": "8–10",
+          "rest": "90 sec",
+          "rpe": "8",
+          "note": "Pause 1s; elbows to ribs."
+        },
+        {
+          "name": "Flat Dumbbell Bench Press",
+          "sets": 3,
+          "reps": "10–12",
+          "rest": "90 sec",
+          "rpe": "8",
+          "note": "Controlled eccentric; no bouncing."
+        },
+        {
+          "name": "Seated Cable Row",
+          "sets": 3,
+          "reps": "10–12",
+          "rest": "90 sec",
+          "rpe": "8",
+          "note": "No torso swing; squeeze upper back."
+        },
+        {
+          "name": "Lateral Raise (DB or cable)",
+          "sets": 4,
+          "reps": "12–15",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "Strict; no swing."
+        },
+        {
+          "name": "Rear Delt Fly (cable or DB)",
+          "sets": 3,
+          "reps": "15",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "Shoulder balance and posture."
+        },
+        {
+          "name": "Triceps Pressdown",
+          "sets": 3,
+          "reps": "12",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "Elbows pinned; full lockout."
+        },
+        {
+          "name": "Cable Curl",
+          "sets": 3,
+          "reps": "12",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "No sway; full ROM."
+        },
+        {
+          "name": "Ab Wheel",
+          "sets": 4,
+          "reps": "6–10",
+          "rest": "60–90 sec",
+          "rpe": "7–8",
+          "note": "Keep posterior pelvic tilt."
+        }
+      ]
+    },
+    {
+      "day": "Thursday (AM)",
+      "focus": "Neural + Prehab (fresh for futsal PM)",
+      "exercises": [
+        {
+          "name": "Speed Bench Press",
+          "sets": 8,
+          "reps": 3,
+          "rest": "60–90 sec",
+          "rpe": "6–7",
+          "note": "Fast bar; perfect reps; stop if speed drops."
+        },
+        {
+          "name": "Pull-Up (bodyweight)",
+          "sets": 6,
+          "reps": 4,
+          "rest": "90–120 sec",
+          "rpe": "7",
+          "note": "Stay submax; crisp reps."
+        },
+        {
+          "name": "Goblet Squat (patterning)",
+          "sets": 4,
+          "reps": 6,
+          "rest": "90 sec",
+          "rpe": "6–7",
+          "note": "Just groove; do not chase fatigue."
+        },
+        {
+          "name": "Seated Leg Curl (eccentric-biased)",
+          "sets": 3,
+          "reps": 10,
+          "rest": "60–90 sec",
+          "rpe": "7–8",
+          "note": "1s squeeze; 3s controlled lowering."
+        },
+        {
+          "name": "Standing Calf Raise",
+          "sets": 4,
+          "reps": "8–10",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Pause top and bottom."
+        },
+        {
+          "name": "Side Plank",
+          "sets": 2,
+          "reps": "45–60 sec/side",
+          "rest": "45–60 sec",
+          "rpe": "controlled",
+          "note": "Anti-lateral flexion for cutting stability."
+        }
+      ]
+    },
+    {
+      "day": "Saturday",
+      "focus": "Lower Strength (main legs day)",
+      "exercises": [
+        {
+          "name": "Barbell Back Squat",
+          "sets": 5,
+          "reps": 3,
+          "rest": "3 min",
+          "rpe": "8",
+          "note": "Brace hard; drive up fast; quality reps."
+        },
+        {
+          "name": "Romanian Deadlift (RDL / 'Stiff')",
+          "sets": 4,
+          "reps": 6,
+          "rest": "2–3 min",
+          "rpe": "8",
+          "note": "Soft knees; bar close; hamstring stretch."
+        },
+        {
+          "name": "Leg Press",
+          "sets": 3,
+          "reps": 10,
+          "rest": "2 min",
+          "rpe": "8",
+          "note": "Knees track toes; controlled depth."
+        },
+        {
+          "name": "Hip Thrust (barbell)",
+          "sets": 4,
+          "reps": 8,
+          "rest": "2 min",
+          "rpe": "8",
+          "note": "1s pause at top; full hip extension."
+        },
+        {
+          "name": "Seated Leg Curl (eccentric-biased)",
+          "sets": 4,
+          "reps": "8–12",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "3s lowering; full ROM."
+        },
+        {
+          "name": "Lying Leg Curl",
+          "sets": 2,
+          "reps": "12–15",
+          "rest": "60 sec",
+          "rpe": "8",
+          "note": "Smooth reps; hips stay down."
+        },
+        {
+          "name": "Leg Extension",
+          "sets": 2,
+          "reps": 12,
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Controlled; no knee pain chasing."
+        },
+        {
+          "name": "Adductor Machine",
+          "sets": 3,
+          "reps": 12,
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Groin resilience; pause 1s."
+        },
+        {
+          "name": "Calf Raise (heavy)",
+          "sets": 4,
+          "reps": "8–12",
+          "rest": "60–90 sec",
+          "rpe": "8",
+          "note": "Full ROM; pause stretch."
+        },
+        {
+          "name": "Ab Wheel",
+          "sets": 3,
+          "reps": "6–10",
+          "rest": "60–90 sec",
+          "rpe": "7–8",
+          "note": "No lumbar extension."
+        }
+      ]
+    }
+  ]
+}
