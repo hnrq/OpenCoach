@@ -26,7 +26,9 @@
 | `coaching/concepts/nutrient-timing.md` | `opencoach-dietitian.md`, `navigation.md`, `errors/wroc-rpe-conflict.md` | Referenced inline by wroc-rpe-conflict |
 | `coaching/guides/intake.md` | `project/architecture.md`, `navigation.md`, `opencoach.md` (head coach Step 1) | If renamed, update all 3 |
 | `coaching/guides/tracking-measures.md` | `navigation.md` | |
-| `coaching/guides/diet-ingredient-constraints.md` | `navigation.md`, `opencoach-dietitian.md` | Added 2026-04-03 |
+| `coaching/guides/diet-ingredient-constraints.md` | `navigation.md`, `opencoach-dietitian.md` (MVI) | Added 2026-04-03 |
+| `coaching/schemas/diet-schema.md` | `opencoach-dietitian.md` (MVI) | **Generated** — do not hand-edit. Regenerate via `cd packages/schemas && npm run gen:diet-schema` |
+| `coaching/schemas/training-schema.md` | `opencoach-programmer.md` (MVI) | **Generated** — do not hand-edit. Regenerate via `cd packages/schemas && npm run gen:training-schema` |
 | `coaching/errors/metabolic-stalls.md` | `navigation.md` | Created 2026-04-03; was a dead reference before |
 | `coaching/errors/sport-switch.md` | `navigation.md` | |
 | `coaching/errors/wroc-rpe-conflict.md` | `navigation.md`, `errors/metabolic-stalls.md` | metabolic-stalls.md cross-references this |
@@ -91,8 +93,21 @@ The Astro UI (`ui/`) renders the JSON data files. **Any schema change to diet, t
 |---|---|---|
 | `.opencode/agent/core/opencoach.md` | None (delegates only) | analyst, dietitian, programmer |
 | `.opencode/agent/subagents/opencoach/opencoach-analyst.md` | None — data processing only | None |
-| `.opencode/agent/subagents/opencoach/opencoach-dietitian.md` | michaels-methodology, nutrient-timing, metabolic-stalls, wroc-rpe-conflict, **diet-ingredient-constraints** | None |
-| `.opencode/agent/subagents/opencoach/opencoach-programmer.md` | michaels-methodology, rp-volume-landmarks, block-periodization, sport-switch | None |
+| `.opencode/agent/subagents/opencoach/opencoach-dietitian.md` | **diet-schema** (generated), **diet-ingredient-constraints**, michaels-methodology, nutrient-timing, metabolic-stalls, wroc-rpe-conflict | None |
+| `.opencode/agent/subagents/opencoach/opencoach-programmer.md` | **training-schema** (generated), michaels-methodology, rp-volume-landmarks, block-periodization, sport-switch | None |
+
+---
+
+## Schema Documentation
+
+The files under `coaching/schemas/` are **auto-generated** from `packages/schemas/src/index.ts` using `zod2md`.
+
+**After any change to `packages/schemas/src/index.ts`, run:**
+```bash
+cd packages/schemas && npm run gen:schema-docs
+```
+
+This regenerates `diet-schema.md` and `training-schema.md` which agents load as their field references. Commit the generated files alongside the schema changes.
 
 ---
 

@@ -1,16 +1,18 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
+import AppointmentCard from "../../components/AppointmentCard.astro";
 import DietCard from "../../components/DietCard.astro";
 import MeasuresCard from "../../components/MeasuresCard.astro";
 import TrainingCard from "../../components/TrainingCard.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const [diet, training, measures] = await Promise.all([
+	const [diet, training, measures, appointments] = await Promise.all([
 		getCollection("diet"),
 		getCollection("training"),
 		getCollection("measures"),
+		getCollection("appointments"),
 	]);
 
 	return [
@@ -26,13 +28,18 @@ export async function getStaticPaths() {
 			params: { section: "measures", item: entry.id },
 			props: { entry, type: "measures" as const },
 		})),
+		...appointments.map((entry) => ({
+			params: { section: "appointments", item: entry.id },
+			props: { entry, type: "appointments" as const },
+		})),
 	];
 }
 
 type Props =
 	| { entry: CollectionEntry<"diet">; type: "diet" }
 	| { entry: CollectionEntry<"training">; type: "training" }
-	| { entry: CollectionEntry<"measures">; type: "measures" };
+	| { entry: CollectionEntry<"measures">; type: "measures" }
+	| { entry: CollectionEntry<"appointments">; type: "appointments" };
 
 const { entry, type } = Astro.props;
 ---
@@ -41,7 +48,8 @@ const { entry, type } = Astro.props;
   title={`${entry.id} — OpenCoach`}
   activePage={type}
 >
-  {type === 'diet'     && <DietCard     entry={entry} />}
-  {type === 'training' && <TrainingCard entry={entry} />}
-  {type === 'measures' && <MeasuresCard entry={entry} />}
+  {type === 'diet'         && <DietCard         entry={entry} />}
+  {type === 'training'     && <TrainingCard     entry={entry} />}
+  {type === 'measures'     && <MeasuresCard     entry={entry} />}
+  {type === 'appointments' && <AppointmentCard entry={entry} />}
 </Layout>
