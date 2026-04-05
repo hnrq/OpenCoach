@@ -5,7 +5,8 @@
   "workspaces": [
     "evals/framework",
     "packages/cli",
-    "packages/compatibility-layer"
+    "packages/compatibility-layer",
+    "packages/schemas"
   ],
   "bin": {
     "oac": "./bin/oac.js"
