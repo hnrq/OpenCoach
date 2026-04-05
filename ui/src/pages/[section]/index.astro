@@ -5,10 +5,11 @@ import Window from "../../components/Window.astro";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const [diet, training, measures] = await Promise.all([
+	const [diet, training, measures, appointments] = await Promise.all([
 		getCollection("diet"),
 		getCollection("training"),
 		getCollection("measures"),
+		getCollection("appointments"),
 	]);
 	const sort = <T extends { id: string }>(arr: T[]) =>
 		[...arr].sort((a, b) => b.id.localeCompare(a.id));
@@ -26,13 +27,18 @@ export async function getStaticPaths() {
 			params: { section: "measures" },
 			props: { entries: sort(measures), type: "measures" as const },
 		},
+		{
+			params: { section: "appointments" },
+			props: { entries: sort(appointments), type: "appointments" as const },
+		},
 	];
 }
 
 type Props =
 	| { entries: CollectionEntry<"diet">[]; type: "diet" }
 	| { entries: CollectionEntry<"training">[]; type: "training" }
-	| { entries: CollectionEntry<"measures">[]; type: "measures" };
+	| { entries: CollectionEntry<"measures">[]; type: "measures" }
+	| { entries: CollectionEntry<"appointments">[]; type: "appointments" };
 
 const { entries, type } = Astro.props;
 const { section } = Astro.params;
@@ -49,6 +55,8 @@ const trainingEntries =
 	type === "training" ? (entries as CollectionEntry<"training">[]) : [];
 const measuresEntries =
 	type === "measures" ? (entries as CollectionEntry<"measures">[]) : [];
+const appointmentEntries =
+	type === "appointments" ? (entries as CollectionEntry<"appointments">[]) : [];
 ---
 
 <Layout title={`${sectionLabel} — OpenCoach`} activePage={type}>
@@ -111,7 +119,24 @@ const measuresEntries =
         <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
       </div>
     </Window>
-    ))}
+  ))}
+
+  {type === 'appointments' && appointmentEntries.map(entry => (
+    <Window title={formatDate(entry.id)}>
+      <div class="flex flex-col gap-2">
+        <span class="flex flex-col">
+          <span><span class="cyan-168-text">Decisions:</span> {entry.data.decisions.length}</span>
+          {entry.data.plan_rationale_deltas.length > 0 && (
+            <span><span class="cyan-168-text">Rationale:</span> {entry.data.plan_rationale_deltas.length} items</span>
+          )}
+          {entry.data.notes && (
+            <span class="white-168-text" style="font-size:0.85em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{entry.data.notes}</span>
+          )}
+        </span>
+        <a href={`${base}/${section}/${entry.id}`} class="tui-button m-0">View →</a>
+      </div>
+    </Window>
+  ))}
     </section>
 
 </Layout>

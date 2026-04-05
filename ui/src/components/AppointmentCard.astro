@@ -1,0 +1,128 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Window from "./Window.astro";
+
+interface Props {
+	entry: CollectionEntry<"appointments">;
+}
+const { entry } = Astro.props;
+const { decisions, preferences_delta, plan_rationale_deltas, notes } = entry.data;
+
+const delta = preferences_delta;
+const hasPreferenceChanges =
+	delta.food_swaps.length > 0 ||
+	delta.food_additions.length > 0 ||
+	delta.food_removals.length > 0 ||
+	delta.constraints_added.length > 0 ||
+	delta.constraints_removed.length > 0 ||
+	delta.schedule_changes.length > 0;
+---
+
+<Window title={entry.id.replace("appointment-", "")}>
+
+  {decisions.length > 0 && (
+    <fieldset class="tui-fieldset cyan-168-border mb-4">
+      <legend class="cyan-168-text">Decisions</legend>
+      <table class="tui-table full-width">
+        <tbody>
+          {decisions.map(d => (
+            <tr>
+              <td class="capitalize">{String(d.key).replace(/_/g, " ")}</td>
+              <td class="right-align">{String(d.value)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </fieldset>
+  )}
+
+  {hasPreferenceChanges && (
+    <fieldset class="tui-fieldset yellow-168-border mb-4">
+      <legend class="yellow-168-text">Preference Changes</legend>
+
+      {delta.food_swaps.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Swaps</strong></p>
+          <ul class="m-0 mt-1">
+            {delta.food_swaps.map(s => (
+              <li><span class="red-168-text">{s.remove}</span> → <span class="green-168-text">{s.add}</span></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {delta.food_additions.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Added</strong></p>
+          <ul class="m-0 mt-1">
+            {delta.food_additions.map(f => <li class="green-168-text">{f}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {delta.food_removals.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Removed</strong></p>
+          <ul class="m-0 mt-1">
+            {delta.food_removals.map(f => <li class="red-168-text">{f}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {delta.constraints_added.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Constraints added</strong></p>
+          <ul class="m-0 mt-1">
+            {delta.constraints_added.map(c => <li class="yellow-168-text">{c}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {delta.constraints_removed.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Constraints removed</strong></p>
+          <ul class="m-0 mt-1">
+            {delta.constraints_removed.map(c => <li class="green-168-text">{c}</li>)}
+          </ul>
+        </div>
+      )}
+
+      {delta.schedule_changes.length > 0 && (
+        <div class="mb-2">
+          <p class="m-0 white-168-text"><strong>Schedule</strong></p>
+          <table class="tui-table full-width mt-1">
+            <tbody>
+              {delta.schedule_changes.map(c => (
+                <tr>
+                  <td class="capitalize">{String(c.field).replace(/_/g, " ")}</td>
+                  <td class="right-align">{JSON.stringify(c.value)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </fieldset>
+  )}
+
+  {plan_rationale_deltas.length > 0 && (
+    <fieldset class="tui-fieldset white-168-border mb-4">
+      <legend class="white-168-text">Plan Rationale</legend>
+      <ul class="m-0">
+        {plan_rationale_deltas.map(r => <li>{r}</li>)}
+      </ul>
+    </fieldset>
+  )}
+
+  {notes && (
+    <fieldset class="tui-fieldset white-168-border">
+      <legend class="white-168-text">Notes</legend>
+      <p class="m-0">{notes}</p>
+    </fieldset>
+  )}
+
+  {decisions.length === 0 && !hasPreferenceChanges && plan_rationale_deltas.length === 0 && !notes && (
+    <p class="white-168-text m-0">No changes recorded for this appointment.</p>
+  )}
+
+</Window>

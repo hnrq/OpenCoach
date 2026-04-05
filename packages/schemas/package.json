@@ -1,0 +1,19 @@
+{
+  "name": "@opencoach/schemas",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "zod": "^4.3.0"
+  },
+  "devDependencies": {
+    "zod2md": "^0.3.3"
+  },
+  "scripts": {
+    "gen:schema-docs": "npm run gen:diet-schema && npm run gen:training-schema",
+    "gen:diet-schema": "zod2md --entry src/diet-entry.ts --title 'Diet File Schema' --output '../../.opencode/context/coaching/schemas/diet-schema.md'",
+    "gen:training-schema": "zod2md --entry src/training-entry.ts --title 'Training File Schema' --output '../../.opencode/context/coaching/schemas/training-schema.md'"
+  }
+}

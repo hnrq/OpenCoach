@@ -50,6 +50,8 @@ const siteLabels: Record<string, string> = {
     <fieldset class="tui-fieldset white-168-border">
       <legend class="white-168-text">Notes</legend>
       {appointment_notes.goal && <p class="m-0"><strong>Goal:</strong> {appointment_notes.goal}</p>}
+      {appointment_notes.energy_levels && <p class="m-0 mt-2"><strong>Energy:</strong> {appointment_notes.energy_levels}</p>}
+      {appointment_notes.sleep && <p class="m-0 mt-2"><strong>Sleep:</strong> {appointment_notes.sleep}</p>}
       {appointment_notes.coach_summary && <p class="m-0 mt-2"><strong>Coach:</strong> {appointment_notes.coach_summary}</p>}
     </fieldset>
   )}

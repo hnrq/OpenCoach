@@ -13,10 +13,14 @@ const diet = (await getCollection("diet")).sort((a, b) =>
 const training = (await getCollection("training")).sort((a, b) =>
 	b.id.localeCompare(a.id),
 );
+const appointments = (await getCollection("appointments")).sort((a, b) =>
+	b.id.localeCompare(a.id),
+);
 
 const latest = measures[0];
 const latestDiet = diet[0];
 const latestTraining = training[0];
+const latestAppointment = appointments[0];
 
 const goal = latest?.data.appointment_notes?.goal;
 const summary = latest?.data.appointment_notes?.coach_summary;
@@ -98,6 +102,21 @@ const base = import.meta.env.BASE_URL;
             ) : null}
           </span>
           <a href={`${base}/training/${latestTraining.id}`} class="tui-button m-0">View →</a>
+        </div>
+      </Window>
+    )}
+
+    {latestAppointment && (
+      <Window title="Latest Appointment">
+        <div class="flex flex-col gap-4">
+          <span class="flex flex-col">
+            <span><span class="cyan-168-text">Date:</span> {latestAppointment.data.date}</span>
+            <span><span class="cyan-168-text">Decisions:</span> {latestAppointment.data.decisions.length}</span>
+            {latestAppointment.data.plan_rationale_deltas.length > 0 && (
+              <span><span class="cyan-168-text">Rationale:</span> {latestAppointment.data.plan_rationale_deltas.length} items</span>
+            )}
+          </span>
+          <a href={`${base}/appointments/${latestAppointment.id}`} class="tui-button m-0">View →</a>
         </div>
       </Window>
     )}

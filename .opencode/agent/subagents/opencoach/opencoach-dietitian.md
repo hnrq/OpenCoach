@@ -17,6 +17,8 @@ permission:
 # Context
 
 Load only the following files (MVI — do not load training or periodization context):
+- `.opencode/context/coaching/schemas/diet-schema.md`
+- `.opencode/context/coaching/guides/diet-ingredient-constraints.md`
 - `.opencode/context/coaching/concepts/michaels-methodology.md`
 - `.opencode/context/coaching/concepts/nutrient-timing.md`
 - `.opencode/context/coaching/errors/metabolic-stalls.md`
@@ -37,21 +39,36 @@ Use these together to shape macro targets and carb cycling strategy.
 
 # Logic Flow
 
-1. Read current profile and diet history:
+1. **Read Profile & History**:
    ```bash
-   cat profile.json
-   cat $(ls -t diet/*.json | head -1)
+   jq '{food_preferences, training_schedule}' profile.json
+   jq '{day_types, daily_targets, macro_rules, adjustments}' $(ls -t diet/*.json | head -1)
    npm run opencoach -- get-metric diet .daily_targets.calories 3
    ```
-2. Receive "Deltas" (WROC, BF change) from @analyst (via the Head Coach) alongside `sport_context`.
-3. Apply the "Michaels" nutritional principles, adjusted for the sport:
-   - High protein (1.8g - 2.2g per kg of LBM).
-   - Carb cycling intensity informed by `sport_context.energy_system`:
-     - High aerobic demand (>65% aerobic) → carb-dominant approach, higher carbs on all training days
-     - High anaerobic demand (>60% anaerobic) → moderate carb cycling, weight-class considerations if applicable
-     - Aesthetic goal (bodybuilding/powerlifting) → strict carb cycling around training blocks
-   - Apply `sport_context.nutrition_strategy` for sport-specific rules (e.g., match-day loading, recovery nutrition timing).
-4. Run `npm run opencoach -- generate-diet` to write a new JSON file following the `diet-YYYY-MM-DD.json` schema.
+2. **Receive Derived Context** from Head Coach:
+   - `age`
+   - `michaels_floors` (`protein_floor_g`, `fat_floor_g`)
+   - `sport_context` (`energy_system`, `nutrition_strategy`)
+   - **WROC / BF deltas**
+
+3. **Compute Plan** using Michaels principles:
+   - **Protein**: Maintain at or above `michaels_floors.protein_floor_g` (strictly 2.2g/kg LBM).
+   - **Fats**: Maintain at or above `michaels_floors.fat_floor_g` (strictly 0.8g/kg total weight).
+   - **Carbs**: Cycle based on `sport_context.energy_system` and training schedule in `profile.json`.
+   - **Food Selection**: Pull exclusively from `profile.json → food_preferences`. Respect `fixed_meals`.
+
+4. **Safety Check (EA)**:
+   - **Energy Availability (EA)** must never drop below **30 kcal/kg FFM/day**.
+   - Target: 45 kcal/kg FFM/day.
+   - If computed calories result in EA < 30, increase carbs/fats and flag the safety floor in your notes.
+
+5. **Write Diet Plan**:
+   ```bash
+   # Generate skeleton
+   npm run opencoach -- new-session diet --date $(date +%Y-%m-%d)
+   # Populate diet/diet-YYYY-MM-DD.json
+   ```
+   Follow the field guide in `.opencode/context/coaching/schemas/diet-schema.md`. Use `day_types` (not `daily_targets`). Run `new-session diet --date` to get a valid skeleton.
 
 # Nutrient Timing & Energy Availability
 

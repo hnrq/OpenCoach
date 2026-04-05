@@ -89,6 +89,12 @@ jobs:
             echo "bump_type=minor" >> $GITHUB_OUTPUT
           elif echo "$COMMIT_MSG" | grep -qiE "^(fix|bugfix)(\(.*\))?:"; then
             echo "bump_type=patch" >> $GITHUB_OUTPUT
+          elif echo "$COMMIT_MSG" | grep -qiE "^\[alpha\]"; then
+            echo "bump_type=alpha" >> $GITHUB_OUTPUT
+          elif echo "$COMMIT_MSG" | grep -qiE "^\[beta\]"; then
+            echo "bump_type=beta" >> $GITHUB_OUTPUT
+          elif echo "$COMMIT_MSG" | grep -qiE "^\[rc\]"; then
+            echo "bump_type=rc" >> $GITHUB_OUTPUT
           else
             echo "bump_type=patch" >> $GITHUB_OUTPUT
           fi
@@ -113,7 +119,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       
       - name: Configure Git
         run: |

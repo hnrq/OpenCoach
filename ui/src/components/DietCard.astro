@@ -6,38 +6,62 @@ interface Props {
 	entry: CollectionEntry<"diet">;
 }
 const { entry } = Astro.props;
-const { day_types, weekly_schedule, adjustments } = entry.data;
+const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
 ---
 
 <Window title={entry.id.replace('diet-', '')}>
   {day_types ? (
     <>
-      {Object.entries(day_types).map(([key, dt]) => dt.total_targets && (
-        <fieldset class="tui-fieldset cyan-168-border mb-4">
-          <legend class="cyan-168-text">{dt.label ?? key}</legend>
-          <table class="tui-table full-width">
-            <tbody>
-              <tr><td>Calories</td><td class="right-align">{dt.total_targets.calories} kcal</td></tr>
-              <tr><td>Protein</td><td class="right-align">{dt.total_targets.protein_g} g</td></tr>
-              <tr><td>Carbs</td><td class="right-align">{dt.total_targets.carbs_g} g</td></tr>
-              <tr><td>Fats</td><td class="right-align">{dt.total_targets.fats_g} g</td></tr>
-            </tbody>
-          </table>
-          {dt.meals && dt.meals.length > 0 && (
-            <details class="mt-2">
-              <summary class="cyan-168-text" style="cursor:pointer">Meals ({dt.meals.length})</summary>
-              {dt.meals.map(m => (
-                <div class="mt-2 ml-2">
-                  <strong>{m.meal}</strong>{m.timing && <span class="white-168-text"> — {m.timing}</span>}
-                  <ul class="m-0 mt-1">
-                    {m.foods.map(f => <li>{f}</li>)}
-                  </ul>
-                </div>
-              ))}
-            </details>
-          )}
-        </fieldset>
-      ))}
+      {Object.entries(day_types).map(([key, dt]) => {
+        // Support both total_targets (with kcal) and macros_g (grams only)
+        const targets = dt.total_targets;
+        const macros = dt.macros_g;
+        return (
+          <fieldset class="tui-fieldset cyan-168-border mb-4">
+            <legend class="cyan-168-text">{dt.label ?? key}</legend>
+            {dt.days && dt.days.length > 0 && (
+              <p class="m-0 mb-2 white-168-text capitalize">{dt.days.join(", ")}</p>
+            )}
+            {dt.note && <p class="m-0 mb-2 white-168-text">{dt.note}</p>}
+            {dt.timing_note && <p class="m-0 mb-2 yellow-168-text">{dt.timing_note}</p>}
+            {targets && (
+              <table class="tui-table full-width">
+                <tbody>
+                  <tr><td>Calories</td><td class="right-align">{targets.calories} kcal</td></tr>
+                  <tr><td>Protein</td><td class="right-align">{targets.protein_g} g</td></tr>
+                  <tr><td>Carbs</td><td class="right-align">{targets.carbs_g} g</td></tr>
+                  <tr><td>Fats</td><td class="right-align">{targets.fats_g} g</td></tr>
+                </tbody>
+              </table>
+            )}
+            {!targets && macros && (
+              <table class="tui-table full-width">
+                <tbody>
+                  <tr><td>Protein</td><td class="right-align">{macros.protein} g</td></tr>
+                  <tr><td>Carbs</td><td class="right-align">{macros.carbs} g</td></tr>
+                  <tr><td>Fats</td><td class="right-align">{macros.fat} g</td></tr>
+                </tbody>
+              </table>
+            )}
+            {dt.meals && dt.meals.length > 0 && (
+              <details class="mt-2">
+                <summary class="cyan-168-text" style="cursor:pointer">Meals ({dt.meals.length})</summary>
+                {dt.meals.map(m => (
+                  <div class="mt-2 ml-2">
+                    <strong>{m.meal}</strong>{m.timing && <span class="white-168-text"> — {m.timing}</span>}
+                    <ul class="m-0 mt-1">
+                      {m.foods.map(f => <li>{f}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </details>
+            )}
+            {!dt.meals && dt.meal_templates && dt.meal_templates.length > 0 && (
+              <p class="m-0 mt-2 white-168-text">{dt.meal_templates.join(" · ")}</p>
+            )}
+          </fieldset>
+        );
+      })}
 
       {weekly_schedule && (
         <fieldset class="tui-fieldset yellow-168-border mb-4">
@@ -51,13 +75,21 @@ const { day_types, weekly_schedule, adjustments } = entry.data;
           </table>
         </fieldset>
       )}
+
+      {rationale && rationale.length > 0 && (
+        <fieldset class="tui-fieldset white-168-border">
+          <legend class="white-168-text">Rationale</legend>
+          <ul class="m-0">
+            {rationale.map(r => <li>{r}</li>)}
+          </ul>
+        </fieldset>
+      )}
     </>
   ) : (adjustments && (
-        <fieldset class="tui-fieldset white-168-border">
-          <legend class="white-168-text">Adjustments</legend>
-          <p class="m-0">{adjustments}</p>
-        </fieldset>
-      )
-  )}
+    <fieldset class="tui-fieldset white-168-border">
+      <legend class="white-168-text">Adjustments</legend>
+      <p class="m-0">{typeof adjustments === "string" ? adjustments : JSON.stringify(adjustments)}</p>
+    </fieldset>
+  ))}
 
 </Window>

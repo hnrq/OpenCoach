@@ -120,26 +120,24 @@ jobs:
             
             ### Task
             
-            Please review the current \`registry.json\` and update the following documentation files to ensure they accurately reflect the current component counts and descriptions:
+            Please review the current \`registry.json\` and update the following documentation files to ensure they accurately reflect the current components and structure:
             
-            1. **README.md** - Update installation profile component counts:
-               - Essential profile: Update component count
-               - Developer profile: Update component count
-               - Business profile: Update component count
-               - Full profile: Update component count
-               - Advanced profile: Update component count
+            1. **README.md** - Update the **Agents** table to match registry components:
+               - Head Coach (opencoach)
+               - Analyst (opencoach-analyst)
+               - Dietitian (opencoach-dietitian)
+               - Programmer (opencoach-programmer)
             
-            2. **README.md** - Verify "What's Included" section lists match registry
+            2. **README.md** - Ensure the **Data Structure** section accurately reflects the project tree.
             
-            3. **docs/README.md** - Ensure component references are accurate
+            3. **docs/README.md** - Ensure component references and version information are accurate.
             
             ### Instructions
             
-            1. Read \`registry.json\` to get current component counts
-            2. Extract profile component counts from \`.profiles.<profile>.components | length\`
-            3. Update README.md sections that reference component counts
-            4. Ensure consistency across all documentation
-            5. Commit changes with message: "docs: sync component counts with registry [skip-docs]"
+            1. Read \`registry.json\` to get current component details.
+            2. Update README.md sections that reference agents and their roles.
+            3. Ensure consistency across all documentation.
+            4. Commit changes with message: "docs: sync components with registry [skip-docs]"
             
             **IMPORTANT:** Include \`[skip-docs]\` in commit message to prevent workflow loops!
             
