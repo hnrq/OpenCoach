@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BodyCompositionChart from "../components/BodyCompositionChart.astro";
+import PreviewCard from "../components/PreviewCard.astro";
 import Window from "../components/Window.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -50,76 +51,10 @@ const base = import.meta.env.BASE_URL;
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
-    {latest && (
-      <Window title="Latest Measures">
-        <div class="flex flex-col gap-4">
-          <span class="flex flex-col">
-            <span><span class="cyan-168-text">Weight:</span> {latest.data.core_metrics.weight} kg</span>
-            <span><span class="cyan-168-text">Body Fat:</span> {latest.data.core_metrics.body_fat_pct}%</span>
-          </span>
-          <a href={`${base}/measures/${latest.id}`} class="tui-button m-0">View →</a>
-        </div>
-      </Window>
-    )}
-
-    {latestDiet && (
-      <Window title="Latest Diet">
-        <div class="flex flex-col gap-4">
-          <span class="flex flex-col">
-            {latestDiet.data.day_types ? (
-              <>
-                <span><span class="cyan-168-text">Day types:</span> {Object.keys(latestDiet.data.day_types).length}</span>
-                {latestDiet.data.day_types.gym_day?.total_targets && (
-                  <span><span class="cyan-168-text">Gym day:</span> {latestDiet.data.day_types.gym_day.total_targets.calories} kcal</span>
-                )}
-              </>
-            ) : latestDiet.data.daily_targets ? (
-              <>
-                <span><span class="cyan-168-text">Calories:</span> {latestDiet.data.daily_targets.calories} kcal</span>
-                <span><span class="cyan-168-text">Protein:</span> {latestDiet.data.daily_targets.protein_g}g</span>
-              </>
-            ) : null}
-          </span>
-          <a href={`${base}/diet/${latestDiet.id}`} class="tui-button m-0">View →</a>
-        </div>
-      </Window>
-    )}
-
-    {latestTraining && (
-      <Window title="Latest Training">
-        <div class="flex flex-col gap-4">
-          <span class="flex flex-col">
-            {latestTraining.data.sessions ? (
-              <>
-                <span><span class="cyan-168-text">Sessions:</span> {latestTraining.data.sessions.length}</span>
-                <span><span class="cyan-168-text">Exercises:</span> {latestTraining.data.sessions.reduce((n, s) => n + (s.exercises?.length ?? 0), 0)}</span>
-              </>
-            ) : latestTraining.data.circuits ? (
-              <>
-                <span><span class="cyan-168-text">Circuits:</span> {latestTraining.data.circuits.length}</span>
-                <span><span class="cyan-168-text">Exercises:</span> {latestTraining.data.circuits.reduce((n, c) => n + c.exercises.length, 0)}</span>
-              </>
-            ) : null}
-          </span>
-          <a href={`${base}/training/${latestTraining.id}`} class="tui-button m-0">View →</a>
-        </div>
-      </Window>
-    )}
-
-    {latestAppointment && (
-      <Window title="Latest Appointment">
-        <div class="flex flex-col gap-4">
-          <span class="flex flex-col">
-            <span><span class="cyan-168-text">Date:</span> {latestAppointment.data.date}</span>
-            <span><span class="cyan-168-text">Decisions:</span> {latestAppointment.data.decisions.length}</span>
-            {latestAppointment.data.plan_rationale_deltas.length > 0 && (
-              <span><span class="cyan-168-text">Rationale:</span> {latestAppointment.data.plan_rationale_deltas.length} items</span>
-            )}
-          </span>
-          <a href={`${base}/appointments/${latestAppointment.id}`} class="tui-button m-0">View →</a>
-        </div>
-      </Window>
-    )}
+    {latest && <PreviewCard entry={latest} href={`${base}/measures/${latest.id}`} title="Latest Measures" />}
+    {latestDiet && <PreviewCard entry={latestDiet} href={`${base}/diet/${latestDiet.id}`} title="Latest Diet" />}
+    {latestTraining && <PreviewCard entry={latestTraining} href={`${base}/training/${latestTraining.id}`} title="Latest Training" />}
+    {latestAppointment && <PreviewCard entry={latestAppointment} href={`${base}/appointments/${latestAppointment.id}`} title="Latest Appointment" />}
 
   </div>
 

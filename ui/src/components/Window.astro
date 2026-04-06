@@ -6,11 +6,11 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class="tui-window mb-4 w-full">
+<div class="tui-window mb-4 !flex flex-col w-full">
   <fieldset class="tui-window-header blue-168 mx-2">
     <legend>{title}</legend>
   </fieldset>
-  <div class="content flex flex-col gap-4">
+  <div class="content flex flex-1 flex-col gap-4">
     <slot />
   </div>
 </div>

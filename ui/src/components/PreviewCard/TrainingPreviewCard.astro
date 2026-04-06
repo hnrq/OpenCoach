@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Window from "../Window.astro";
+
+interface Props {
+  entry: CollectionEntry<"training">;
+  href: string;
+  title: string;
+}
+
+const { entry, href, title } = Astro.props;
+
+const sessionCount = entry.data.sessions?.length ?? entry.data.circuits?.length ?? 0;
+const exerciseCount = entry.data.sessions
+  ? entry.data.sessions.reduce((n, s) => n + (s.exercises?.length ?? 0), 0)
+  : entry.data.circuits?.reduce((n, c) => n + c.exercises.length, 0) ?? 0;
+const sessionLabel = entry.data.sessions ? "Sessions" : "Circuits";
+---
+
+<Window title={title}>
+  <span class="flex flex-col">
+    <span><span class="cyan-168-text">{sessionLabel}:</span> {sessionCount}</span>
+    <span><span class="cyan-168-text">Exercises:</span> {exerciseCount}</span>
+  </span>
+  <a href={href} class="tui-button mt-auto">View →</a>
+</Window>

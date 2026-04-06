@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Window from "../Window.astro";
+
+interface Props {
+  entry: CollectionEntry<"measures">;
+  href: string;
+  title: string;
+}
+
+const { entry, href, title } = Astro.props;
+---
+
+<Window title={title}>
+  <span class="flex flex-col">
+    <span><span class="cyan-168-text">Weight:</span> {entry.data.core_metrics.weight} kg</span>
+    <span><span class="cyan-168-text">BF%:</span> {entry.data.core_metrics.body_fat_pct}%</span>
+  </span>
+  <a href={href} class="tui-button mt-auto">View →</a>
+</Window>

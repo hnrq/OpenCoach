@@ -43,9 +43,9 @@
           "title": "Breakfast (pre-gym)",
           "timing": "~60 min pre-gym",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 100 },
+            { "food": "tapioca starch", "grams": 60 },
             { "food": "eggs", "grams": 200 },
-            { "food": "cheese", "grams": 30 },
+            { "food": "cheese", "grams": 80 },
             { "food": "banana", "grams": 120 }
           ]
         },
@@ -55,7 +55,7 @@
           "ingredients": [
             { "food": "whey isolate", "grams": 35 },
             { "food": "milk", "grams": 400 },
-            { "food": "granola", "grams": 60 },
+            { "food": "granola", "grams": 30 },
             { "food": "apple", "grams": 180 }
           ]
         },
@@ -63,14 +63,16 @@
           "title": "Lunch (fixed) — add rice/beans/meat",
           "timing": "12:00–14:00",
           "ingredients": [
-            { "food": "chicken breast", "grams": 200 }
+            { "food": "rice", "grams": 100 },
+            { "food": "beans", "grams": 100 },
+            { "food": "chicken breast", "grams": 150 }
           ]
         },
         {
           "title": "Dinner",
           "timing": "Evening",
           "ingredients": [
-            { "food": "chicken breast", "grams": 200 },
+            { "food": "chicken breast", "grams": 150 },
             { "food": "tapioca starch", "grams": 60 }
           ]
         }
@@ -88,9 +90,9 @@
           "title": "Breakfast (pre-gym)",
           "timing": "~60 min pre-gym",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 110 },
+            { "food": "tapioca starch", "grams": 90 },
             { "food": "eggs", "grams": 200 },
-            { "food": "cheese", "grams": 30 },
+            { "food": "cheese", "grams": 60 },
             { "food": "banana", "grams": 160 }
           ]
         },
@@ -106,7 +108,9 @@
           "title": "Lunch (fixed) — add rice/beans/meat",
           "timing": "12:00–14:00",
           "ingredients": [
-            { "food": "chicken breast", "grams": 220 }
+            { "food": "rice", "grams": 100 },
+            { "food": "beans", "grams": 100 },
+            { "food": "chicken breast", "grams": 150 }
           ]
         },
         {
@@ -114,7 +118,7 @@
           "timing": "60–120 min pre-futsal",
           "ingredients": [
             { "food": "kefir", "grams": 400 },
-            { "food": "granola", "grams": 90 },
+            { "food": "granola", "grams": 50 },
             { "food": "banana", "grams": 160 },
             { "food": "whey isolate", "grams": 15 }
           ]
@@ -123,8 +127,8 @@
           "title": "Post-futsal dinner",
           "timing": "Post-futsal",
           "ingredients": [
-            { "food": "chicken breast", "grams": 220 },
-            { "food": "tapioca starch", "grams": 90 }
+            { "food": "chicken breast", "grams": 150 },
+            { "food": "tapioca starch", "grams": 110 }
           ]
         }
       ]
@@ -141,16 +145,18 @@
           "title": "Breakfast",
           "timing": "Morning",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 70 },
+            { "food": "tapioca starch", "grams": 50 },
             { "food": "eggs", "grams": 250 },
-            { "food": "cheese", "grams": 30 }
+            { "food": "cheese", "grams": 60 }
           ]
         },
         {
           "title": "Lunch (fixed) — add rice/beans/meat",
           "timing": "12:00–14:00",
           "ingredients": [
-            { "food": "chicken breast", "grams": 220 }
+            { "food": "rice", "grams": 100 },
+            { "food": "beans", "grams": 100 },
+            { "food": "chicken breast", "grams": 150 }
           ]
         },
         {
@@ -158,7 +164,7 @@
           "timing": "Afternoon",
           "ingredients": [
             { "food": "milk", "grams": 400 },
-            { "food": "granola", "grams": 50 },
+            { "food": "granola", "grams": 30 },
             { "food": "apple", "grams": 180 },
             { "food": "whey isolate", "grams": 15 }
           ]
@@ -167,8 +173,8 @@
           "title": "Dinner",
           "timing": "Evening",
           "ingredients": [
-            { "food": "chicken breast", "grams": 220 },
-            { "food": "tapioca starch", "grams": 40 }
+            { "food": "chicken breast", "grams": 150 },
+            { "food": "tapioca starch", "grams": 60 }
           ]
         }
       ]

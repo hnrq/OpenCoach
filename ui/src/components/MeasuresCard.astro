@@ -20,34 +20,38 @@ const siteLabels: Record<string, string> = {
 ---
 
 <Window title={entry.id.replace('measures-', '')}>
-  <fieldset class="tui-fieldset cyan-168-border mb-4">
+  <fieldset class="tui-fieldset cyan-168-border mb-4 min-w-0">
     <legend class="cyan-168-text">Core Metrics</legend>
-    <table class="tui-table full-width">
-      <tbody>
-        <tr><td>Weight</td><td class="right-align">{core_metrics.weight} kg</td></tr>
-        <tr><td>Body Fat</td><td class="right-align">{core_metrics.body_fat_pct}%</td></tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="tui-table w-max min-w-full">
+        <tbody>
+          <tr><td>Weight</td><td class="right-align">{core_metrics.weight} kg</td></tr>
+          <tr><td>Body Fat</td><td class="right-align">{core_metrics.body_fat_pct}%</td></tr>
+        </tbody>
+      </table>
+    </div>
   </fieldset>
 
   {mandatory_sites && Object.keys(mandatory_sites).length > 0 && (
-    <fieldset class="tui-fieldset yellow-168-border mb-4">
+    <fieldset class="tui-fieldset yellow-168-border mb-4 min-w-0">
       <legend class="yellow-168-text">Measurements (cm)</legend>
-      <table class="tui-table full-width">
-        <tbody>
-          {Object.entries(mandatory_sites).map(([key, val]) => (
-            <tr>
-              <td>{siteLabels[key] ?? key}</td>
-              <td class="right-align">{val} cm</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div class="overflow-x-auto">
+        <table class="tui-table w-max min-w-full">
+          <tbody>
+            {Object.entries(mandatory_sites).map(([key, val]) => (
+              <tr>
+                <td>{siteLabels[key] ?? key}</td>
+                <td class="right-align">{val} cm</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </fieldset>
   )}
 
   {appointment_notes && (appointment_notes.goal || appointment_notes.coach_summary) && (
-    <fieldset class="tui-fieldset white-168-border">
+    <fieldset class="tui-fieldset white-168-border min-w-0">
       <legend class="white-168-text">Notes</legend>
       {appointment_notes.goal && <p class="m-0"><strong>Goal:</strong> {appointment_notes.goal}</p>}
       {appointment_notes.energy_levels && <p class="m-0 mt-2"><strong>Energy:</strong> {appointment_notes.energy_levels}</p>}

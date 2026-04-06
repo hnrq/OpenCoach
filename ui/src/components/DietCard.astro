@@ -17,7 +17,7 @@ const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
         const targets = dt.total_targets;
         const macros = dt.macros_g;
         return (
-          <fieldset class="tui-fieldset cyan-168-border mb-4">
+          <fieldset class="tui-fieldset cyan-168-border mb-4 min-w-0">
             <legend class="cyan-168-text">{dt.label ?? key}</legend>
             {dt.days && dt.days.length > 0 && (
               <p class="m-0 mb-2 white-168-text capitalize">{dt.days.join(", ")}</p>
@@ -25,23 +25,27 @@ const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
             {dt.note && <p class="m-0 mb-2 white-168-text">{dt.note}</p>}
             {dt.timing_note && <p class="m-0 mb-2 yellow-168-text">{dt.timing_note}</p>}
             {targets && (
-              <table class="tui-table full-width">
-                <tbody>
-                  <tr><td>Calories</td><td class="right-align">{targets.calories} kcal</td></tr>
-                  <tr><td>Protein</td><td class="right-align">{targets.protein_g} g</td></tr>
-                  <tr><td>Carbs</td><td class="right-align">{targets.carbs_g} g</td></tr>
-                  <tr><td>Fats</td><td class="right-align">{targets.fats_g} g</td></tr>
-                </tbody>
-              </table>
+              <div class="overflow-x-auto">
+                <table class="tui-table w-max min-w-full">
+                  <tbody>
+                    <tr><td>Calories</td><td class="right-align">{targets.calories} kcal</td></tr>
+                    <tr><td>Protein</td><td class="right-align">{targets.protein_g} g</td></tr>
+                    <tr><td>Carbs</td><td class="right-align">{targets.carbs_g} g</td></tr>
+                    <tr><td>Fats</td><td class="right-align">{targets.fats_g} g</td></tr>
+                  </tbody>
+                </table>
+              </div>
             )}
             {!targets && macros && (
-              <table class="tui-table full-width">
-                <tbody>
-                  <tr><td>Protein</td><td class="right-align">{macros.protein} g</td></tr>
-                  <tr><td>Carbs</td><td class="right-align">{macros.carbs} g</td></tr>
-                  <tr><td>Fats</td><td class="right-align">{macros.fat} g</td></tr>
-                </tbody>
-              </table>
+              <div class="overflow-x-auto">
+                <table class="tui-table w-max min-w-full">
+                  <tbody>
+                    <tr><td>Protein</td><td class="right-align">{macros.protein} g</td></tr>
+                    <tr><td>Carbs</td><td class="right-align">{macros.carbs} g</td></tr>
+                    <tr><td>Fats</td><td class="right-align">{macros.fat} g</td></tr>
+                  </tbody>
+                </table>
+              </div>
             )}
             {dt.meals && dt.meals.length > 0 && (
               <details class="mt-2">
@@ -50,34 +54,58 @@ const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
                   <div class="mt-2 ml-2">
                     <strong>{m.meal}</strong>{m.timing && <span class="white-168-text"> — {m.timing}</span>}
                     <ul class="m-0 mt-1">
-                      {m.foods.map(f => <li>{f}</li>)}
+                      {m.foods.map(f => <li>{f.food} <span class="cyan-168-text">{f.grams}g</span></li>)}
                     </ul>
                   </div>
                 ))}
               </details>
             )}
             {!dt.meals && dt.meal_templates && dt.meal_templates.length > 0 && (
-              <p class="m-0 mt-2 white-168-text">{dt.meal_templates.join(" · ")}</p>
+              <details class="mt-2">
+                <summary class="cyan-168-text" style="cursor:pointer">Meals ({dt.meal_templates.length})</summary>
+                {dt.meal_templates.map(mt => typeof mt === "string" ? (
+                  <p class="m-0 mt-2 ml-2 white-168-text">{mt}</p>
+                ) : (
+                  <div class="mt-2 ml-2">
+                    <strong>{mt.title}</strong>
+                    {mt.timing && <span class="white-168-text"> — {mt.timing}</span>}
+                    <div class="overflow-x-auto">
+                      <table class="tui-table w-max min-w-full mt-1">
+                        <tbody>
+                          {mt.ingredients.map(ing => (
+                            <tr>
+                              <td class="capitalize">{ing.food}</td>
+                              <td class="right-align">{ing.grams}g</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                ))}
+              </details>
             )}
           </fieldset>
         );
       })}
 
       {weekly_schedule && (
-        <fieldset class="tui-fieldset yellow-168-border mb-4">
+        <fieldset class="tui-fieldset yellow-168-border mb-4 min-w-0">
           <legend class="yellow-168-text">Weekly Schedule</legend>
-          <table class="tui-table full-width">
-            <tbody>
-              {Object.entries(weekly_schedule).map(([day, type]) => (
-                <tr><td class="capitalize">{day}</td><td class="right-align">{type}</td></tr>
-              ))}
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="tui-table w-max min-w-full">
+              <tbody>
+                {Object.entries(weekly_schedule).map(([day, type]) => (
+                  <tr><td class="capitalize">{day}</td><td class="right-align">{type}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </fieldset>
       )}
 
       {rationale && rationale.length > 0 && (
-        <fieldset class="tui-fieldset white-168-border">
+        <fieldset class="tui-fieldset white-168-border min-w-0">
           <legend class="white-168-text">Rationale</legend>
           <ul class="m-0">
             {rationale.map(r => <li>{r}</li>)}
@@ -86,7 +114,7 @@ const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
       )}
     </>
   ) : (adjustments && (
-    <fieldset class="tui-fieldset white-168-border">
+    <fieldset class="tui-fieldset white-168-border min-w-0">
       <legend class="white-168-text">Adjustments</legend>
       <p class="m-0">{typeof adjustments === "string" ? adjustments : JSON.stringify(adjustments)}</p>
     </fieldset>

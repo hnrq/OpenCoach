@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Window from "../Window.astro";
+
+interface Props {
+  entry: CollectionEntry<"diet">;
+  href: string;
+  title: string;
+}
+
+const { entry, href, title } = Astro.props;
+
+const rules = entry.data.macro_rules as Record<string, unknown> | undefined;
+const dayTypes = entry.data.day_types ? Object.values(entry.data.day_types) : [];
+
+const protein =
+  (typeof rules?.protein_g === "number" ? rules.protein_g : null) ??
+  dayTypes[0]?.macros_g?.protein ??
+  dayTypes[0]?.total_targets?.protein_g ??
+  entry.data.daily_targets?.protein_g ??
+  null;
+
+const fat =
+  (typeof rules?.fat_g === "number" ? rules.fat_g : null) ??
+  dayTypes[0]?.macros_g?.fat ??
+  dayTypes[0]?.total_targets?.fats_g ??
+  null;
+
+const carbValues = dayTypes
+  .map((dt) => dt.macros_g?.carbs ?? dt.total_targets?.carbs_g ?? 0)
+  .filter((v) => v > 0);
+const carbMin = carbValues.length ? Math.min(...carbValues) : null;
+const carbMax = carbValues.length ? Math.max(...carbValues) : null;
+---
+
+<Window title={title}>
+  <span class="flex flex-col">
+    {protein != null && <span><span class="cyan-168-text">Protein:</span> {protein}g</span>}
+    {carbMin != null && (
+      <span>
+        <span class="cyan-168-text">Carbs:</span>{" "}
+        {carbMin === carbMax ? `${carbMin}g` : `${carbMin}–${carbMax}g`}
+      </span>
+    )}
+    {fat != null && <span><span class="cyan-168-text">Fat:</span> {fat}g</span>}
+    {protein == null && carbMin == null && entry.data.daily_targets && (
+      <span><span class="cyan-168-text">Calories:</span> {entry.data.daily_targets.calories} kcal</span>
+    )}
+  </span>
+  <a href={href} class="tui-button mt-auto">View →</a>
+</Window>

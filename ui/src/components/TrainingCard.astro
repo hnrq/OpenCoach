@@ -18,7 +18,7 @@ const { sessions, progression } = entry.data;
       : [];
     const exercises = s.exercises ?? altWeeks[0]?.exercises ?? [];
     return (
-      <fieldset class="w-full tui-fieldset cyan-168-border mb-4">
+      <fieldset class="w-full min-w-0 tui-fieldset cyan-168-border mb-4">
         <legend class="cyan-168-text">{s.day}{s.focus ? ` — ${s.focus}` : ''}</legend>
         {s.scheduling_note && (
           <p class="m-0 mb-2 white-168-text">{s.scheduling_note}</p>
@@ -34,29 +34,31 @@ const { sessions, progression } = entry.data;
         )}
 
         {exercises.length > 0 && (
-          <table class="tui-table full-width">
-            <thead>
-              <tr>
-                <th>Exercise</th>
-                <th class="center-align">Sets</th>
-                <th class="center-align">Reps</th>
-                <th class="center-align">RPE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {exercises.map(ex => (
+          <div class="overflow-x-auto">
+            <table class="tui-table table-fixed sm:table-auto w-max min-w-full">
+              <thead>
                 <tr>
-                  <td>
-                    {ex.name}
-                    {ex.note && <span class="white-168-text" style="display:block;font-size:0.85em;opacity:0.7">{ex.note}</span>}
-                  </td>
-                  <td class="center-align">{ex.sets ?? ex.working_sets ?? '—'}</td>
-                  <td class="center-align">{ex.reps ?? '—'}</td>
-                  <td class="center-align">{ex.rpe ?? '—'}</td>
+                  <th class="w-44 sm:w-auto">Exercise</th>
+                  <th>Sets</th>
+                  <th>Reps</th>
+                  <th>RPE</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {exercises.map(ex => (
+                  <tr>
+                    <td>
+                      {ex.name}
+                      {ex.note && <span class="white-168-text !text-xs block">{ex.note}</span>}
+                    </td>
+                    <td class="center-align">{ex.sets ?? ex.working_sets ?? '—'}</td>
+                    <td class="center-align">{ex.reps ?? '—'}</td>
+                    <td class="center-align">{ex.rpe ?? '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
         {s.alternating_weeks && Object.keys(s.alternating_weeks).length > 1 && (
@@ -65,18 +67,20 @@ const { sessions, progression } = entry.data;
             {Object.entries(s.alternating_weeks).map(([weekKey, week]) => week.exercises && (
               <div class="mt-2 ml-2">
                 <strong class="cyan-168-text">{week.label ?? weekKey}</strong>
-                <table class="tui-table full-width mt-1">
-                  <tbody>
-                    {week.exercises.map(ex => (
-                      <tr>
-                        <td>{ex.name}</td>
-                        <td class="center-align">{ex.sets ?? ex.working_sets ?? '—'}</td>
-                        <td class="center-align">{ex.reps ?? '—'}</td>
-                        <td class="center-align">{ex.rpe ?? '—'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                  <table class="tui-table w-max min-w-full mt-1">
+                    <tbody>
+                      {week.exercises.map(ex => (
+                        <tr>
+                          <td>{ex.name}</td>
+                          <td class="center-align">{ex.sets ?? ex.working_sets ?? '—'}</td>
+                          <td class="center-align">{ex.reps ?? '—'}</td>
+                          <td class="center-align">{ex.rpe ?? '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             ))}
           </details>
