@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [0.7.2] - 2026-04-06
+
+### Changes
+- fix: persist 2026-04-05 diet plan
+
 ## [0.7.1] - 2026-01-30
 
 ### Changes
