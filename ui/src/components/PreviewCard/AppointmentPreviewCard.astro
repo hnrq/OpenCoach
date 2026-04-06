@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Window from "../Window.astro";
+
+interface Props {
+  entry: CollectionEntry<"appointments">;
+  href: string;
+  title: string;
+}
+
+const { entry, href, title } = Astro.props;
+---
+
+<Window title={title}>
+  <span class="flex flex-col">
+    <span><span class="cyan-168-text">Date:</span> {entry.data.date}</span>
+    <span><span class="cyan-168-text">Decisions:</span> {entry.data.decisions.length}</span>
+    {entry.data.plan_rationale_deltas.length > 0 && (
+      <span><span class="cyan-168-text">Rationale:</span> {entry.data.plan_rationale_deltas.length} items</span>
+    )}
+  </span>
+  <a href={href} class="tui-button mt-auto">View →</a>
+</Window>

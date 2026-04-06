@@ -39,10 +39,21 @@ export const SportContext = z.object({
 
 // ── Components ────────────────────────────────────────────────────────────────
 
+export const Ingredient = z.object({
+	food: z.string().describe("Food name — must be from profile.json food_preferences.primary"),
+	grams: z.number().positive().describe("Quantity in grams"),
+});
+
+export const MealTemplate = z.object({
+	title: z.string().describe("Meal slot name, e.g. 'Breakfast', 'Pre-workout', 'Post-futsal dinner'"),
+	timing: z.string().optional().describe("When to eat relative to training, e.g. '60–120 min pre-futsal'"),
+	ingredients: z.array(Ingredient).describe("Ingredients with gram quantities"),
+});
+
 export const Meal = z.object({
 	meal: z.string().describe("Meal name, e.g. 'Breakfast', 'Pre-workout', 'Post-workout', 'Dinner'"),
 	timing: z.string().optional().describe("When to eat relative to training, e.g. '60 min pre-workout'"),
-	foods: z.array(z.string()).describe("List of foods from profile.json food_preferences.primary only"),
+	foods: z.array(Ingredient).describe("Ingredients with gram quantities — food names from profile.json food_preferences.primary only"),
 	macros: MealMacros.optional().describe("Macro breakdown for this meal — omit if using meal_templates instead"),
 });
 
@@ -93,8 +104,11 @@ export const DayType = z.object({
 		})
 		.optional(),
 	meals: z.array(Meal).optional().describe("Full meal breakdown — populate when specifying per-meal foods and macros"),
-	meal_templates: z.array(z.string()).optional()
-		.describe("Meal slot names in order when not specifying full meals, e.g. ['Breakfast', 'Pre-workout', 'Post-workout', 'Dinner']"),
+	meal_templates: z.array(z.union([
+		MealTemplate,
+		z.string().describe("Legacy free-text template — migrate to MealTemplate for gram tracking"),
+	])).optional()
+		.describe("Meal templates with title, timing, and ingredients in grams. New plans: use MealTemplate objects. Legacy: plain strings accepted."),
 });
 
 export const Session = z.object({
@@ -278,6 +292,8 @@ export type MeasuresSession = z.infer<typeof MeasuresSchema>;
 export type DietSession = z.infer<typeof DietSchema>;
 export type TrainingSession = z.infer<typeof TrainingSchema>;
 export type AppointmentArtifact = z.infer<typeof AppointmentSchema>;
+export type IngredientItem = z.infer<typeof Ingredient>;
+export type MealTemplateItem = z.infer<typeof MealTemplate>;
 export type SessionType = keyof typeof SCHEMAS;
 
 // ── Schema map (CLI lookup by type string) ────────────────────────────────────
