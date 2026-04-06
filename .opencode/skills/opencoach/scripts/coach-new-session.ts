@@ -67,10 +67,10 @@ function dietSkeleton(date: string): DietSession {
       fat_g: 0,
     },
     day_types: {
-      gymOnly:   { days: ["monday", "wednesday", "friday"], macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [] },
-      legsDay:   { days: ["wednesday"],                     macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [] },
-      futsalGym: { days: ["tuesday", "thursday"],           macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [] },
-      restDay:   { days: ["sunday"],                        macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [] },
+      gymOnly:   { days: ["monday", "wednesday", "friday"], macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
+      legsDay:   { days: ["wednesday"],                     macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
+      futsalGym: { days: ["tuesday", "thursday"],           macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
+      restDay:   { days: ["sunday"],                        macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
     },
     rationale: [],
   };

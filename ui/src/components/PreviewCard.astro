@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+import AppointmentPreviewCard from "./PreviewCard/AppointmentPreviewCard.astro";
+import DietPreviewCard from "./PreviewCard/DietPreviewCard.astro";
+import MeasuresPreviewCard from "./PreviewCard/MeasuresPreviewCard.astro";
+import TrainingPreviewCard from "./PreviewCard/TrainingPreviewCard.astro";
+
+type Props =
+  | { entry: CollectionEntry<"diet">; href: string; title: string }
+  | { entry: CollectionEntry<"training">; href: string; title: string }
+  | { entry: CollectionEntry<"measures">; href: string; title: string }
+  | { entry: CollectionEntry<"appointments">; href: string; title: string };
+
+const { entry, href, title } = Astro.props;
+---
+
+{entry.collection === "diet" && <DietPreviewCard entry={entry} href={href} title={title} />}
+{entry.collection === "training" && <TrainingPreviewCard entry={entry} href={href} title={title} />}
+{entry.collection === "measures" && <MeasuresPreviewCard entry={entry} href={href} title={title} />}
+{entry.collection === "appointments" && <AppointmentPreviewCard entry={entry} href={href} title={title} />}

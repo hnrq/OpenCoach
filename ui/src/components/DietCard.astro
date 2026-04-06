@@ -50,14 +50,34 @@ const { day_types, weekly_schedule, rationale, adjustments } = entry.data;
                   <div class="mt-2 ml-2">
                     <strong>{m.meal}</strong>{m.timing && <span class="white-168-text"> — {m.timing}</span>}
                     <ul class="m-0 mt-1">
-                      {m.foods.map(f => <li>{f}</li>)}
+                      {m.foods.map(f => <li>{f.food} <span class="cyan-168-text">{f.grams}g</span></li>)}
                     </ul>
                   </div>
                 ))}
               </details>
             )}
             {!dt.meals && dt.meal_templates && dt.meal_templates.length > 0 && (
-              <p class="m-0 mt-2 white-168-text">{dt.meal_templates.join(" · ")}</p>
+              <details class="mt-2">
+                <summary class="cyan-168-text" style="cursor:pointer">Meals ({dt.meal_templates.length})</summary>
+                {dt.meal_templates.map(mt => typeof mt === "string" ? (
+                  <p class="m-0 mt-2 ml-2 white-168-text">{mt}</p>
+                ) : (
+                  <div class="mt-2 ml-2">
+                    <strong>{mt.title}</strong>
+                    {mt.timing && <span class="white-168-text"> — {mt.timing}</span>}
+                    <table class="tui-table full-width mt-1">
+                      <tbody>
+                        {mt.ingredients.map(ing => (
+                          <tr>
+                            <td class="capitalize">{ing.food}</td>
+                            <td class="right-align">{ing.grams}g</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))}
+              </details>
             )}
           </fieldset>
         );
