@@ -27,6 +27,7 @@
 | `coaching/guides/intake.md` | `project/architecture.md`, `navigation.md`, `opencoach.md` (head coach Step 1) | If renamed, update all 3 |
 | `coaching/guides/tracking-measures.md` | `navigation.md` | |
 | `coaching/guides/diet-ingredient-constraints.md` | `navigation.md`, `opencoach-dietitian.md` (MVI) | Added 2026-04-03 |
+| `coaching/athlete-notes.md` | `opencoach-dietitian.md` (MVI), `opencoach-programmer.md` (MVI) | Append-only; head coach writes after each appointment |
 | `coaching/schemas/diet-schema.md` | `opencoach-dietitian.md` (MVI) | **Generated** — do not hand-edit. Regenerate via `cd packages/schemas && npm run gen:diet-schema` |
 | `coaching/schemas/training-schema.md` | `opencoach-programmer.md` (MVI) | **Generated** — do not hand-edit. Regenerate via `cd packages/schemas && npm run gen:training-schema` |
 | `coaching/errors/metabolic-stalls.md` | `navigation.md` | Created 2026-04-03; was a dead reference before |

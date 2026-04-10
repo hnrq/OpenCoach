@@ -1,6 +1,6 @@
 {
   "athlete": "Henrique Ramos",
-  "date": "2026-04-05",
+  "date": "2026-04-12",
   "methodology": "Michaels",
   "sport_context": {
     "sport": "Futsal",
@@ -18,7 +18,7 @@
     "lbm_kg": 70,
     "fixed_lunch": "Brazilian lunch — rice, beans, and meat (beef or chicken) daily",
     "primary_ingredients_constraint": "Meal templates must use only foods from profile.json food_preferences.primary. Secondary ingredients may be used outside templates.",
-    "notes": "Greek yogurt replaced with kefir/milk. Use whey isolate to top up protein when using kefir/milk."
+    "notes": "Greek yogurt replaced with kefir/milk. Use whey isolate to top up protein when using kefir/milk. Bread and grape juice added to primary ingredient list. Tapioca starch portions reduced to partially account for carb reduction per modest cut."
   },
   "macro_rules": {
     "protein_g_per_kg_lbm": 2.2,
@@ -36,14 +36,15 @@
       "note": "Moderate carbs to fuel lifting while maintaining the cut.",
       "timing_note": "If training in the morning: put most carbs at breakfast and lunch.",
       "days": ["monday", "wednesday", "friday", "saturday"],
-      "total_targets": { "calories": 2392, "protein_g": 154, "carbs_g": 300, "fats_g": 64 },
-      "macros_g": { "protein": 154, "carbs": 300, "fat": 64 },
+      "total_targets": { "calories": 2300, "protein_g": 154, "carbs_g": 277, "fats_g": 64 },
+      "macros_g": { "protein": 154, "carbs": 277, "fat": 64 },
       "meal_templates": [
         {
           "title": "Breakfast (pre-gym)",
           "timing": "~60 min pre-gym",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 60 },
+            { "food": "tapioca starch", "grams": 30 },
+            { "food": "bread", "grams": 50 },
             { "food": "eggs", "grams": 200 },
             { "food": "cheese", "grams": 80 },
             { "food": "banana", "grams": 120 }
@@ -55,8 +56,9 @@
           "ingredients": [
             { "food": "whey isolate", "grams": 35 },
             { "food": "milk", "grams": 400 },
-            { "food": "granola", "grams": 30 },
-            { "food": "apple", "grams": 180 }
+            { "food": "granola", "grams": 20 },
+            { "food": "apple", "grams": 180 },
+            { "food": "grape juice", "grams": 150 }
           ]
         },
         {
@@ -73,7 +75,7 @@
           "timing": "Evening",
           "ingredients": [
             { "food": "chicken breast", "grams": 150 },
-            { "food": "tapioca starch", "grams": 60 }
+            { "food": "tapioca starch", "grams": 40 }
           ]
         }
       ]
@@ -83,14 +85,15 @@
       "note": "Highest carbs to support futsal repeated sprints and recovery.",
       "timing_note": "Put carbs at breakfast/lunch and a low-fiber snack 60–120 min pre-futsal.",
       "days": ["tuesday", "thursday"],
-      "total_targets": { "calories": 2992, "protein_g": 154, "carbs_g": 450, "fats_g": 64 },
-      "macros_g": { "protein": 154, "carbs": 450, "fat": 64 },
+      "total_targets": { "calories": 2700, "protein_g": 154, "carbs_g": 377, "fats_g": 64 },
+      "macros_g": { "protein": 154, "carbs": 377, "fat": 64 },
       "meal_templates": [
         {
           "title": "Breakfast (pre-gym)",
           "timing": "~60 min pre-gym",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 90 },
+            { "food": "tapioca starch", "grams": 40 },
+            { "food": "bread", "grams": 60 },
             { "food": "eggs", "grams": 200 },
             { "food": "cheese", "grams": 60 },
             { "food": "banana", "grams": 160 }
@@ -101,7 +104,8 @@
           "timing": "0–60 min post-gym",
           "ingredients": [
             { "food": "whey isolate", "grams": 35 },
-            { "food": "apple", "grams": 180 }
+            { "food": "apple", "grams": 180 },
+            { "food": "grape juice", "grams": 200 }
           ]
         },
         {
@@ -117,9 +121,9 @@
           "title": "Pre-futsal snack",
           "timing": "60–120 min pre-futsal",
           "ingredients": [
-            { "food": "kefir", "grams": 400 },
-            { "food": "granola", "grams": 50 },
-            { "food": "banana", "grams": 160 },
+            { "food": "kefir", "grams": 300 },
+            { "food": "granola", "grams": 30 },
+            { "food": "banana", "grams": 120 },
             { "food": "whey isolate", "grams": 15 }
           ]
         },
@@ -128,7 +132,7 @@
           "timing": "Post-futsal",
           "ingredients": [
             { "food": "chicken breast", "grams": 150 },
-            { "food": "tapioca starch", "grams": 110 }
+            { "food": "tapioca starch", "grams": 60 }
           ]
         }
       ]
@@ -138,14 +142,15 @@
       "note": "Lower carbs to create deficit while keeping protein/fat floors.",
       "timing_note": "Keep meals simple; reduce carb portions.",
       "days": ["sunday"],
-      "total_targets": { "calories": 2112, "protein_g": 154, "carbs_g": 230, "fats_g": 64 },
-      "macros_g": { "protein": 154, "carbs": 230, "fat": 64 },
+      "total_targets": { "calories": 2000, "protein_g": 154, "carbs_g": 202, "fats_g": 64 },
+      "macros_g": { "protein": 154, "carbs": 202, "fat": 64 },
       "meal_templates": [
         {
           "title": "Breakfast",
           "timing": "Morning",
           "ingredients": [
-            { "food": "tapioca starch", "grams": 50 },
+            { "food": "tapioca starch", "grams": 25 },
+            { "food": "bread", "grams": 40 },
             { "food": "eggs", "grams": 250 },
             { "food": "cheese", "grams": 60 }
           ]
@@ -174,7 +179,7 @@
           "timing": "Evening",
           "ingredients": [
             { "food": "chicken breast", "grams": 150 },
-            { "food": "tapioca starch", "grams": 60 }
+            { "food": "tapioca starch", "grams": 40 }
           ]
         }
       ]
@@ -191,11 +196,14 @@
   },
   "adjustments": {
     "wroc_status": "WINDOW TOO SHORT (2/14 days) — no adjustment yet",
-    "note": "Keep macros stable until 14-day review unless performance drops or hunger is extreme."
+    "note": "Modest calorie reduction applied per athlete feedback (athlete feels like eating too much). EA floor noted but coach approved modest override to accelerate progress toward 72–74 kg goal. gymOnly: −92 kcal (−23g carbs); futsalGym: −292 kcal (−73g carbs); restDay: −112 kcal (−28g carbs). Protein and fat held at Michaels floors."
   },
   "rationale": [
     "Kefir/milk replaces greek yogurt per preference; whey isolate tops up protein.",
     "Carbs are highest on futsal days to fuel repeated sprints; rest day lower to drive deficit.",
-    "Protein/fat remain at Michaels floors to protect LBM and recovery."
+    "Protein/fat remain at Michaels floors to protect LBM and recovery.",
+    "Date updated to 2026-04-12 for current session.",
+    "Modest calorie reduction across all day types per athlete feedback (eating too much); EA floor noted, coach approved override to accelerate cut toward 72–74 kg.",
+    "Bread added at breakfast (partial tapioca swap) and grape juice added at post-gym/pre-futsal slot as low-volume fast carbs; tapioca starch portions reduced to partially account for carb targets."
   ]
 }

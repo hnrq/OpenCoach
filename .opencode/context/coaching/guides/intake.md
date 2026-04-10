@@ -20,16 +20,16 @@ Load `profile.json` first. For each field marked ✗ or missing, ask the athlete
 | Target weight | `profile.json` | Yes |
 | Sport goal | `profile.json` | Yes |
 | Training schedule (days + timing) | `profile.json` | Yes |
-| Food preferences (primary list) | `profile.json` | Yes |
-| Fixed meals | `profile.json` | Yes |
-| Available equipment | `profile.json` (defaults to standard commercial gym) | Yes |
+| Food preferences (primary list) | `athlete-notes.md` → Food Preferences | Yes |
+| Fixed meals | `athlete-notes.md` → Food Preferences | Yes |
+| Available equipment | `athlete-notes.md` → Equipment Available | Yes |
 | Active injuries | Ask athlete at start of appointment | Yes |
 
 ## Checklist Before Analyst Runs
 
 ```
 [ ] measures file for today exists and is complete (all 7 sites + weight + BF%)
-[ ] profile.json has food_preferences.primary populated
+[ ] athlete-notes.md has Food Preferences section populated
 [ ] profile.json has training_schedule populated
 [ ] profile.json has target_weight_kg populated
 [ ] analytics/wroc.json exists (create if missing from measures history)
@@ -51,7 +51,7 @@ Ask the athlete directly in a single consolidated message. Do not ask one field 
 > 2. What foods do you prefer? (list your staples)
 > 3. What is your weekly training schedule?"
 
-Update `profile.json` with the answers before proceeding.
+Update `profile.json` (for schedule/target) or `athlete-notes.md` (for food preferences) with the answers before proceeding.
 
 ## After Intake is Complete
 

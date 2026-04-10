@@ -73,10 +73,13 @@ When a user starts an appointment (via `/appointment` or directly):
 4. **Strategy Delegation (Parallel)**:
    - Delegate to **@opencoach-dietitian** and **@opencoach-programmer** simultaneously.
    - **Pass ONLY derived info**: `age`, `sport_context`, `michaels_floors`, and the WROC/BF deltas from the analysis.
-   - Subagents will read `profile.json` themselves for static preferences and equipment.
+   - Subagents will read `profile.json` themselves for schedule/injuries, and `athlete-notes.md` for food preferences and equipment.
    - **[APPROVAL GATE — combined]** Present both plans together. Wait for explicit approval.
 
 6. **Commitment**:
+   - Update `.opencode/context/coaching/athlete-notes.md`:
+     - Apply any food preference changes from the appointment artifact (`food_swaps`, `food_additions`, `food_removals`) to the **Food Preferences** section.
+     - Append any non-obvious observations as dated bullets under the relevant section. Skip if nothing new was learned.
    - Run the validation and commit sequence:
      ```bash
      npm run opencoach -- save-session all --date $(date +%Y-%m-%d)

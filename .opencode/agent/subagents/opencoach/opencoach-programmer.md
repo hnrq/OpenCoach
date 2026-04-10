@@ -18,6 +18,7 @@ permission:
 # Context
 
 Load only the following files (MVI — do not load nutrition or dietitian context):
+- `.opencode/context/coaching/athlete-notes.md`
 - `.opencode/context/coaching/schemas/training-schema.md`
 - `.opencode/context/coaching/concepts/michaels-methodology.md`
 - `.opencode/context/coaching/concepts/rp-volume-landmarks.md`
@@ -49,7 +50,7 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 1. **Prerequisites & Profile**:
    ```bash
    [ -n "$RAPIDAPI_KEY" ] || { echo "MISSING RAPIDAPI_KEY — abort"; exit 1; }
-   jq '{equipment, injuries, training_schedule, block_phase}' profile.json
+   jq '{injuries, training_schedule, block_phase}' profile.json
    jq '{progression, constraints, weekly_schedule, warmup_template, sessions, circuits}' $(ls -t training/*.json | head -1)
    ```
 2. **Receive Derived Context** from Head Coach:
@@ -60,7 +61,7 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 
 3. **Exercise Selection (ExerciseDB)**:
    - Query ExerciseDB based on `sport_context.movement_patterns`.
-   - **Strict Equipment Filter**: Only select exercises that match `profile.json → equipment`.
+   - **Strict Equipment Filter**: Only select exercises that match the **Equipment Available** section in `athlete-notes.md`.
    - **Injury Filter**: Cross-reference ExerciseDB target muscles with `sport_context.injury_areas` and `profile.json → injuries`. Avoid direct stress on compromised joints.
 
 4. **Volume & Periodization**:
