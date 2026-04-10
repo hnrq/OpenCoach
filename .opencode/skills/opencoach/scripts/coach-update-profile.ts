@@ -26,12 +26,12 @@ Options:
   --help              Show this help
 
 Supported preferences_delta fields:
-  food_swaps          Find/replace items in food_preferences.primary
-  food_additions      Add new items to food_preferences.primary (deduped)
-  food_removals       Remove items from food_preferences.primary
   constraints_added   Append strings to profile.constraints[]
   constraints_removed Remove strings from profile.constraints[]
   schedule_changes    Set training_schedule.<field> = <value>
+
+Note: food_swaps, food_additions, food_removals are captured in the appointment artifact
+but applied manually by the Head Coach to .opencode/context/coaching/athlete-notes.md.
 
 Examples:
   opencoach update-profile-from-appointment --date 2026-04-05
@@ -99,35 +99,9 @@ function printDiff(diffs: DiffLine[]) {
 function applyDelta(profile: any, delta: any): any {
   const p = deepClone(profile);
 
-  // food_swaps
-  if (Array.isArray(delta.food_swaps)) {
-    for (const swap of delta.food_swaps) {
-      const idx = (p.food_preferences?.primary ?? []).indexOf(swap.remove);
-      if (idx !== -1) {
-        p.food_preferences.primary[idx] = swap.add;
-      }
-    }
-  }
-
-  // food_additions
-  if (Array.isArray(delta.food_additions)) {
-    p.food_preferences ??= {};
-    p.food_preferences.primary ??= [];
-    for (const item of delta.food_additions) {
-      if (!p.food_preferences.primary.includes(item)) {
-        p.food_preferences.primary.push(item);
-      }
-    }
-  }
-
-  // food_removals
-  if (Array.isArray(delta.food_removals)) {
-    if (p.food_preferences?.primary) {
-      p.food_preferences.primary = p.food_preferences.primary.filter(
-        (x: string) => !delta.food_removals.includes(x)
-      );
-    }
-  }
+  // food_swaps / food_additions / food_removals are NOT applied here.
+  // Food preferences live in .opencode/context/coaching/athlete-notes.md.
+  // The Head Coach updates that file manually during the commitment step.
 
   // constraints_added
   if (Array.isArray(delta.constraints_added) && delta.constraints_added.length > 0) {

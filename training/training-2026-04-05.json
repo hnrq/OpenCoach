@@ -1,396 +1,624 @@
 {
   "athlete": "Henrique Ramos",
-  "date": "2026-04-05",
+  "date": "2026-04-09",
   "methodology": "Michaels (primer skipped by athlete preference)",
   "sport_context": {
     "sport": "Futsal",
     "mapped_to": "Soccer",
+    "energy_system": "70% aerobic / 30% anaerobic",
     "training_focus": "Aerobic base + explosive power + agility",
     "movement_patterns": "Sprinting, lateral cuts, kicking",
-    "injury_areas": [
-      "knees",
-      "ankles",
-      "hamstrings"
-    ]
+    "injury_areas": ["knees", "ankles", "hamstrings"],
+    "nutrition_strategy": "Carb-dominant; match-day carb loading"
   },
   "constraints": {
     "no_jumping": true,
     "small_space": true,
     "gym_only": true,
-    "futsal_evenings": [
-      "tuesday",
-      "thursday"
-    ],
+    "futsal_evenings": ["tuesday", "thursday"],
     "legs_day": "saturday",
     "cardio": "Optional 5-min warm-up only; no added conditioning blocks"
   },
   "progression": {
     "rpe_targets": {
       "main_lifts": "7–8",
-      "accessories": "7–8",
-      "speed_work": "6–7 (fast, crisp)"
+      "accessories": "7–8"
     },
-    "rule": "If last set is clean and <=RPE7, add 2.5–5% or +1 rep next week. If >=RPE9 or pain, reduce 5–10%."
+    "rule": "If last set is clean and <=RPE7, add 2.5–5% or +1 rep next week. If >=RPE9 or pain, reduce 5–10%.",
+    "intensification_techniques": {
+      "drop_set": "Reduce load ~30% immediately after last working set and continue reps.",
+      "rest_pause": "After last working set, rest 10–15s then continue reps to failure.",
+      "cadence": "2:2 = 2s eccentric / 2s concentric unless noted."
+    }
   },
   "weekly_schedule": {
-    "monday": "Upper Strength",
-    "tuesday_am": "Posterior Chain + Adductors + Ankles (low soreness)",
-    "wednesday": "Upper Hypertrophy",
-    "thursday_am": "Neural + Prehab (fresh for futsal)",
-    "saturday": "Lower Strength (main legs day)",
-    "friday": "Off (gym)",
-    "sunday": "Off (gym)"
+    "monday": "Back + Biceps",
+    "tuesday": "Chest + Triceps",
+    "wednesday": "Off",
+    "thursday": "Back + Shoulders",
+    "friday": "Triceps + Biceps",
+    "saturday": "Lower Body — Soccer Power",
+    "sunday": "Off"
   },
   "warmup_template": {
-    "optional": [
-      "Bike or treadmill 5 min easy"
-    ],
-    "mobility": [
-      "Ankle rocks 10/side",
-      "Band pull-aparts 2x15"
-    ],
-    "ramp_sets": "2–4 ramp sets for first lift"
+    "optional": ["Bike or treadmill 5 min easy"],
+    "mobility": ["Ankle rocks 10/side", "Band pull-aparts 2×15"],
+    "ramp_sets": "2–4 ramp sets for first lift of the session"
   },
   "sessions": [
     {
-      "day": "Monday",
-      "focus": "Upper Strength",
+      "day": "monday",
+      "focus": "Back + Biceps",
+      "estimated_duration_min": 75,
       "exercises": [
         {
-          "name": "Barbell Bench Press",
-          "sets": 5,
-          "reps": "3–5",
-          "rest": "2–3 min",
-          "rpe": "7–8",
-          "note": "Consistent touch point; leg drive; no grinders."
-        },
-        {
-          "name": "Weighted Pull-Up (or Strict)",
-          "sets": 5,
-          "reps": "3–5",
-          "rest": "2–3 min",
-          "rpe": "7–8",
-          "note": "Dead hang each rep; chest-to-bar path."
-        },
-        {
-          "name": "1-Arm Cable Row",
-          "sets": 4,
-          "reps": "8–10/side",
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "Row to hip; 1s pause."
-        },
-        {
-          "name": "Standing Dumbbell Overhead Press",
-          "sets": 4,
-          "reps": "6",
-          "rest": "2 min",
-          "rpe": "7–8",
-          "note": "Glutes tight; no excessive back arch."
-        },
-        {
-          "name": "Face Pull",
-          "sets": 3,
-          "reps": "15",
-          "rest": "60 sec",
-          "rpe": "7",
-          "note": "Hands to eyebrows; elbows high."
-        },
-        {
-          "name": "Pallof Press",
-          "sets": 3,
-          "reps": "10/side",
-          "rest": "60 sec",
-          "rpe": "7",
-          "note": "Anti-rotation for cutting/kicking stability."
-        },
-        {
-          "name": "Cable External Rotation",
+          "name": "cable lat pulldown",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
           "sets": 2,
-          "reps": "15/side",
-          "rest": "45–60 sec",
-          "rpe": "easy",
-          "note": "Shoulder health."
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "Wide grip. Last working set: reduce 30%, do 8 more reps (drop set). Full hang each rep. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "cable seated row",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "back",
+          "target": "traps",
+          "note": "Last working set: rest 10–15s, continue to failure (rest-pause). No torso swing; row to hip. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "barbell reverse grip bent over row",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "barbell",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "Supinated grip; bar to lower sternum; controlled eccentric. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell one arm row",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 3,
+          "reps": "8–10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "2 working sets of 8, then 1 set slightly lighter for 10 reps. Row to hip; 1s pause at top. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "cable lat pulldown",
+          "sets": 3,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "Neutral/close grip; seated; elbows to ribs; pause 1s at bottom. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "cable biceps bar",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "upper arms",
+          "target": "biceps brachii",
+          "note": "Straight bar. Last working set: rest 10–15s, continue to failure (rest-pause). No sway; full ROM. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell hammer curl",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "upper arms",
+          "target": "brachioradialis",
+          "note": "Last set: 10 bilateral, then immediately 10 alternating sides without rest. Rest 60–90s. Cadence 2:2."
         }
       ]
     },
     {
-      "day": "Tuesday (AM)",
-      "focus": "Posterior Chain + Adductors + Ankles (keep fresh for futsal PM)",
+      "day": "tuesday",
+      "focus": "Chest + Triceps",
+      "scheduling_note": "AM only — futsal PM. Upper body only; no leg fatigue.",
+      "estimated_duration_min": 70,
       "exercises": [
         {
-          "name": "Romanian Deadlift (RDL / 'Stiff')",
-          "sets": 4,
-          "reps": "4–6",
-          "rest": "2–3 min",
-          "rpe": "~7",
-          "note": "Leave reps in tank; bar close; hamstring stretch; no soreness chasing."
-        },
-        {
-          "name": "Cable Pull-Through",
-          "sets": 3,
-          "reps": "10–12",
-          "rest": "60–90 sec",
+          "name": "dumbbell incline fly",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
           "rpe": "8",
-          "note": "Explosive hip extension; control return."
+          "equipment": "dumbbell",
+          "bodyPart": "chest",
+          "target": "pectorals",
+          "note": "30° incline. Wide arc; full stretch at bottom; squeeze at top. Rest 90–120s. Cadence 2:2."
         },
         {
-          "name": "Adductor Machine",
+          "name": "dumbbell incline bench press",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "chest",
+          "target": "pectorals",
+          "note": "Last working set: rest 10–15s, continue to failure (rest-pause). Shoulders down and back. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell bench press",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "3+3+3",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "chest",
+          "target": "pectorals",
+          "note": "Each working set: 3 reps, hold 3s at bottom stretch, 3 reps, hold 3s, 3 reps. Substitutes articulated machine chest press. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "cable crossover",
+          "warmup_sets": [
+            { "reps": 10, "load": "~50% working weight" },
+            { "reps": 10, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "chest",
+          "target": "pectorals",
+          "note": "Low pulley to mid-chest. Last working set: reduce 30%, do 8 more reps immediately (drop set). Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "cable rope tricep pushdown",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "upper arms",
+          "target": "triceps brachii",
+          "note": "Both working sets: reduce 30% after the 8, do 8 more reps immediately (drop set each). Elbows pinned; full lockout. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "cable crunch",
+          "sets": 4,
+          "reps": "15",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "waist",
+          "target": "abs",
+          "note": "Kneel; elbows to knees; fully round spine on way down. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "plank",
+          "sets": 4,
+          "reps": "60s",
+          "rpe": "controlled",
+          "equipment": "body weight",
+          "bodyPart": "waist",
+          "target": "abs",
+          "note": "Hollow body; glutes tight; no sagging hips. Rest 60s."
+        }
+      ]
+    },
+    {
+      "day": "wednesday",
+      "focus": "Off",
+      "exercises": []
+    },
+    {
+      "day": "thursday",
+      "focus": "Back + Shoulders",
+      "scheduling_note": "AM only — futsal PM. Upper body only; no leg fatigue.",
+      "estimated_duration_min": 80,
+      "exercises": [
+        {
+          "name": "cable lat pulldown",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "Neutral/close grip. Last working set: reduce 30%, do 8 more reps (drop set). Chest up; elbows to ribs. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "cable seated row",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "back",
+          "target": "traps",
+          "note": "Neutral grip. Last working set: rest 10–15s, continue to failure (rest-pause). No torso swing. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "barbell bent over row",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "barbell",
+          "bodyPart": "back",
+          "target": "lats",
+          "note": "Overhand (pronated) grip; bar to lower sternum; controlled eccentric. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell lateral raise",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "shoulders",
+          "target": "delts",
+          "note": "Seated; strict; no swing; lead with elbow. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell shoulder press",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "shoulders",
+          "target": "delts",
+          "note": "Standing. Substitutes Smith machine OHP. Glutes tight; no excessive arch. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell arnold press",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "shoulders",
+          "target": "delts",
+          "note": "Last working set: reduce 30%, do 10 more reps (drop set). Full rotation on way up. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell incline lateral raise",
+          "sets": 3,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "shoulders",
+          "target": "delts",
+          "note": "Lean on incline bench (~60°) for support; isolate middle delt; no body lean. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell front raise",
+          "sets": 3,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "shoulders",
+          "target": "delts",
+          "note": "Alternating; controlled; no body swing; thumb up; stop at shoulder height. Rest 60–90s. Cadence 2:2."
+        }
+      ]
+    },
+    {
+      "day": "friday",
+      "focus": "Triceps + Biceps",
+      "estimated_duration_min": 70,
+      "exercises": [
+        {
+          "name": "cable triceps pushdown",
+          "warmup_sets": [
+            { "reps": 12, "load": "light" },
+            { "reps": 12, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "upper arms",
+          "target": "triceps brachii",
+          "note": "Straight bar. Progressive load. Elbows pinned; full lockout; slow eccentric. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "cable biceps bar",
+          "warmup_sets": [
+            { "reps": 12, "load": "light" },
+            { "reps": 12, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "upper arms",
+          "target": "biceps brachii",
+          "note": "Straight bar. Last 2 working sets: rest 10–15s, continue to failure (rest-pause). No sway. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "cable rope overhead tricep extension",
+          "warmup_sets": [
+            { "reps": 12, "load": "light" },
+            { "reps": 12, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "upper arms",
+          "target": "triceps brachii",
+          "note": "Last working set: reduce 30%, do 8 more reps (drop set). Full overhead stretch at top. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "dumbbell preacher curl",
           "sets": 3,
           "reps": "12",
-          "rest": "60–90 sec",
           "rpe": "8",
-          "note": "Groin resilience for cuts."
+          "equipment": "dumbbell",
+          "bodyPart": "upper arms",
+          "target": "biceps brachii",
+          "note": "Performed on incline bench if no preacher bench. Last set: reduce 30%, continue reps (drop set). Full ROM; elbow stays fixed. Rest 90–120s. Cadence 2:2."
         },
         {
-          "name": "Seated (or Bent-Knee) Calf Raise",
-          "sets": 5,
-          "reps": "10–12",
-          "rest": "60 sec",
+          "name": "dip",
+          "warmup_sets": [
+            { "reps": 12, "load": "bodyweight" },
+            { "reps": 12, "load": "bodyweight" }
+          ],
+          "sets": 2,
+          "reps": "8",
           "rpe": "8",
-          "note": "Full ROM; 1s pause stretched."
+          "equipment": "body weight",
+          "bodyPart": "upper arms",
+          "target": "triceps brachii",
+          "note": "Add ankle weight if bodyweight is easy. Substitute with close-grip barbell bench press if no parallel bars. Rest 90–120s. Cadence 2:2."
         },
         {
-          "name": "Tibialis Raises (band)",
+          "name": "dumbbell concentration curl",
           "sets": 4,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "dumbbell",
+          "bodyPart": "upper arms",
+          "target": "biceps brachii",
+          "note": "10 reps each arm. Elbow braced on inner thigh; peak contraction; full ROM. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "cable crunch",
+          "sets": 4,
+          "reps": "15",
+          "rpe": "8",
+          "equipment": "cable",
+          "bodyPart": "waist",
+          "target": "abs",
+          "note": "Kneel; round spine fully. Rest 60s. Cadence 2:2."
+        },
+        {
+          "name": "plank",
+          "sets": 4,
+          "reps": "60s",
+          "rpe": "controlled",
+          "equipment": "body weight",
+          "bodyPart": "waist",
+          "target": "abs",
+          "note": "Hollow body; glutes tight. Rest 60s."
+        }
+      ]
+    },
+    {
+      "day": "saturday",
+      "focus": "Lower Body — Soccer Power",
+      "scheduling_note": "Main legs day — no fatigue constraints. Goal: strength base + explosive power for sprinting, cutting, and deceleration. Begin with dynamic stretching: anterior + posterior thigh + hip flexors.",
+      "estimated_duration_min": 95,
+      "exercises": [
+        {
+          "name": "seated leg curl",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 2,
+          "reps": "12",
+          "rpe": "7–8",
+          "equipment": "leverage machine",
+          "bodyPart": "upper legs",
+          "target": "hamstrings",
+          "note": "Open with joint prep. Every 2 reps: hold 2s at peak contraction. Eccentric-biased: 3s controlled lowering. Rest 60s. Cadence 2:2:2."
+        },
+        {
+          "name": "leg extension",
+          "warmup_sets": [
+            { "reps": 15, "load": "light" },
+            { "reps": 15, "load": "moderate" }
+          ],
+          "sets": 3,
+          "reps": "8–12",
+          "rpe": "8",
+          "equipment": "leverage machine",
+          "bodyPart": "upper legs",
+          "target": "quads",
+          "note": "First 2 working sets: 12 reps. Last set: 8 reps, rest 10–15s, continue to failure (rest-pause). No knee pain chasing. Rest 60s. Cadence 2:2."
+        },
+        {
+          "name": "barbell squat",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" },
+            { "reps": 12, "load": "~65% working weight" }
+          ],
+          "sets": 2,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "barbell",
+          "bodyPart": "upper legs",
+          "target": "quads",
+          "note": "Last working set: rest 10–15s, continue to failure (rest-pause). Brace hard; explosive concentric drive. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "leg press",
+          "sets": 3,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "leverage machine",
+          "bodyPart": "upper legs",
+          "target": "quads",
+          "note": "Explosive concentric; controlled eccentric. Knees track toes. Rest 2 min. Cadence 2:1."
+        },
+        {
+          "name": "romanian deadlift",
+          "warmup_sets": [
+            { "reps": 12, "load": "~50% working weight" }
+          ],
+          "sets": 3,
+          "reps": "12",
+          "rpe": "8",
+          "equipment": "barbell",
+          "bodyPart": "upper legs",
+          "target": "hamstrings",
+          "note": "Progressive load each set. Bar close; hamstring stretch; soft knees. Key for sprint deceleration. Rest 60–90s. Cadence 2:2."
+        },
+        {
+          "name": "barbell hip thrust",
+          "warmup_sets": [
+            { "reps": 8, "load": "light" },
+            { "reps": 8, "load": "moderate" }
+          ],
+          "sets": 4,
+          "reps": "8",
+          "rpe": "8",
+          "equipment": "barbell",
+          "bodyPart": "upper legs",
+          "target": "glutes",
+          "note": "Explosive hip drive; 1s pause at full extension. Primary sprint power builder. Rest 2 min. Cadence 1:1."
+        },
+        {
+          "name": "lying leg curl",
+          "sets": 3,
+          "reps": "12–15",
+          "rpe": "8",
+          "equipment": "leverage machine",
+          "bodyPart": "upper legs",
+          "target": "hamstrings",
+          "note": "Hips stay down; smooth reps; full ROM. Complements seated curl. Rest 60s. Cadence 2:2."
+        },
+        {
+          "name": "hip adduction",
+          "sets": 3,
+          "reps": "10",
+          "rpe": "8",
+          "equipment": "leverage machine",
+          "bodyPart": "upper legs",
+          "target": "adductors",
+          "note": "2s peak contraction every rep. Groin resilience for lateral cuts and direction changes. Rest 90–120s. Cadence 2:2."
+        },
+        {
+          "name": "calf press on leg press",
+          "sets": 4,
+          "reps": "10+10",
+          "rpe": "8",
+          "equipment": "leverage machine",
+          "bodyPart": "lower legs",
+          "target": "calves",
+          "note": "Do 10 reps, reduce 30% immediately, do 10 more (drop set each set). Full ROM; 1s stretch at bottom. Rest 60s. Cadence 2:2."
+        },
+        {
+          "name": "standing calf raises",
+          "sets": 4,
+          "reps": "10+10",
+          "rpe": "8",
+          "equipment": "body weight",
+          "bodyPart": "lower legs",
+          "target": "calves",
+          "note": "10 reps toes neutral/slightly out, then 10 reps toes slightly in — hits all calf heads. Rest 60s. Cadence 2:2."
+        },
+        {
+          "name": "band lateral walk",
+          "sets": 3,
+          "reps": "15",
+          "rpe": "7",
+          "equipment": "band",
+          "bodyPart": "upper legs",
+          "target": "glutes",
+          "note": "15 steps each side. Band above knees; hips level; controlled steps. Glute med activation — directly transfers to lateral cutting stability. Rest 45–60s."
+        },
+        {
+          "name": "tibialis raise",
+          "sets": 3,
           "reps": "15–20",
-          "rest": "45 sec",
           "rpe": "7–8",
-          "note": "Ankle/shin balance for sprint volume."
+          "equipment": "band",
+          "bodyPart": "lower legs",
+          "target": "tibialis anterior",
+          "note": "Heel anchored; lift toes against band resistance. Ankle/shin balance for sprint volume and lateral cuts. Rest 45s."
         },
         {
-          "name": "Dead Bug",
-          "sets": 3,
-          "reps": "8/side",
-          "rest": "45–60 sec",
-          "rpe": "controlled",
-          "note": "Low-back neutral; slow reps."
-        },
-        {
-          "name": "Banded TKE",
-          "sets": 2,
-          "reps": "15/side",
-          "rest": "45 sec",
-          "rpe": "easy",
-          "note": "Knee tendon / quad activation."
-        }
-      ]
-    },
-    {
-      "day": "Wednesday",
-      "focus": "Upper Hypertrophy",
-      "exercises": [
-        {
-          "name": "Incline Dumbbell Press",
-          "sets": 4,
-          "reps": "8–10",
-          "rest": "90 sec",
-          "rpe": "8",
-          "note": "Smooth reps; keep shoulders down."
-        },
-        {
-          "name": "Lat Pulldown",
-          "sets": 4,
-          "reps": "8–10",
-          "rest": "90 sec",
-          "rpe": "8",
-          "note": "Pause 1s; elbows to ribs."
-        },
-        {
-          "name": "Flat Dumbbell Bench Press",
-          "sets": 3,
-          "reps": "10–12",
-          "rest": "90 sec",
-          "rpe": "8",
-          "note": "Controlled eccentric; no bouncing."
-        },
-        {
-          "name": "Seated Cable Row",
-          "sets": 3,
-          "reps": "10–12",
-          "rest": "90 sec",
-          "rpe": "8",
-          "note": "No torso swing; squeeze upper back."
-        },
-        {
-          "name": "Lateral Raise (DB or cable)",
-          "sets": 4,
-          "reps": "12–15",
-          "rest": "60 sec",
-          "rpe": "8",
-          "note": "Strict; no swing."
-        },
-        {
-          "name": "Rear Delt Fly (cable or DB)",
-          "sets": 3,
-          "reps": "15",
-          "rest": "60 sec",
-          "rpe": "8",
-          "note": "Shoulder balance and posture."
-        },
-        {
-          "name": "Triceps Pressdown",
-          "sets": 3,
-          "reps": "12",
-          "rest": "60 sec",
-          "rpe": "8",
-          "note": "Elbows pinned; full lockout."
-        },
-        {
-          "name": "Cable Curl",
-          "sets": 3,
-          "reps": "12",
-          "rest": "60 sec",
-          "rpe": "8",
-          "note": "No sway; full ROM."
-        },
-        {
-          "name": "Ab Wheel",
-          "sets": 4,
-          "reps": "6–10",
-          "rest": "60–90 sec",
-          "rpe": "7–8",
-          "note": "Keep posterior pelvic tilt."
-        }
-      ]
-    },
-    {
-      "day": "Thursday (AM)",
-      "focus": "Neural + Prehab (fresh for futsal PM)",
-      "exercises": [
-        {
-          "name": "Speed Bench Press",
-          "sets": 8,
-          "reps": 3,
-          "rest": "60–90 sec",
-          "rpe": "6–7",
-          "note": "Fast bar; perfect reps; stop if speed drops."
-        },
-        {
-          "name": "Pull-Up (bodyweight)",
-          "sets": 6,
-          "reps": 4,
-          "rest": "90–120 sec",
-          "rpe": "7",
-          "note": "Stay submax; crisp reps."
-        },
-        {
-          "name": "Goblet Squat (patterning)",
-          "sets": 4,
-          "reps": 6,
-          "rest": "90 sec",
-          "rpe": "6–7",
-          "note": "Just groove; do not chase fatigue."
-        },
-        {
-          "name": "Seated Leg Curl (eccentric-biased)",
-          "sets": 3,
-          "reps": 10,
-          "rest": "60–90 sec",
-          "rpe": "7–8",
-          "note": "1s squeeze; 3s controlled lowering."
-        },
-        {
-          "name": "Standing Calf Raise",
-          "sets": 4,
-          "reps": "8–10",
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "Pause top and bottom."
-        },
-        {
-          "name": "Side Plank",
-          "sets": 2,
-          "reps": "45–60 sec/side",
-          "rest": "45–60 sec",
-          "rpe": "controlled",
-          "note": "Anti-lateral flexion for cutting stability."
-        }
-      ]
-    },
-    {
-      "day": "Saturday",
-      "focus": "Lower Strength (main legs day)",
-      "exercises": [
-        {
-          "name": "Barbell Back Squat",
-          "sets": 5,
-          "reps": 3,
-          "rest": "3 min",
-          "rpe": "8",
-          "note": "Brace hard; drive up fast; quality reps."
-        },
-        {
-          "name": "Romanian Deadlift (RDL / 'Stiff')",
-          "sets": 4,
-          "reps": 6,
-          "rest": "2–3 min",
-          "rpe": "8",
-          "note": "Soft knees; bar close; hamstring stretch."
-        },
-        {
-          "name": "Leg Press",
-          "sets": 3,
-          "reps": 10,
-          "rest": "2 min",
-          "rpe": "8",
-          "note": "Knees track toes; controlled depth."
-        },
-        {
-          "name": "Hip Thrust (barbell)",
-          "sets": 4,
-          "reps": 8,
-          "rest": "2 min",
-          "rpe": "8",
-          "note": "1s pause at top; full hip extension."
-        },
-        {
-          "name": "Seated Leg Curl (eccentric-biased)",
-          "sets": 4,
-          "reps": "8–12",
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "3s lowering; full ROM."
-        },
-        {
-          "name": "Lying Leg Curl",
-          "sets": 2,
-          "reps": "12–15",
-          "rest": "60 sec",
-          "rpe": "8",
-          "note": "Smooth reps; hips stay down."
-        },
-        {
-          "name": "Leg Extension",
-          "sets": 2,
-          "reps": 12,
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "Controlled; no knee pain chasing."
-        },
-        {
-          "name": "Adductor Machine",
-          "sets": 3,
-          "reps": 12,
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "Groin resilience; pause 1s."
-        },
-        {
-          "name": "Calf Raise (heavy)",
-          "sets": 4,
-          "reps": "8–12",
-          "rest": "60–90 sec",
-          "rpe": "8",
-          "note": "Full ROM; pause stretch."
-        },
-        {
-          "name": "Ab Wheel",
+          "name": "ab roller",
           "sets": 3,
           "reps": "6–10",
-          "rest": "60–90 sec",
           "rpe": "7–8",
-          "note": "No lumbar extension."
+          "equipment": "wheel roller",
+          "bodyPart": "waist",
+          "target": "abs",
+          "note": "Posterior pelvic tilt throughout; no lumbar extension. Rest 60–90s."
         }
       ]
     }
