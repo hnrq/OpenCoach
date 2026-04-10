@@ -16,12 +16,6 @@ interface TrainingSchedule {
   rest_days: string[];
 }
 
-interface FoodPreferences {
-  primary: string[];
-  fixed_meals: Record<string, string>;
-  notes: string;
-}
-
 interface UserProfile {
   name: string;
   gender: 'male' | 'female';
@@ -30,16 +24,8 @@ interface UserProfile {
   sport_goal: string;
   target_weight_kg: { min: number; max: number };
   training_schedule: TrainingSchedule;
-  food_preferences: FoodPreferences;
   injuries: string[];
-  equipment: string[];
 }
-
-const DEFAULT_EQUIPMENT = [
-  'barbell', 'dumbbells', 'cables', 'pull-up bar',
-  'leg press', 'bench', 'box', 'ab wheel',
-  'resistance bands', 'medicine ball'
-];
 
 const PROFILE_PATH = path.join(process.cwd(), 'profile.json');
 const TEMP_PATH = path.join(process.cwd(), 'profile.json.tmp');
@@ -199,33 +185,7 @@ async function main() {
       ) || 'morning';
     }
 
-    // ── Food Preferences ──────────────────────────
-    console.log('\n  [ Food Preferences ]');
-
-    const primary = await promptList(
-      rl,
-      'Primary ingredients',
-      'eggs, chicken breast, greek yogurt, tapioca starch',
-      existing.food_preferences?.primary
-    );
-
-    const fixedMeals: Record<string, string> = existing.food_preferences?.fixed_meals ?? {};
-    const addFixed = await ask(rl, `  Add / update a fixed meal? (e.g. "lunch: rice, beans, meat") [Enter to skip]: `);
-    if (addFixed) {
-      const colonIdx = addFixed.indexOf(':');
-      if (colonIdx > 0) {
-        const mealName = addFixed.slice(0, colonIdx).trim().toLowerCase();
-        const mealDesc = addFixed.slice(colonIdx + 1).trim();
-        fixedMeals[mealName] = mealDesc;
-      }
-    }
-
-    const notes = await promptField(
-      rl, 'Food notes (optional)', existing.food_preferences?.notes ?? ''
-    );
-
-    // Equipment defaults to standard commercial gym. Agent asks about injuries conversationally.
-    const equipment = existing.equipment?.length ? existing.equipment : DEFAULT_EQUIPMENT;
+    // Equipment and food preferences live in .opencode/context/coaching/athlete-notes.md — not collected here.
     const injuries: string[] = existing.injuries ?? [];
 
     // ── Build & save ──────────────────────────────
@@ -243,13 +203,7 @@ async function main() {
         gym_timing_on_futsal_days,
         rest_days,
       },
-      food_preferences: {
-        primary,
-        fixed_meals: fixedMeals,
-        notes,
-      },
       injuries,
-      equipment,
     };
 
     fs.writeFileSync(TEMP_PATH, JSON.stringify(profile, null, 2));
@@ -261,8 +215,7 @@ async function main() {
     console.log(`  Target: ${tw_min}–${tw_max} kg`);
     console.log(`  Gym days: ${gym_days.join(', ')}`);
     console.log(`  Futsal days: ${futsal_days.join(', ')} (${futsal_timing})`);
-    console.log(`  Foods: ${primary.slice(0, 4).join(', ')}${primary.length > 4 ? ` +${primary.length - 4} more` : ''}`);
-    console.log(`  Equipment: standard commercial gym${equipment === DEFAULT_EQUIPMENT ? ' (default)' : ' (custom)'}`);
+    console.log(`  Equipment + food preferences: see athlete-notes.md`);
     console.log(`  Injuries: asked by coach during appointment`);
     console.log();
   } finally {

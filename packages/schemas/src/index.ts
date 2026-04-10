@@ -40,7 +40,7 @@ export const SportContext = z.object({
 // ── Components ────────────────────────────────────────────────────────────────
 
 export const Ingredient = z.object({
-	food: z.string().describe("Food name — must be from profile.json food_preferences.primary"),
+	food: z.string().describe("Food name — must be from the primary list in athlete-notes.md → Food Preferences"),
 	grams: z.number().positive().describe("Quantity in grams"),
 });
 
@@ -53,7 +53,7 @@ export const MealTemplate = z.object({
 export const Meal = z.object({
 	meal: z.string().describe("Meal name, e.g. 'Breakfast', 'Pre-workout', 'Post-workout', 'Dinner'"),
 	timing: z.string().optional().describe("When to eat relative to training, e.g. '60 min pre-workout'"),
-	foods: z.array(Ingredient).describe("Ingredients with gram quantities — food names from profile.json food_preferences.primary only"),
+	foods: z.array(Ingredient).describe("Ingredients with gram quantities — food names from primary list in athlete-notes.md only"),
 	macros: MealMacros.optional().describe("Macro breakdown for this meal — omit if using meal_templates instead"),
 });
 

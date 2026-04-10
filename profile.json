@@ -12,24 +12,5 @@
     "gym_timing_on_futsal_days": "morning",
     "rest_days": ["sunday"]
   },
-  "food_preferences": {
-    "primary": [
-      "eggs",
-      "chicken breast",
-      "banana",
-      "apple",
-      "granola",
-      "kefir",
-      "milk",
-      "whey isolate",
-      "cheese",
-      "tapioca starch"
-    ],
-    "fixed_meals": {
-      "lunch": "Brazilian lunch — rice, beans, and meat (beef or chicken) daily"
-    },
-    "notes": "Keep meals simple. Secondary ingredients allowed but primary list must be the backbone of every meal plan."
-  },
-  "injuries": [],
-  "equipment": ["barbell", "dumbbells", "cables", "pull-up bar", "leg press", "bench", "ab wheel", "resistance bands", "bike", "treadmill", "hip thrust setup", "adductor machine", "seated leg curl", "lying leg curl"]
+  "injuries": []
 }

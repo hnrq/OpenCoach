@@ -17,6 +17,7 @@ permission:
 # Context
 
 Load only the following files (MVI — do not load training or periodization context):
+- `.opencode/context/coaching/athlete-notes.md`
 - `.opencode/context/coaching/schemas/diet-schema.md`
 - `.opencode/context/coaching/guides/diet-ingredient-constraints.md`
 - `.opencode/context/coaching/concepts/michaels-methodology.md`
@@ -41,7 +42,7 @@ Use these together to shape macro targets and carb cycling strategy.
 
 1. **Read Profile & History**:
    ```bash
-   jq '{food_preferences, training_schedule}' profile.json
+   jq '{training_schedule}' profile.json
    jq '{day_types, daily_targets, macro_rules, adjustments}' $(ls -t diet/*.json | head -1)
    npm run opencoach -- get-metric diet .daily_targets.calories 3
    ```
@@ -55,7 +56,7 @@ Use these together to shape macro targets and carb cycling strategy.
    - **Protein**: Maintain at or above `michaels_floors.protein_floor_g` (strictly 2.2g/kg LBM).
    - **Fats**: Maintain at or above `michaels_floors.fat_floor_g` (strictly 0.8g/kg total weight).
    - **Carbs**: Cycle based on `sport_context.energy_system` and training schedule in `profile.json`.
-   - **Food Selection**: Pull exclusively from `profile.json → food_preferences`. Respect `fixed_meals`.
+   - **Food Selection**: Pull exclusively from the **Food Preferences** section in `athlete-notes.md`. Respect fixed meals listed there.
 
 4. **Safety Check (EA)**:
    - **Energy Availability (EA)** must never drop below **30 kcal/kg FFM/day**.
