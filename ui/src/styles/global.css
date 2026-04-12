@@ -1,3 +1,4 @@
+@import "tuicss/dist/tuicss.min.css";
 @import "tailwindcss";
 
 .tui-nav {

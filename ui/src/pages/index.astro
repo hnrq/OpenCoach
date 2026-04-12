@@ -25,8 +25,6 @@ const latestAppointment = appointments[0];
 
 const goal = latest?.data.appointment_notes?.goal;
 const summary = latest?.data.appointment_notes?.coach_summary;
-
-const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="OpenCoach" activePage="home">
@@ -51,11 +49,14 @@ const base = import.meta.env.BASE_URL;
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
-    {latest && <PreviewCard entry={latest} href={`${base}/measures/${latest.id}`} title="Latest Measures" />}
-    {latestDiet && <PreviewCard entry={latestDiet} href={`${base}/diet/${latestDiet.id}`} title="Latest Diet" />}
-    {latestTraining && <PreviewCard entry={latestTraining} href={`${base}/training/${latestTraining.id}`} title="Latest Training" />}
-    {latestAppointment && <PreviewCard entry={latestAppointment} href={`${base}/appointments/${latestAppointment.id}`} title="Latest Appointment" />}
+    {latest && <PreviewCard entry={latest} href={`/measures/${latest.id}`} title="Latest Measures" />}
+    {latestDiet && <PreviewCard entry={latestDiet} href={`/diet/${latestDiet.id}`} title="Latest Diet" />}
+    {latestTraining && <PreviewCard entry={latestTraining} href={`/training/${latestTraining.id}`} title="Latest Training" />}
+    {latestAppointment && <PreviewCard entry={latestAppointment} href={`/appointments/${latestAppointment.id}`} title="Latest Appointment" />}
 
   </div>
+
+</Layout>
+div>
 
 </Layout>

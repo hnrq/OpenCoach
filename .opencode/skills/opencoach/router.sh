@@ -52,6 +52,10 @@ case $COMMAND in
     # Usage: opencoach checkin
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-checkin.ts" "$@"
     ;;
+  fetch-vocabulary)
+    # Usage: opencoach fetch-vocabulary
+    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-fetch-exercisedb-vocabulary.ts" "$@"
+    ;;
   --help|-h|help)
     echo ""
     echo "Usage: opencoach <command> [options]"

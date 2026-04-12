@@ -3,15 +3,15 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
-import netlify from "@astrojs/netlify";
-
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+	output: "static",
 
-  vite: {
-      plugins: [tailwindcss()],
+	build: {
+		assets: "assets",
 	},
 
-  adapter: netlify(),
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });

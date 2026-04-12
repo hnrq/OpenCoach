@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "exercisedb-api": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.rapidapi.com",
+        "--header",
+        "x-api-host: edb-with-videos-and-images-by-ascendapi.p.rapidapi.com",
+        "--header",
+        "x-api-key: {env:RAPIDAPI_KEY}"
+      ]
+    }
+  }
+}

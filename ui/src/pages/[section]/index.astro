@@ -42,7 +42,6 @@ type Props =
 
 const { entries, type } = Astro.props;
 const { section } = Astro.params;
-const base = import.meta.env.BASE_URL;
 const sectionLabel = section.charAt(0).toUpperCase() + section.slice(1);
 
 function formatDate(id: string) {
@@ -60,7 +59,7 @@ function formatDate(id: string) {
   )}
 
   {entries.map(entry => (
-    <PreviewCard entry={entry} href={`${base}/${section}/${entry.id}`} title={formatDate(entry.id)} />
+    <PreviewCard entry={entry} href={`/${section}/${entry.id}`} title={formatDate(entry.id)} />
   ))}
     </section>
 

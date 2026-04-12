@@ -36,6 +36,7 @@ coaching/
 | **Structure a mesocycle** | `concepts/block-periodization.md` |
 | **Distribute macros around training** | `concepts/nutrient-timing.md` |
 | **New Check-in** | `guides/tracking-measures.md` |
+| **ExerciseDB Query Strategy** | `lookup/exercisedb-optimization.md` |
 | **Athlete history & observations** | `athlete-notes.md` — dated free-text; append after each appointment |
 | **Build a meal plan** | `guides/diet-ingredient-constraints.md` — enforce before writing |
 | **WROC analysis** | `analytics/wroc.json` — always load this, update after each session |
