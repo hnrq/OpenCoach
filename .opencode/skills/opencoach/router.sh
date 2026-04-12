@@ -44,6 +44,10 @@ case $COMMAND in
     # Usage: opencoach setup-profile
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-setup-profile.ts" "$@"
     ;;
+  setup-notes)
+    # Usage: opencoach setup-notes
+    /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-setup-athlete-notes.ts" "$@"
+    ;;
   checkin)
     # Usage: opencoach checkin
     /home/dalborga/.bun/bin/bun run "$SCRIPTS_DIR/coach-checkin.ts" "$@"

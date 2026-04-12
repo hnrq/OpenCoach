@@ -62,6 +62,8 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 3. **Exercise Selection (ExerciseDB)**:
    - Query ExerciseDB based on `sport_context.movement_patterns`.
    - **Strict Equipment Filter**: Only select exercises that match the **Equipment Available** section in `athlete-notes.md`.
+   - **Contextual Fallback**: If `athlete-notes.md` is missing or empty, derive equipment from `profile.json` (if any equipment constraints exist) or assume standard gym equipment (barbell, dumbbells, cables, benches, racks) if the athlete is training at a gym.
+   - **Injury-Aware Selection**: If the athlete has reported specific pains or injuries (see `profile.json → injuries` or `sport_context.injury_areas`), avoid equipment or movement patterns that might aggravate them, even if theoretically available (e.g., avoid heavy spinal loading if "lower back pain" is present, prefer machines/cables for increased stability during injury recovery).
    - **Injury Filter**: Cross-reference ExerciseDB target muscles with `sport_context.injury_areas` and `profile.json → injuries`. Avoid direct stress on compromised joints.
 
 4. **Volume & Periodization**:

@@ -53,7 +53,11 @@ The `/appointment` command is the main entry point for a coaching session. It au
 ls profile.json 2>/dev/null || pnpm opencoach setup-profile
 cat profile.json
 
+ls .opencode/context/coaching/athlete-notes.md 2>/dev/null || pnpm opencoach setup-notes
+cat .opencode/context/coaching/athlete-notes.md
+
 ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || pnpm opencoach checkin
+```
 
 cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing"
 ```
