@@ -105,7 +105,7 @@ function main() {
   }
 
   if (!wroc) {
-    console.error('analytics/wroc.json not found. Run `npm run opencoach -- setup-profile` first.');
+    console.error('analytics/wroc.json not found. Run `pnpm opencoach setup-profile` first.');
     process.exit(1);
   }
 

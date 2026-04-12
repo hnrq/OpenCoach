@@ -12,8 +12,9 @@
     "zod2md": "^0.3.3"
   },
   "scripts": {
-    "gen:schema-docs": "npm run gen:diet-schema && npm run gen:training-schema",
+    "gen:schema-docs": "pnpm gen:diet-schema && pnpm gen:training-schema && pnpm gen:measures-schema",
     "gen:diet-schema": "zod2md --entry src/diet-entry.ts --title 'Diet File Schema' --output '../../.opencode/context/coaching/schemas/diet-schema.md'",
-    "gen:training-schema": "zod2md --entry src/training-entry.ts --title 'Training File Schema' --output '../../.opencode/context/coaching/schemas/training-schema.md'"
+    "gen:training-schema": "zod2md --entry src/training-entry.ts --title 'Training File Schema' --output '../../.opencode/context/coaching/schemas/training-schema.md'",
+    "gen:measures-schema": "zod2md --entry src/measures-entry.ts --title 'Measures File Schema' --output '../../.opencode/context/coaching/schemas/measures-schema.md'"
   }
 }

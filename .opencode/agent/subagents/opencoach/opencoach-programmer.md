@@ -74,7 +74,7 @@ Before doing anything, verify that the `RAPIDAPI_KEY` environment variable is se
 5. **Write Training Plan**:
    ```bash
    # Generate skeleton
-   npm run opencoach -- new-session training --date $(date +%Y-%m-%d)
+   pnpm opencoach new-session training --date $(date +%Y-%m-%d)
    # Populate training/training-YYYY-MM-DD.json
    ```
    Follow the field guide in `.opencode/context/coaching/schemas/training-schema.md`. Use `sessions[]` (not `circuits`). Run `new-session training --date` to get a valid skeleton. Must include a **Metabolic Primer** (AMRAP/Tabata) for every session.

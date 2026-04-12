@@ -44,7 +44,7 @@ Use these together to shape macro targets and carb cycling strategy.
    ```bash
    jq '{training_schedule}' profile.json
    jq '{day_types, daily_targets, macro_rules, adjustments}' $(ls -t diet/*.json | head -1)
-   npm run opencoach -- get-metric diet .daily_targets.calories 3
+   pnpm opencoach get-metric diet .daily_targets.calories 3
    ```
 2. **Receive Derived Context** from Head Coach:
    - `age`
@@ -66,7 +66,7 @@ Use these together to shape macro targets and carb cycling strategy.
 5. **Write Diet Plan**:
    ```bash
    # Generate skeleton
-   npm run opencoach -- new-session diet --date $(date +%Y-%m-%d)
+   pnpm opencoach new-session diet --date $(date +%Y-%m-%d)
    # Populate diet/diet-YYYY-MM-DD.json
    ```
    Follow the field guide in `.opencode/context/coaching/schemas/diet-schema.md`. Use `day_types` (not `daily_targets`). Run `new-session diet --date` to get a valid skeleton.

@@ -50,18 +50,18 @@ Subagents own content generation. Head coach owns validation and commit.
 
 ```bash
 # Subagents (dietitian + programmer):
-npm run opencoach -- new-session diet --date $(date +%Y-%m-%d)      # generate skeleton
-npm run opencoach -- new-session training --date $(date +%Y-%m-%d)  # generate skeleton
+pnpm opencoach new-session diet --date $(date +%Y-%m-%d)      # generate skeleton
+pnpm opencoach new-session training --date $(date +%Y-%m-%d)  # generate skeleton
 # → write the full plan JSON into those files
 
 # Head Coach (commitment step):
-npm run opencoach -- save-session all --date $(date +%Y-%m-%d)      # single validation gate
-npm run opencoach -- new-session appointment --date $(date +%Y-%m-%d)
+pnpm opencoach save-session all --date $(date +%Y-%m-%d)      # single validation gate
+pnpm opencoach new-session appointment --date $(date +%Y-%m-%d)
 # → fill in decisions/preferences_delta/rationale
-npm run opencoach -- save-session appointment --date $(date +%Y-%m-%d)
-npm run opencoach -- commit-session --date $(date +%Y-%m-%d)
+pnpm opencoach save-session appointment --date $(date +%Y-%m-%d)
+pnpm opencoach commit-session --date $(date +%Y-%m-%d)
 git commit -m "session: $(date +%Y-%m-%d)"
-npm run opencoach -- update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
+pnpm opencoach update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
 ```
 
 ## Architecture

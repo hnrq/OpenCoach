@@ -17,8 +17,8 @@ dependencies:
 
 <critical_rules priority="absolute" enforcement="strict">
   <rule id="scripts_first">
-    Run `ls profile.json 2>/dev/null || npm run opencoach -- setup-profile` and
-    `ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin`
+    Run `ls profile.json 2>/dev/null || pnpm opencoach setup-profile` and
+    `ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || pnpm opencoach checkin`
     before any analysis. Shell `||` handles the conditional — no manual checks needed.
   </rule>
   <rule id="goal_first">
@@ -50,25 +50,25 @@ The `/appointment` command is the main entry point for a coaching session. It au
 
 ### Stage 0: Intake (complete before any analysis)
 ```bash
-ls profile.json 2>/dev/null || npm run opencoach -- setup-profile
+ls profile.json 2>/dev/null || pnpm opencoach setup-profile
 cat profile.json
 
-ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || npm run opencoach -- checkin
+ls measures/measures-$(date +%Y-%m-%d).json 2>/dev/null || pnpm opencoach checkin
 
 cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing"
 ```
-- Verify all required fields per `guides/intake.md` are present. Collect any missing fields in a single message.
-- Ask: **"Any current pain, soreness, or injury I should know about?"** Update `profile.json → injuries`.
+- Verify all required fields per `guides/intake.md` are present, including `core_metrics` (weight/BF), `mandatory_sites` (tape), and `skin_folds` (7-site). Collect any missing fields in a single message.
+- Ask: **"Any current pain, soreness, or injury I should know about? Also, any changes to your food preferences or new foods you'd like to include?"** Update `profile.json → injuries` and prepare `preferences_delta` for the appointment artifact.
 - Resolve `sport_context` from `sport_goal` via the Head Coach's Sport Goal Reference table.
 - Derive `age` from `birth_date`. No other manual questions at this stage.
 
 ### Stage 1: Confirmation / Import
 - Display a summary of the loaded profile, today's measurements, and current WROC status.
-- If the user provides a PDF: run `npm run opencoach -- import-pdf <path>` to supplement.
+- If the user provides a PDF: run `pnpm opencoach import-pdf <path>` to supplement.
 
 ### Stage 2: Analysis (inline — no subagent)
 ```bash
-npm run opencoach -- analyze-progress
+pnpm opencoach analyze-progress
 ```
 - Present WROC, BF delta, and phase (stall / cut / bulk) in plain language.
 - State the adjustment recommendation if applicable.
@@ -86,16 +86,16 @@ npm run opencoach -- analyze-progress
 ### Stage 4: Commit
 ```bash
 # Validate all three session files
-npm run opencoach -- save-session all --date $(date +%Y-%m-%d)
+pnpm opencoach save-session all --date $(date +%Y-%m-%d)
 
 # Generate appointment skeleton, populate from this conversation (see opencoach.md §Artifact Extraction)
-npm run opencoach -- new-session appointment --date $(date +%Y-%m-%d)
-npm run opencoach -- save-session appointment --date $(date +%Y-%m-%d)
+pnpm opencoach new-session appointment --date $(date +%Y-%m-%d)
+pnpm opencoach save-session appointment --date $(date +%Y-%m-%d)
 
 # Stage only session files
-npm run opencoach -- commit-session --date $(date +%Y-%m-%d)
+pnpm opencoach commit-session --date $(date +%Y-%m-%d)
 git commit -m "session: $(date +%Y-%m-%d)"
 
 # Apply preference changes to profile.json
-npm run opencoach -- update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
+pnpm opencoach update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
 ```

@@ -6,7 +6,7 @@ interface Props {
 	entry: CollectionEntry<"measures">;
 }
 const { entry } = Astro.props;
-const { core_metrics, mandatory_sites, appointment_notes } = entry.data;
+const { core_metrics, mandatory_sites, skin_folds, appointment_notes } = entry.data;
 
 const siteLabels: Record<string, string> = {
 	chest: "Chest",
@@ -16,6 +16,16 @@ const siteLabels: Record<string, string> = {
 	thigh_mid: "Thigh (mid)",
 	bicep_flexed: "Bicep (flexed)",
 	forearm: "Forearm",
+};
+
+const skinFoldLabels: Record<string, string> = {
+	chest: "Chest",
+	abdomen: "Abdomen",
+	thigh: "Thigh",
+	tricep: "Tricep",
+	suprailiac: "Suprailiac",
+	subscapular: "Subscapular",
+	midaxillary: "Midaxillary",
 };
 ---
 
@@ -50,11 +60,28 @@ const siteLabels: Record<string, string> = {
     </fieldset>
   )}
 
-  {appointment_notes && (appointment_notes.goal || appointment_notes.coach_summary) && (
+  {skin_folds && Object.keys(skin_folds).length > 0 && (
+    <fieldset class="tui-fieldset orange-168-border mb-4 min-w-0">
+      <legend class="orange-168-text">Skinfolds (mm)</legend>
+      <div class="overflow-x-auto">
+        <table class="tui-table w-max min-w-full">
+          <tbody>
+            {Object.entries(skin_folds).map(([key, val]) => (
+              <tr>
+                <td>{skinFoldLabels[key] ?? key}</td>
+                <td class="right-align">{val} mm</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+  )}
+
+  {appointment_notes && (appointment_notes.energy_levels || appointment_notes.sleep || appointment_notes.coach_summary) && (
     <fieldset class="tui-fieldset white-168-border min-w-0">
       <legend class="white-168-text">Notes</legend>
-      {appointment_notes.goal && <p class="m-0"><strong>Goal:</strong> {appointment_notes.goal}</p>}
-      {appointment_notes.energy_levels && <p class="m-0 mt-2"><strong>Energy:</strong> {appointment_notes.energy_levels}</p>}
+      {appointment_notes.energy_levels && <p class="m-0"><strong>Energy:</strong> {appointment_notes.energy_levels}</p>}
       {appointment_notes.sleep && <p class="m-0 mt-2"><strong>Sleep:</strong> {appointment_notes.sleep}</p>}
       {appointment_notes.coach_summary && <p class="m-0 mt-2"><strong>Coach:</strong> {appointment_notes.coach_summary}</p>}
     </fieldset>

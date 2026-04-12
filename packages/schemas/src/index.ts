@@ -45,8 +45,8 @@ export const Ingredient = z.object({
 });
 
 export const MealTemplate = z.object({
-	title: z.string().describe("Meal slot name, e.g. 'Breakfast', 'Pre-workout', 'Post-futsal dinner'"),
-	timing: z.string().optional().describe("When to eat relative to training, e.g. '60–120 min pre-futsal'"),
+	title: z.string().describe("Meal slot name, e.g. 'Breakfast', 'Pre-workout', 'Post-sport dinner'"),
+	timing: z.string().optional().describe("When to eat relative to training, e.g. '60–120 min pre-sport'"),
 	ingredients: z.array(Ingredient).describe("Ingredients with gram quantities"),
 });
 
@@ -83,7 +83,7 @@ export const MetabolicPrimer = z.object({
 });
 
 export const DayType = z.object({
-	label: z.string().optional().describe("Human-readable label for this day type, e.g. 'Gym + Futsal Day'"),
+	label: z.string().optional().describe("Human-readable label for this day type, e.g. 'Gym + Sport Day'"),
 	note: z.string().optional().describe("Coaching note about this day type"),
 	timing_note: z.string().optional().describe("When meals should be eaten relative to training"),
 	days: z.array(z.string()).optional()
@@ -115,7 +115,7 @@ export const Session = z.object({
 	id: z.string().optional().describe("Optional identifier for the session"),
 	day: z.string().describe("Weekday for this session, e.g. 'monday', 'wednesday'"),
 	focus: z.string().optional().describe("Session label, e.g. 'Upper Body Push', 'Legs', 'Full Body'"),
-	scheduling_note: z.string().optional().describe("Note about scheduling, e.g. 'Must be 48h after futsal'"),
+	scheduling_note: z.string().optional().describe("Note about scheduling, e.g. 'Must be 48h after sport'"),
 	estimated_duration_min: z.number().optional().describe("Estimated session duration in minutes"),
 	metabolic_primer: MetabolicPrimer.optional()
 		.describe("REQUIRED by Michaels methodology. Every session must open with a metabolic primer (AMRAP or Tabata)."),
@@ -168,8 +168,16 @@ export const MeasuresSchema = z.object({
 		bicep_flexed: z.number().positive({ message: "must be > 0" }).describe("Circumference measurement in cm"),
 		forearm: z.number().positive({ message: "must be > 0" }).describe("Circumference measurement in cm"),
 	}).describe("7-site body circumference measurements, all in centimetres"),
+	skin_folds: z.object({
+		chest: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		abdomen: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		thigh: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		tricep: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		suprailiac: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		subscapular: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+		midaxillary: z.number().positive({ message: "must be > 0" }).describe("Skinfold measurement in mm"),
+	}).optional().describe("7-site skinfold measurements, all in millimetres (optional)"),
 	appointment_notes: z.object({
-		goal: z.string().describe("Current goal statement from the athlete"),
 		energy_levels: z.string().describe("Subjective energy level report for the week"),
 		sleep: z.string().describe("Subjective sleep quality report for the week"),
 		coach_summary: z.string().describe("Head coach's summary of the check-in"),
@@ -193,7 +201,7 @@ export const DietSchema = z
 			.describe("Michaels floors: protein_g_per_kg_lbm: 2.2, fat_g_per_kg_bodyweight: 0.8, protein_g: <LBM×2.2>, fat_g: <weight×0.8>"),
 		// New schema: carb-cycling day types
 		day_types: z.record(z.string(), DayType).optional()
-			.describe("Carb-cycling day types (preferred over daily_targets). Common keys: gymOnly, legsDay, futsalGym, restDay"),
+			.describe("Carb-cycling day types (preferred over daily_targets). Common keys: gymOnly, legsDay, sportGym, restDay"),
 		// Legacy: flat daily targets
 		daily_targets: z
 			.object({
@@ -203,7 +211,7 @@ export const DietSchema = z
 			.optional()
 			.describe("Legacy flat targets — only use when migrating old data. New plans must use day_types."),
 		weekly_schedule: z.record(z.string(), z.string()).optional()
-			.describe("Map of weekday to day type key, e.g. { monday: 'gymOnly', tuesday: 'futsalGym', sunday: 'restDay' }"),
+			.describe("Map of weekday to day type key, e.g. { monday: 'gymOnly', tuesday: 'sportGym', sunday: 'restDay' }"),
 		michaels_floors: z.record(z.string(), z.unknown()).optional()
 			.describe("Computed macro floors passed in by Head Coach: protein_floor_g (LBM×2.2), fat_floor_g (weight×0.8)"),
 		adjustments: z.record(z.string(), z.unknown()).optional()
@@ -275,13 +283,13 @@ export const AppointmentSchema = z.object({
 			.describe("Constraints that no longer apply, e.g. 'knee pain resolved'. Leave [] if none."),
 		schedule_changes: z.array(
 			z.object({
-				field: z.string().describe("Schedule field being changed, e.g. 'rest_days', 'futsal_days'"),
+				field: z.string().describe("Schedule field being changed, e.g. 'rest_days', 'sport_days'"),
 				value: z.unknown().describe("New value, e.g. ['sunday'] or 'tuesday'"),
 			}),
 		).describe("Schedule shifts raised during the appointment. Leave [] if none."),
 	}),
 	plan_rationale_deltas: z.array(z.string())
-		.describe("One sentence per reason the plan changed from the previous session. E.g. 'Legs moved to Saturday for futsal recovery window'"),
+		.describe("One sentence per reason the plan changed from the previous session. E.g. 'Legs moved to Saturday for sport recovery window'"),
 	notes: z.string()
 		.describe("Anything notable that doesn't fit above: subjective feedback, upcoming events, mid-session complaints. Empty string if none."),
 });

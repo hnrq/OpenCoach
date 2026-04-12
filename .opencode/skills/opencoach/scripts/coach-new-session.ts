@@ -69,7 +69,7 @@ function dietSkeleton(date: string): DietSession {
     day_types: {
       gymOnly:   { days: ["monday", "wednesday", "friday"], macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
       legsDay:   { days: ["wednesday"],                     macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
-      futsalGym: { days: ["tuesday", "thursday"],           macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
+      sportGym:  { days: ["tuesday", "thursday"],           macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
       restDay:   { days: ["sunday"],                        macros_g: { protein: 0, carbs: 0, fat: 0 }, meal_templates: [{ title: "Breakfast", timing: "", ingredients: [{ food: "", grams: 0 }] }] },
     },
     rationale: [],
@@ -146,7 +146,7 @@ Usage: opencoach new-session <type> --date YYYY-MM-DD [--force]
 
 Types:
   measures     Anthropometric check-in skeleton
-  diet         Nutritional plan skeleton (day_types: gymOnly/legsDay/futsalGym/restDay)
+  diet         Nutritional plan skeleton (day_types: gymOnly/legsDay/sportGym/restDay)
   training     Training plan skeleton (sessions: [])
   appointment  Appointment artifact skeleton (decisions + preferences_delta)
 

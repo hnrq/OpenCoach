@@ -9,10 +9,10 @@ import * as readline from 'readline';
  */
 
 interface TrainingSchedule {
-  futsal_days: string[];
-  futsal_timing: string;
+  sport_days: string[];
+  sport_timing: string;
   gym_days: string[];
-  gym_timing_on_futsal_days: string;
+  gym_timing_on_sport_days: string;
   rest_days: string[];
 }
 
@@ -34,7 +34,16 @@ const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
 function loadExisting(): Partial<UserProfile> {
   if (fs.existsSync(PROFILE_PATH)) {
     try {
-      return JSON.parse(fs.readFileSync(PROFILE_PATH, 'utf8'));
+      const raw = JSON.parse(fs.readFileSync(PROFILE_PATH, 'utf8'));
+      // Migrate legacy futsal_* field names to sport_*
+      if (raw.training_schedule) {
+        const ts = raw.training_schedule;
+        if (ts.futsal_days !== undefined && ts.sport_days === undefined) ts.sport_days = ts.futsal_days;
+        if (ts.futsal_timing !== undefined && ts.sport_timing === undefined) ts.sport_timing = ts.futsal_timing;
+        if (ts.gym_timing_on_futsal_days !== undefined && ts.gym_timing_on_sport_days === undefined)
+          ts.gym_timing_on_sport_days = ts.gym_timing_on_futsal_days;
+      }
+      return raw;
     } catch {
       console.warn('Warning: existing profile.json is malformed — starting fresh.');
     }
@@ -67,10 +76,7 @@ async function promptField(
   return answer !== '' ? answer : (defaultVal !== undefined ? String(defaultVal) : '');
 }
 
-/** Prompt for a comma-separated list. Returns array of trimmed non-empty strings.
- *  Items may contain spaces — the separator is the comma, not the space.
- *  e.g. "greek yogurt, chicken breast, tapioca starch" → 3 items correctly.
- */
+/** Prompt for a comma-separated list. Returns array of trimmed non-empty strings. */
 async function promptList(
   rl: readline.Interface,
   label: string,
@@ -83,20 +89,24 @@ async function promptList(
   return answer.split(',').map(s => s.trim()).filter(Boolean);
 }
 
-/** Prompt for day selection from DAYS. Returns selected day names. */
+/** Prompt for day selection from DAYS. Returns selected day names. Allows empty selection. */
 async function promptDays(
   rl: readline.Interface,
   label: string,
-  existing?: string[]
+  existing?: string[],
+  optional = false
 ): Promise<string[]> {
-  console.log(`\n  ${label}${existing?.length ? ` [current: ${existing.join(', ')}]` : ''}:`);
+  const currentLabel = existing?.length ? ` [current: ${existing.join(', ')}]` : optional ? ' [none]' : '';
+  console.log(`\n  ${label}${currentLabel}:`);
   DAYS.forEach((d, i) => console.log(`    ${i + 1}. ${d}`));
+  const noneHint = optional ? ', or 0 for none' : '';
   while (true) {
-    const raw = await ask(rl, `  Enter numbers (e.g. 1,3,5)${existing?.length ? ' or Enter to keep' : ''}: `);
-    if (raw === '' && existing?.length) return existing;
+    const raw = await ask(rl, `  Enter numbers (e.g. 1,3,5)${noneHint}${existing !== undefined ? ' or Enter to keep' : ''}: `);
+    if (raw === '' && existing !== undefined) return existing ?? [];
+    if (raw === '0' && optional) return [];
     const indices = raw.split(',').map(s => parseInt(s.trim(), 10));
     if (indices.every(i => i >= 1 && i <= 7)) return indices.map(i => DAYS[i - 1]);
-    console.log('  → Use numbers 1–7 separated by commas.');
+    console.log(`  → Use numbers 1–7 separated by commas${noneHint}.`);
   }
 }
 
@@ -142,7 +152,7 @@ async function main() {
       if (isNaN(height_cm) || height_cm <= 0) { console.log('  → Must be a positive number.'); height_cm = 0; }
     }
 
-    const sport_goal = await promptField(rl, 'Sport / Goal (e.g. Futsal, Bodybuilding)', existing.sport_goal);
+    const sport_goal = await promptField(rl, 'Sport / Goal (e.g. Running, Bodybuilding, General Fitness)', existing.sport_goal);
     if (!sport_goal) { console.error('Error: sport_goal is required.'); process.exit(1); }
 
     // ── Target Weight ─────────────────────────────
@@ -165,23 +175,25 @@ async function main() {
     console.log('\n  [ Training Schedule ]');
 
     const gym_days = await promptDays(rl, 'Gym days', existing.training_schedule?.gym_days);
-    const futsal_days = await promptDays(rl, 'Futsal / sport days', existing.training_schedule?.futsal_days);
+    const sport_days = await promptDays(rl, 'Sport / cardio days (0 for none)', existing.training_schedule?.sport_days, true);
 
-    const allTrainingDays = [...new Set([...gym_days, ...futsal_days])];
+    const allTrainingDays = [...new Set([...gym_days, ...sport_days])];
     const rest_days = DAYS.filter(d => !allTrainingDays.includes(d));
-    console.log(`  → Rest days (auto-derived): ${rest_days.join(', ')}`);
+    console.log(`  → Rest days (auto-derived): ${rest_days.length ? rest_days.join(', ') : 'none'}`);
 
-    const futsal_timing_raw = await promptField(
-      rl, 'Futsal timing (morning / evening)', existing.training_schedule?.futsal_timing ?? 'evening'
-    );
-    const futsal_timing = futsal_timing_raw || 'evening';
+    let sport_timing = 'evening';
+    let gym_timing_on_sport_days = 'morning';
 
-    let gym_timing_on_futsal_days = 'morning';
-    if (futsal_days.length > 0) {
-      gym_timing_on_futsal_days = await promptField(
+    if (sport_days.length > 0) {
+      const sport_timing_raw = await promptField(
+        rl, 'Sport / cardio timing (morning / evening)', existing.training_schedule?.sport_timing ?? 'evening'
+      );
+      sport_timing = sport_timing_raw || 'evening';
+
+      gym_timing_on_sport_days = await promptField(
         rl,
-        'On futsal days, when do you gym? (morning / evening)',
-        existing.training_schedule?.gym_timing_on_futsal_days ?? 'morning'
+        'On sport days, when do you gym? (morning / evening)',
+        existing.training_schedule?.gym_timing_on_sport_days ?? 'morning'
       ) || 'morning';
     }
 
@@ -197,10 +209,10 @@ async function main() {
       sport_goal,
       target_weight_kg: { min: tw_min, max: tw_max },
       training_schedule: {
-        futsal_days,
-        futsal_timing,
+        sport_days,
+        sport_timing,
         gym_days,
-        gym_timing_on_futsal_days,
+        gym_timing_on_sport_days,
         rest_days,
       },
       injuries,
@@ -213,8 +225,12 @@ async function main() {
     console.log(`\n✓ profile.json saved.`);
     console.log(`  ${name} · ${gender} · Age ${age} · ${height_cm} cm · ${sport_goal}`);
     console.log(`  Target: ${tw_min}–${tw_max} kg`);
-    console.log(`  Gym days: ${gym_days.join(', ')}`);
-    console.log(`  Futsal days: ${futsal_days.join(', ')} (${futsal_timing})`);
+    console.log(`  Gym days: ${gym_days.join(', ') || 'none'}`);
+    if (sport_days.length > 0) {
+      console.log(`  Sport / cardio days: ${sport_days.join(', ')} (${sport_timing})`);
+    } else {
+      console.log(`  Sport / cardio days: none`);
+    }
     console.log(`  Equipment + food preferences: see athlete-notes.md`);
     console.log(`  Injuries: asked by coach during appointment`);
     console.log();

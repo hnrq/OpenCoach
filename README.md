@@ -12,7 +12,7 @@ Every coaching session follows the **Propose → Approve → Execute** pattern:
 
 ```
 opencoach setup-profile   # one-time: name, gender, birth date, height, sport goal
-opencoach checkin         # weekly: weight, BF%, 7 tape measurements
+opencoach checkin         # weekly: weight, BF%, 7 tape measurements + 7 skinfolds
     ↓
 /appointment
     ↓

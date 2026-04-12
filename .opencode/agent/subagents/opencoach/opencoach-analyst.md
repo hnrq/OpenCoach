@@ -26,12 +26,12 @@ You are the Data Specialist. You analyze anthropometric data in the `/measures` 
 1. Fetch values from the most recent files:
    ```bash
    ls -t measures/*.json | head -5
-   npm run opencoach -- get-metric measures .core_metrics.weight 5
-   npm run opencoach -- get-metric measures .core_metrics.body_fat_pct 5
+   pnpm opencoach get-metric measures .core_metrics.weight 5
+   pnpm opencoach get-metric measures .core_metrics.body_fat_pct 5
    ```
 2. Calculate Weekly Rate of Change (WROC):
    ```bash
-   npm run opencoach -- analyze-progress
+   pnpm opencoach analyze-progress
    ```
 3. Report deltas (weight, body fat) to the Head Coach for the @dietitian and @programmer.
 

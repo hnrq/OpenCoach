@@ -6,10 +6,10 @@
   "sport_goal": "Futsal",
   "target_weight_kg": { "min": 72, "max": 74 },
   "training_schedule": {
-    "futsal_days": ["tuesday", "thursday"],
-    "futsal_timing": "evening",
+    "sport_days": ["tuesday", "thursday"],
+    "sport_timing": "evening",
     "gym_days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
-    "gym_timing_on_futsal_days": "morning",
+    "gym_timing_on_sport_days": "morning",
     "rest_days": ["sunday"]
   },
   "injuries": []

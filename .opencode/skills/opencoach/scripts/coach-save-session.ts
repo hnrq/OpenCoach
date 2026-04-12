@@ -48,7 +48,7 @@ function saveOne(type: SessionType, sourcePath: string, targetPath: string): boo
 	if (!fs.existsSync(sourcePath)) {
 		console.error(`  ✗ ${type}: source file not found: ${sourcePath}`);
 		console.error(
-			`    Hint: run  npm run opencoach -- new-session ${type} --date <YYYY-MM-DD>  to create a skeleton`,
+			`    Hint: run  pnpm opencoach new-session ${type} --date <YYYY-MM-DD>  to create a skeleton`,
 		);
 		return false;
 	}

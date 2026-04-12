@@ -1,0 +1,7 @@
+packages:
+  - "evals/framework"
+  - "packages/cli"
+  - "packages/compatibility-layer"
+  - "packages/plugin-abilities"
+  - "packages/schemas"
+  - "ui"

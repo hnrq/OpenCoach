@@ -220,24 +220,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: 'evals/framework/package-lock.json'
-      
+          cache: 'pnpm'
+          cache-dependency-path: 'evals/framework/pnpm-lock.yaml'
+
       - name: Install dependencies
         working-directory: evals/framework
-        run: npm ci
-      
+        run: pnpm install --frozen-lockfile
+
       - name: Build framework
         working-directory: evals/framework
-        run: npm run build
-      
+        run: pnpm build
+
       - name: Validate test suites
         working-directory: evals/framework
-        run: npm run validate:suites:all
+        run: pnpm validate:suites:all
       
       - name: Summary
         if: success()
@@ -248,7 +253,7 @@ jobs:
           echo "- ✅ Test suite validation passed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Note:** Full agent tests are not run on PRs to save time and costs." >> $GITHUB_STEP_SUMMARY
-          echo "Maintainers can run \`npm run test:ci\` locally if needed." >> $GITHUB_STEP_SUMMARY
+          echo "Maintainers can run \`pnpm test:ci\` locally if needed." >> $GITHUB_STEP_SUMMARY
       
       - name: Failure summary
         if: failure()

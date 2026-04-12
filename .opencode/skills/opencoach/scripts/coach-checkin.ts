@@ -22,8 +22,16 @@ interface MeasuresSession {
     bicep_flexed: number;
     forearm: number;
   };
+  skin_folds?: {
+    chest: number;
+    abdomen: number;
+    thigh: number;
+    tricep: number;
+    suprailiac: number;
+    subscapular: number;
+    midaxillary: number;
+  };
   appointment_notes: {
-    goal: string;
     energy_levels: string;
     sleep: string;
     coach_summary: string;
@@ -75,6 +83,23 @@ async function promptNumber(
   }
 }
 
+async function promptOptionalNumber(
+  rl: readline.Interface,
+  label: string,
+  unit: string,
+  prev?: number,
+  min = 0.1,
+  max = 9999
+): Promise<number | undefined> {
+  const hint = prev !== undefined ? ` (prev: ${prev})` : '';
+  const raw = await ask(rl, `  ${label}${hint} [${unit}, Enter to skip]: `);
+  if (raw === '') return undefined;
+  const val = Number(raw);
+  if (!isNaN(val) && val >= min && val <= max) return val;
+  console.log(`  → Skipping ${label}.`);
+  return undefined;
+}
+
 async function promptString(
   rl: readline.Interface,
   label: string,
@@ -109,19 +134,35 @@ async function main() {
     const bicep_flexed = await promptNumber(rl, 'Bicep flexed',   'cm', prev?.mandatory_sites.bicep_flexed);
     const forearm      = await promptNumber(rl, 'Forearm',        'cm', prev?.mandatory_sites.forearm);
 
-    console.log('\n  — Subjective notes (optional) —');
-    const prevGoal = prev?.appointment_notes.goal ?? '';
-    const goalHint = prevGoal ? ` [Enter to keep "${prevGoal}"]` : '';
-    const goalRaw  = await ask(rl, `  Goal${goalHint}: `);
-    const goal     = goalRaw !== '' ? goalRaw : prevGoal;
+    console.log('\n  — Skinfold measurements (mm, optional) —');
+    const sf_chest       = await promptOptionalNumber(rl, 'Chest',       'mm', prev?.skin_folds?.chest);
+    const sf_abdomen     = await promptOptionalNumber(rl, 'Abdomen',     'mm', prev?.skin_folds?.abdomen);
+    const sf_thigh       = await promptOptionalNumber(rl, 'Thigh',       'mm', prev?.skin_folds?.thigh);
+    const sf_tricep      = await promptOptionalNumber(rl, 'Tricep',      'mm', prev?.skin_folds?.tricep);
+    const sf_suprailiac  = await promptOptionalNumber(rl, 'Suprailiac',  'mm', prev?.skin_folds?.suprailiac);
+    const sf_subscapular = await promptOptionalNumber(rl, 'Subscapular', 'mm', prev?.skin_folds?.subscapular);
+    const sf_midaxillary = await promptOptionalNumber(rl, 'Midaxillary', 'mm', prev?.skin_folds?.midaxillary);
 
+    let skin_folds;
+    if (sf_chest !== undefined && sf_abdomen !== undefined && sf_thigh !== undefined && 
+        sf_tricep !== undefined && sf_suprailiac !== undefined && sf_subscapular !== undefined && 
+        sf_midaxillary !== undefined) {
+      skin_folds = {
+        chest: sf_chest, abdomen: sf_abdomen, thigh: sf_thigh, 
+        tricep: sf_tricep, suprailiac: sf_suprailiac, subscapular: sf_subscapular, 
+        midaxillary: sf_midaxillary
+      };
+    }
+
+    console.log('\n  — Subjective notes (optional) —');
     const energy_levels = await promptString(rl, 'Energy levels');
     const sleep         = await promptString(rl, 'Sleep');
 
     const session: MeasuresSession = {
       core_metrics: { weight, body_fat_pct },
       mandatory_sites: { chest, waist_narrowest, umbilical, hip_widest, thigh_mid, bicep_flexed, forearm },
-      appointment_notes: { goal, energy_levels, sleep, coach_summary: '' },
+      skin_folds,
+      appointment_notes: { energy_levels, sleep, coach_summary: '' },
     };
 
     // Save

@@ -48,10 +48,11 @@ When a user starts an appointment (via `/appointment` or directly):
 1. **Intake & Data Validation**:
    - Ensure data is present:
      ```bash
-     [ -f profile.json ] || npm run opencoach -- setup-profile
-     [ -f measures/measures-$(date +%Y-%m-%d).json ] || npm run opencoach -- checkin
+     [ -f profile.json ] || pnpm opencoach setup-profile
+     [ -f measures/measures-$(date +%Y-%m-%d).json ] || pnpm opencoach checkin
      jq '{name, birth_date, sport_goal, injuries}' profile.json
      ```
+   - Verify `measures-YYYY-MM-DD.json` contains `core_metrics` (weight/BF), `mandatory_sites` (tape), and `skin_folds` (7-site).
    - Calculate **Derived Context**:
      - `age`: Derived from `birth_date`.
      - `sport_context`: Resolved from the table above using `sport_goal`.
@@ -60,13 +61,15 @@ When a user starts an appointment (via `/appointment` or directly):
        - `fat_floor_g`: `weight_kg * 0.8` (use `weight_kg` from latest measures).
 
 2. **Discovery & Injury Check**:
-   - Greet the user and ask: **"Any current pain, soreness, or injury I should know about before building your plan?"**
-   - Record the answer and update `profile.json → injuries` before proceeding.
+   - Greet the user and ask: **"Any current pain, soreness, or injury I should know about before building your plan? Also, any changes to your food preferences or new foods you'd like to include?"**
+   - Record the answers:
+     - Update `profile.json → injuries`.
+     - Prepare `preferences_delta` for the appointment artifact.
 
 3. **Analysis**:
    - Run progress analysis:
      ```bash
-     npm run opencoach -- analyze-progress
+     pnpm opencoach analyze-progress
      ```
    - **[APPROVAL GATE]** Present the WROC report (kg/week, phase, and recommendation). Wait for acknowledgment.
 
@@ -82,12 +85,12 @@ When a user starts an appointment (via `/appointment` or directly):
      - Append any non-obvious observations as dated bullets under the relevant section. Skip if nothing new was learned.
    - Run the validation and commit sequence:
      ```bash
-     npm run opencoach -- save-session all --date $(date +%Y-%m-%d)
-     npm run opencoach -- new-session appointment --date $(date +%Y-%m-%d)
-     npm run opencoach -- save-session appointment --date $(date +%Y-%m-%d)
-     npm run opencoach -- commit-session --date $(date +%Y-%m-%d)
+     pnpm opencoach save-session all --date $(date +%Y-%m-%d)
+     pnpm opencoach new-session appointment --date $(date +%Y-%m-%d)
+     pnpm opencoach save-session appointment --date $(date +%Y-%m-%d)
+     pnpm opencoach commit-session --date $(date +%Y-%m-%d)
      git commit -m "session: $(date +%Y-%m-%d)"
-     npm run opencoach -- update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
+     pnpm opencoach update-profile-from-appointment --date $(date +%Y-%m-%d) --apply
      ```
 
 
@@ -107,11 +110,11 @@ After every appointment, scan the conversation and write the artifact into `appo
 - New foods added to the primary list → `food_additions`
 - Foods dropped → `food_removals`
 - New injuries or equipment constraints → `constraints_added`
-- Schedule shifts (futsal day, rest day) → `schedule_changes: [{ "field": "rest_days", "value": ["sunday"] }]`
+- Schedule shifts (sport day, rest day) → `schedule_changes: [{ "field": "rest_days", "value": ["sunday"] }]`
 
 **`plan_rationale_deltas[]`** — one sentence per reason the plan changed from the previous session:
 - WROC-driven adjustments ("carbs raised 20g — WROC below −0.3 kg/wk")
-- Sport demand changes ("legs moved to Saturday for futsal recovery window")
+- Sport demand changes ("legs moved to Saturday for sport recovery window")
 - Athlete overrides ("primer removed at athlete request")
 
 **`notes`** — anything notable that doesn't fit above (subjective feedback, upcoming events, mid-session complaints).

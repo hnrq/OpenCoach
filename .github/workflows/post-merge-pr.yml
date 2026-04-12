@@ -143,7 +143,7 @@ jobs:
           echo "Current version: $CURRENT_VERSION"
           
           # Bump version
-          npm run version:bump:$BUMP_TYPE
+          pnpm version:bump:$BUMP_TYPE
           
           # Get new version
           NEW_VERSION=$(cat VERSION)
