@@ -71,6 +71,7 @@ cat analytics/wroc.json 2>/dev/null || echo "wroc.json missing"
 pnpm opencoach analyze-progress
 ```
 - Present WROC, BF delta, and phase (stall / cut / bulk) in plain language.
+- **Baseline Mode**: If only 1 measures file exists, the output indicates **BASELINE** status. Deltas are unavailable (`null`). Recommendation is a **goal-driven baseline cut** (or maintenance, depending on goal).
 - State the adjustment recommendation if applicable.
 - **[APPROVAL GATE]** Wait for explicit acknowledgment before proceeding.
 

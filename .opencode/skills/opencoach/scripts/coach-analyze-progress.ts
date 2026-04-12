@@ -59,6 +59,12 @@ function addDays(date: string, n: number): string {
   return d.toISOString().split('T')[0];
 }
 
+function persistWROC(wroc: WROCFile) {
+  const analyticsDir = path.join(process.cwd(), 'analytics');
+  if (!fs.existsSync(analyticsDir)) fs.mkdirSync(analyticsDir, { recursive: true });
+  fs.writeFileSync(WROC_PATH, JSON.stringify(wroc, null, 2));
+}
+
 function main() {
   if (!fs.existsSync(MEASURES_DIR)) {
     console.error('No measures directory found.');
@@ -69,17 +75,67 @@ function main() {
     .filter(f => f.startsWith('measures-') && f.endsWith('.json'))
     .sort();
 
-  if (files.length < 2) {
-    console.log('Need at least two measurements to calculate progress.');
-    if (files.length === 1) {
-      const d = JSON.parse(fs.readFileSync(path.join(MEASURES_DIR, files[0]), 'utf8'));
-      console.log(`Current Weight: ${d.core_metrics.weight}kg`);
-    }
+  if (files.length === 0) {
+    console.log('No measurements found. Please perform a check-in first.');
     return;
   }
 
   // ── Load wroc.json ────────────────────────────────────────────────────────
   let wroc = loadWROC();
+
+  // ── Handle Baseline (1 file) ──────────────────────────────────────────────
+  if (files.length === 1) {
+    const file = files[0];
+    const date = getDateFromFileName(file);
+    const raw = JSON.parse(fs.readFileSync(path.join(MEASURES_DIR, file), 'utf8'));
+    const w = raw.core_metrics.weight;
+    const bf = raw.core_metrics.body_fat_pct;
+    
+    const entry: WROCEntry = {
+      date,
+      weight_kg: w,
+      body_fat_pct: bf,
+      lbm_kg: parseFloat((w * (1 - bf / 100)).toFixed(2)),
+      fat_mass_kg: parseFloat((w * (bf / 100)).toFixed(2)),
+    };
+
+    if (!wroc) {
+      const profilePath = path.join(process.cwd(), 'profile.json');
+      const profile = fs.existsSync(profilePath) ? JSON.parse(fs.readFileSync(profilePath, 'utf8')) : {};
+      
+      wroc = {
+        athlete: profile.name || 'Unknown Athlete',
+        target_wroc_kg_week: { min: -0.7, max: -0.3 },
+        target_weight_kg: profile.target_weight_kg || { min: 70, max: 75 },
+        entries: [entry],
+        wroc_windows: [],
+        next_review_date: addDays(date, 14),
+        adjustment_rules: {
+          "stall": "WROC > -0.3 kg/week at 14-day review → reduce training day carbs by 20g",
+          "overshoot": "WROC < -0.7 kg/week at 14-day review → increase training day carbs by 20g",
+          "lbm_loss_alert": "If LBM drops > 0.5 kg between sessions → increase protein and review caloric deficit immediately"
+        }
+      };
+    } else {
+      const existingDates = new Set(wroc.entries.map(e => e.date));
+      if (!existingDates.has(date)) {
+        wroc.entries.push(entry);
+        wroc.entries.sort((a, b) => a.date.localeCompare(b.date));
+      }
+      wroc.wroc_windows = [];
+      wroc.next_review_date = addDays(date, 14);
+    }
+
+    persistWROC(wroc);
+
+    console.log('\n--- Progress Analysis ---');
+    console.log(`Latest:    ${entry.date} — ${entry.weight_kg}kg / ${entry.body_fat_pct}% BF / LBM ${entry.lbm_kg}kg`);
+    console.log(`Status:    BASELINE — need ≥2 measurements for WROC/BF deltas`);
+    console.log(`Plan recommendation: Baseline cut (goal-driven). No carb adjustments until ≥14d window.`);
+    console.log(`Next review: ${wroc.next_review_date}`);
+    return;
+  }
+
   const existingDates = new Set(wroc?.entries.map(e => e.date) ?? []);
 
   // ── Sync any measures files not yet in wroc.json ──────────────────────────
@@ -145,9 +201,7 @@ function main() {
   }
 
   // ── Persist ───────────────────────────────────────────────────────────────
-  const analyticsDir = path.join(process.cwd(), 'analytics');
-  if (!fs.existsSync(analyticsDir)) fs.mkdirSync(analyticsDir, { recursive: true });
-  fs.writeFileSync(WROC_PATH, JSON.stringify(wroc, null, 2));
+  persistWROC(wroc);
 
   // ── Output ────────────────────────────────────────────────────────────────
   console.log('\n--- Progress Analysis ---');

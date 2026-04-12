@@ -71,10 +71,12 @@ When a user starts an appointment (via `/appointment` or directly):
      ```bash
      pnpm opencoach analyze-progress
      ```
+   - **Baseline Status**: If the analyst reports **BASELINE**, it means only one measurement exists. Phase will be `baseline` and deltas will be `null`.
    - **[APPROVAL GATE]** Present the WROC report (kg/week, phase, and recommendation). Wait for acknowledgment.
 
 4. **Strategy Delegation (Parallel)**:
    - Delegate to **@opencoach-dietitian** and **@opencoach-programmer** simultaneously.
+   - **Baseline Mode**: If in baseline, pass `null` for WROC/BF deltas and `phase: "baseline"`.
    - **Pass ONLY derived info**: `age`, `sport_context`, `michaels_floors`, and the WROC/BF deltas from the analysis.
    - Subagents will read `profile.json` themselves for schedule/injuries, and `athlete-notes.md` for food preferences and equipment.
    - **[APPROVAL GATE — combined]** Present both plans together. Wait for explicit approval.
