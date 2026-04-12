@@ -1,16 +1,72 @@
 {
-  "name": "Henrique Ramos",
-  "gender": "male",
-  "birth_date": "1999-08-21",
-  "height_cm": 171,
-  "sport_goal": "Futsal",
-  "target_weight_kg": { "min": 72, "max": 74 },
-  "training_schedule": {
-    "sport_days": ["tuesday", "thursday"],
-    "sport_timing": "evening",
-    "gym_days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
-    "gym_timing_on_sport_days": "morning",
-    "rest_days": ["sunday"]
+  "name": "Carol Marinho",
+  "gender": "female",
+  "birth_date": "1999-09-01",
+  "height_cm": 168,
+  "sport_goal": "Bodybuilding cutting",
+  "target_weight_kg": {
+    "min": 57,
+    "max": 60
   },
-  "injuries": []
+  "training_schedule": {
+    "sport_days": [
+      "monday",
+      "wednesday",
+      "friday"
+    ],
+    "sport_timing": "evening",
+    "gym_days": [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday"
+    ],
+    "gym_timing_on_sport_days": "morning",
+    "rest_days": [
+      "saturday",
+      "sunday"
+    ]
+  },
+  "injuries": [
+    {
+      "area": "lower_back",
+      "description": "Pain when performing lower back exercises. Avoid direct loading of lumbar spine under fatigue.",
+      "severity": "moderate"
+    },
+    {
+      "area": "knees",
+      "description": "Occasional knee pain, not frequent. Monitor on high-impact or deep knee flexion movements.",
+      "severity": "mild"
+    }
+  ],
+  "health_conditions": [
+    {
+      "condition": "iron_deficiency",
+      "notes": "Iron deficiency confirmed. Prioritize iron-rich foods and absorption-friendly meal pairings (vitamin C with iron sources). Avoid calcium-heavy meals paired with iron-rich foods."
+    }
+  ],
+  "nutrition_preferences": {
+    "allowed_foods": [
+      "tapioca",
+      "egg",
+      "cheese",
+      "bread",
+      "milk",
+      "grape",
+      "apple",
+      "popcorn",
+      "banana",
+      "isolate whey",
+      "pasta",
+      "chicken breast"
+    ],
+    "mandatory_meals": [
+      {
+        "meal": "Brazilian lunch",
+        "description": "Mandatory daily lunch: ~150g cooked rice + 100g cooked beans + protein source",
+        "notes": "Rice and beans together provide a complete amino acid profile and are a cultural non-negotiable. Protein source to be varied (chicken breast preferred)."
+      }
+    ]
+  }
 }

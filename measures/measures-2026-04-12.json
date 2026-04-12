@@ -1,0 +1,29 @@
+{
+  "core_metrics": {
+    "weight": 67,
+    "body_fat_pct": 19.92
+  },
+  "mandatory_sites": {
+    "chest": 84,
+    "waist_narrowest": 69,
+    "umbilical": 73.3,
+    "hip_widest": 103,
+    "thigh_mid": 59,
+    "bicep_flexed": 30,
+    "forearm": 20
+  },
+  "skin_folds": {
+    "chest": 5,
+    "abdomen": 14,
+    "thigh": 29,
+    "tricep": 15,
+    "suprailiac": 17,
+    "subscapular": 12,
+    "midaxillary": 5
+  },
+  "appointment_notes": {
+    "energy_levels": "Mid to low",
+    "sleep": "Sleeps around 6-7hrs. Sleep quality around 6-7/10",
+    "coach_summary": ""
+  }
+}

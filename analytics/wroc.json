@@ -1,117 +1,24 @@
 {
-  "athlete": "Henrique Ramos",
+  "athlete": "Carol Marinho",
   "target_wroc_kg_week": {
     "min": -0.7,
-    "max": -0.5
+    "max": -0.3
   },
   "target_weight_kg": {
-    "min": 72,
-    "max": 74
+    "min": 57,
+    "max": 60
   },
   "entries": [
     {
-      "date": "2025-05-17",
-      "weight_kg": 76.5,
-      "body_fat_pct": 10.2,
-      "lbm_kg": 68.67,
-      "fat_mass_kg": 7.8
-    },
-    {
-      "date": "2025-07-19",
-      "weight_kg": 77.4,
-      "body_fat_pct": 9.4,
-      "lbm_kg": 70.11,
-      "fat_mass_kg": 7.28
-    },
-    {
-      "date": "2025-09-20",
-      "weight_kg": 76,
-      "body_fat_pct": 9.9,
-      "lbm_kg": 68.48,
-      "fat_mass_kg": 7.52
-    },
-    {
-      "date": "2025-11-29",
-      "weight_kg": 76,
-      "body_fat_pct": 10.4,
-      "lbm_kg": 68.1,
-      "fat_mass_kg": 7.9
-    },
-    {
-      "date": "2026-03-28",
-      "weight_kg": 79.9,
-      "body_fat_pct": 12.4,
-      "lbm_kg": 69.99,
-      "fat_mass_kg": 9.91
-    },
-    {
-      "date": "2026-04-03",
-      "weight_kg": 79.9,
-      "body_fat_pct": 12.4,
-      "lbm_kg": 69.99,
-      "fat_mass_kg": 9.91
-    },
-    {
-      "date": "2026-04-05",
-      "weight_kg": 80,
-      "body_fat_pct": 12.5,
-      "lbm_kg": 70,
-      "fat_mass_kg": 10
+      "date": "2026-04-12",
+      "weight_kg": 67,
+      "body_fat_pct": 19.92,
+      "lbm_kg": 53.65,
+      "fat_mass_kg": 13.35
     }
   ],
-  "wroc_windows": [
-    {
-      "from": "2025-05-17",
-      "to": "2025-07-19",
-      "days": 63,
-      "weight_delta_kg": 0.9,
-      "wroc_kg_week": 0.1,
-      "phase": "maintenance / stall"
-    },
-    {
-      "from": "2025-07-19",
-      "to": "2025-09-20",
-      "days": 63,
-      "weight_delta_kg": -1.4,
-      "wroc_kg_week": -0.16,
-      "phase": "maintenance / stall"
-    },
-    {
-      "from": "2025-09-20",
-      "to": "2025-11-29",
-      "days": 70,
-      "weight_delta_kg": 0,
-      "wroc_kg_week": 0,
-      "phase": "maintenance / stall"
-    },
-    {
-      "from": "2025-11-29",
-      "to": "2026-03-28",
-      "days": 119,
-      "weight_delta_kg": 3.9,
-      "wroc_kg_week": 0.23,
-      "phase": "bulk"
-    },
-    {
-      "from": "2026-03-28",
-      "to": "2026-04-03",
-      "days": 6,
-      "weight_delta_kg": 0,
-      "wroc_kg_week": 0,
-      "phase": "window too short",
-      "note": "Below 14-day Michaels threshold. No action."
-    },
-    {
-      "from": "2026-04-03",
-      "to": "2026-04-05",
-      "days": 2,
-      "weight_delta_kg": 0.1,
-      "wroc_kg_week": 0.35,
-      "phase": "window too short",
-      "note": "Below 14-day Michaels threshold. No action."
-    }
-  ],
-  "next_review_date": "2026-04-17",
+  "wroc_windows": [],
+  "next_review_date": "2026-04-26",
   "adjustment_rules": {
     "stall": "WROC > -0.3 kg/week at 14-day review → reduce training day carbs by 20g",
     "overshoot": "WROC < -0.7 kg/week at 14-day review → increase training day carbs by 20g",
