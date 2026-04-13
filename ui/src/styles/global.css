@@ -12,3 +12,12 @@
 .tui-table thead {
   border: 2px solid #a8a8a8;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+td {
+  min-width: 100px;
+  max-width: 400px;
+}
