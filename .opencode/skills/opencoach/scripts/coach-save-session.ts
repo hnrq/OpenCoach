@@ -9,13 +9,13 @@ import { SCHEMAS } from "../../../../packages/schemas/src/index.ts";
  * Usage:
  *   save-session <type> --date YYYY-MM-DD       # in-place validate at <type>/<type>-<date>.json
  *   save-session <type> <json_file_path>        # validate source, write to <type>/<type>-<today>.json
- *   save-session all --date YYYY-MM-DD          # validate measures + diet + training for date
+ *   save-session all --date YYYY-MM-DD          # validate measures + diet + training + appointment
  *   save-session --help
  */
 
 type SessionType = keyof typeof SCHEMAS;
-const ALL_TYPES: SessionType[] = ["measures", "diet", "training"];
-const VALID_TYPES = [...ALL_TYPES, "appointment", "all"];
+const ALL_TYPES: SessionType[] = ["measures", "diet", "training", "appointment"];
+const VALID_TYPES = [...ALL_TYPES, "all"];
 
 // ── Forbidden path guard ──────────────────────────────────────────────────────
 
@@ -95,7 +95,7 @@ Types:
   diet         Nutritional plan (Michaels methodology)
   training     Training session plan
   appointment  Appointment artifact (decisions + preference deltas)
-  all          Save measures + diet + training in one command (requires --date)
+  all          Save measures + diet + training + appointment in one command (requires --date)
 
 Options:
   --date YYYY-MM-DD   Resolve path automatically as <type>/<type>-YYYY-MM-DD.json

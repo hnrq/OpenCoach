@@ -103,4 +103,4 @@ After editing `packages/schemas/src/index.ts`, **always regenerate the schema do
 cd packages/schemas && npm run gen:schema-docs
 ```
 
-This updates `.opencode/context/coaching/schemas/diet-schema.md` (loaded by dietitian) and `training-schema.md` (loaded by programmer). Commit the generated files alongside the schema change.
+This updates `.opencode/context/coaching/schemas/diet-schema.md` (loaded by dietitian), `training-schema.md` (loaded by programmer), and `appointment-schema.md` (loaded by head coach). Commit the generated files alongside the schema change.
