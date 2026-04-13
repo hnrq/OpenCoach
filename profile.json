@@ -26,7 +26,8 @@
     "rest_days": [
       "saturday",
       "sunday"
-    ]
+    ],
+    "training_split": "Upper/Lower split with 3 legs days (Mon, Wed, Fri)"
   },
   "injuries": [
     {
@@ -68,5 +69,11 @@
         "notes": "Rice and beans together provide a complete amino acid profile and are a cultural non-negotiable. Protein source to be varied (chicken breast preferred)."
       }
     ]
-  }
+  },
+  "constraints": [
+    {
+      "area": "knees",
+      "note": "Occasional knee pain reported during discovery. 90-degree ROM cap implemented on all squat patterns"
+    }
+  ]
 }

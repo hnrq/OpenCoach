@@ -4,127 +4,170 @@
   "methodology": "Michaels",
   "sport_context": {
     "sport": "Bodybuilding",
-    "training_focus": "Hypertrophy splits; progressive overload",
-    "movement_patterns": "Isolation + compound movements",
-    "injury_areas": ["lower_back", "knees"],
+    "training_focus": "Hypertrophy cutting split; 3 legs days per week; quad prioritization as weakest muscle group",
+    "movement_patterns": "Legs dominate the week (3 of 5 gym days); upper body Push/Pull; isolation + compound movements",
+    "injury_areas": [
+      "lower_back",
+      "knees"
+    ],
     "energy_system": "N/A — aesthetic goal",
-    "nutrition_strategy": "High protein; strict carb cycling around training blocks",
-    "notes": "Lower back: no heavy deadlifts, hyperextensions, loaded good mornings. Knees: controlled ROM on deep knee flexion — max 90 degrees on all squatting patterns."
+    "nutrition_strategy": "High protein (2.2g/kg LBM); strict carb cycling around training blocks; iron-absorption pairing (vitamin C with iron sources)",
+    "notes": "Lower back: no heavy deadlifts, hyperextensions, loaded good mornings, RDLs. Knees: controlled ROM only — no ATG squats, no deep knee flexion beyond 90 degrees. Quads are Carol's weakest muscle group — prioritize quad volume on Legs A and Legs C."
   },
   "constraints": {
-    "lower_back": "Moderate injury. No RDLs, no conventional deadlifts, no hyperextensions, no loaded good mornings. Hip hinge work limited to cable pull-throughs and machine/barbell hip thrusts (padded, supported). Back rows must be supported (cable or machine) — no heavy free-standing bent-over rows.",
-    "knees": "Mild pain. Controlled ROM only — no ATG squats, no deep knee flexion beyond 90 degrees. Monitor all quad-dominant movements.",
+    "lower_back": "Moderate injury. No RDLs, no conventional deadlifts, no hyperextensions, no loaded good mornings. Hip hinge work limited to cable pull-throughs and machine/barbell hip thrusts (padded, supported). All rows are supported or cable-based.",
+    "knees": "Mild pain. Controlled ROM only — no ATG squats, no deep knee flexion beyond 90 degrees on any squat pattern. Monitor all quad-dominant movements.",
     "no_jumping": true,
-    "gym_only": true
+    "gym_only": true,
+    "equipment_available": "barbell, dumbbells, cables, leverage machines (leg press, hack squat, leg curl, calf raise), benches"
   },
   "progression": {
     "rpe_targets": {
       "main_lifts": "7–8",
-      "accessories": "7"
+      "accessories": 7
     },
     "rule": "When all working sets are completed at RPE 7 or below for two consecutive sessions, increase load by the smallest available increment (2.5 kg for barbells, 2 kg for dumbbells). Never exceed RPE 9 in the accumulation block.",
     "block_phase": "Accumulation — Week 1 (MEV start)",
     "mesocycle_length_weeks": 5,
-    "deload_week": 6
+    "deload_week": 6,
+    "volume_approach": "Legs dominate the week (3 days). Quad volume elevated on Legs A and Legs C. Glute/hamstring volume elevated on Legs B."
   },
   "weekly_schedule": {
-    "monday": "Push A — Chest + Shoulders (Lateral) + Triceps",
-    "tuesday": "Pull A — Back + Biceps",
-    "wednesday": "Legs — Quads + Hamstrings + Glutes",
-    "thursday": "Push B — Shoulders (Press) + Chest Accessory + Triceps",
-    "friday": "Pull B / Posterior Chain — Back + Glutes + Hamstrings",
+    "monday": "Legs A — Quads Focus (Anterior Chain)",
+    "tuesday": "Pull — Back + Biceps",
+    "wednesday": "Legs B — Glutes + Hamstrings Focus",
+    "thursday": "Push — Chest + Shoulders + Triceps",
+    "friday": "Legs C — Full Legs Pump + Accessories",
     "saturday": "Rest",
     "sunday": "Rest"
   },
   "warmup_template": {
     "general": "5 min light cardio (bike or rowing machine — no treadmill running due to lower back protocol). Follow with 3–5 targeted mobility drills for the day's primary joints.",
-    "mobility_monday": ["Shoulder CARs 10 reps each direction", "Thoracic rotation 10 reps per side", "Band pull-apart 15 reps"],
-    "mobility_tuesday": ["Shoulder CARs", "Scapular wall slides 10 reps", "Band pull-apart 15 reps"],
-    "mobility_wednesday": ["Hip 90/90 stretch 60s per side", "Glute bridge activation 15 reps", "Leg swing lateral 10 reps per side"],
-    "mobility_thursday": ["Shoulder CARs", "Thoracic extension over foam roller 30s", "Band lateral raise 15 reps"],
-    "mobility_friday": ["Hip hinge pattern drill (unloaded) 10 reps", "Cat-cow 10 reps", "Glute bridge 15 reps"]
+    "mobility_monday": [
+      "Hip 90/90 stretch 60s per side",
+      "Quad pull (knee to chest) 10 reps per side",
+      "Leg swing forward 10 reps per side",
+      "Bodyweight squat hold 30s (90° knee angle)"
+    ],
+    "mobility_tuesday": [
+      "Shoulder CARs 10 reps each direction",
+      "Scapular wall slides 10 reps",
+      "Band pull-apart 15 reps"
+    ],
+    "mobility_wednesday": [
+      "Hip 90/90 stretch 60s per side",
+      "Glute bridge activation 15 reps",
+      "Leg swing lateral 10 reps per side",
+      "Ankle mobility 10 reps per side"
+    ],
+    "mobility_thursday": [
+      "Shoulder CARs 10 reps each direction",
+      "Thoracic rotation 10 reps per side",
+      "Band pull-apart 15 reps"
+    ],
+    "mobility_friday": [
+      "Hip 90/90 stretch 60s per side",
+      "Glute bridge activation 15 reps",
+      "Bodyweight squat hold 30s (90° knee angle)",
+      "Couch stretch 60s per side (quad focus)"
+    ]
   },
   "sessions": [
     {
-      "id": "MON-PUSH-A",
+      "id": "MON-LEGS-A",
       "day": "monday",
-      "focus": "Push A — Chest + Shoulders (Lateral) + Triceps",
-      "scheduling_note": "Morning session. Eat M1 (pre-workout) 30–45 min before gym start.",
-      "estimated_duration_min": 70,
+      "focus": "Legs A — Quads Focus (Anterior Chain)",
+      "scheduling_note": "Morning session. M1 pre-workout meal 30–45 min before gym. Knee protocol active: max 90° knee flexion on all squat patterns. Lower back protocol active.",
+      "estimated_duration_min": 75,
       "metabolic_primer": {
-        "name": "Tabata Upper Body Blast",
-        "format": "Tabata",
+        "name": "AMRAP Quad Dominant Activation",
+        "format": "AMRAP",
         "duration_min": 8,
-        "protocol": "20s work / 10s rest × 8 rounds alternating between Push-Up and Dumbbell Shoulder Press (5–8 kg)",
-        "instructions": "Alternate each round: Round 1 push-ups, Round 2 DB shoulder press, repeat. Use knee push-ups if standard is too taxing at this point in the cut. Goal is cardiovascular activation and shoulder pre-activation — not maximal load. Rest 90s between full Tabata cycles if needed. No jumping.",
-        "rpe_target": 9
+        "protocol": "As many rounds as possible in 8 min: 12 × Bodyweight Squat (90° hard cap) + 10 × Glute Bridge + 10 × Banded Clamshell per side",
+        "instructions": "Strict 90° knee angle on every squat rep — do NOT go deeper. Glute bridge: 2s hold at the top, feel glutes contract, NOT the lower back. Banded clamshell protects the knee joint. Move continuously between exercises with minimal rest. This primes the quads and glutes before loading.",
+        "rpe_target": 8
       },
       "exercises": [
         {
-          "name": "Barbell Bench Press",
-          "bodyPart": "chest",
-          "equipment": "barbell",
-          "target": "pectorals",
+          "name": "Leg Press",
+          "bodyPart": "upper legs",
+          "equipment": "leverage machine",
+          "target": "quadriceps",
           "warmup_sets": [
-            { "reps": 10, "load": "20 kg (empty bar)", "note": "Movement pattern rehearsal — slow and controlled" },
-            { "reps": 8, "load": "40% of working weight", "note": "Feel the chest stretch at the bottom" },
-            { "reps": 5, "load": "60% of working weight", "note": "Build intent for the working sets" }
+            {
+              "reps": 12,
+              "load": "40% working weight",
+              "note": "Confirm 90° knee stop before loading"
+            },
+            {
+              "reps": 8,
+              "load": "65% working weight"
+            }
           ],
           "sets": 4,
-          "reps": "8–10",
+          "reps": "10–12",
           "rpe": "7–8",
-          "note": "Lower bar to mid-chest, not the neck. Drive shoulders into the bench throughout the press. 2s eccentric — do not drop the bar. If any shoulder impingement discomfort, substitute with Dumbbell Bench Press."
+          "note": "Primary quad compound. Feet hip-width on mid-platform. Lower to exactly 90° knee angle — do not push deeper (knee protocol). Keep lower back pressed firmly into the pad. Do not lock out at the top. 2s eccentric."
         },
         {
-          "name": "Dumbbell Incline Press",
-          "bodyPart": "chest",
-          "equipment": "dumbbell",
-          "target": "pectorals",
+          "name": "Hack Squat",
+          "bodyPart": "upper legs",
+          "equipment": "leverage machine",
+          "target": "quadriceps",
           "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight", "note": "Set incline to 30 degrees only" }
+            {
+              "reps": 10,
+              "load": "50% working weight"
+            }
           ],
           "sets": 3,
           "reps": "10–12",
           "rpe": "7–8",
-          "note": "30-degree incline only — avoid steep inclines that stress the shoulder joint. 2s eccentric. Control the path: elbows at 45 degrees to the torso, not flared."
+          "note": "90° ROM hard cap — do not go deeper. Feet slightly wider than shoulder-width, toes slightly out. Drive through the full foot — do not shift onto the toes. Brace the core deliberately throughout. Excellent for quad emphasis over glutes."
         },
         {
-          "name": "Cable Lateral Raise",
-          "bodyPart": "shoulders",
-          "equipment": "cable",
-          "target": "delts",
-          "sets": 3,
+          "name": "Leg Extension",
+          "bodyPart": "upper legs",
+          "equipment": "leverage machine",
+          "target": "quadriceps",
+          "sets": 4,
           "reps": "12–15",
-          "rpe": "7",
-          "note": "Set the cable pulley low. Lead with the elbow, not the wrist. Stop at shoulder height — do not raise above the head. Slight forward lean is acceptable. Perform both sides: 3 sets per side."
+          "rpe": 7,
+          "note": "Pure quad isolation — the seated position keeps the lumbar spine completely unloaded. 2s concentric, 3s eccentric. Full extension at the top — do not hyperextend the knees. Prioritize mind-muscle connection here; this is Carol's weakest muscle group."
         },
         {
-          "name": "Cable Tricep Pushdown (Rope Attachment)",
-          "bodyPart": "upper arms",
-          "equipment": "cable",
-          "target": "triceps brachii",
-          "sets": 3,
-          "reps": "12–15",
-          "rpe": "7",
-          "note": "Keep elbows pinned at sides throughout. Flare the rope handles at the bottom of each rep and pause briefly to maximize tricep contraction. Do not lean forward to add momentum."
-        },
-        {
-          "name": "Dumbbell Overhead Tricep Extension (Seated)",
-          "bodyPart": "upper arms",
+          "name": "Dumbbell Goblet Squat",
+          "bodyPart": "thighs",
           "equipment": "dumbbell",
-          "target": "triceps brachii",
+          "target": "quadriceps",
+          "warmup_sets": [
+            {
+              "reps": 10,
+              "load": "light dumbbell — movement rehearsal"
+            }
+          ],
           "sets": 3,
-          "reps": "12",
-          "rpe": "7",
-          "note": "Seated to eliminate lumbar load. Elbows point straight up. Lower the dumbbell behind the head with a 3s eccentric — the overhead position maximizes long-head stretch. Keep core braced."
+          "reps": 12,
+          "rpe": "7–8",
+          "note": "Hold dumbbell at chest level (goblet position). Feet shoulder-width, toes slightly out. Lower to exactly 90° knee angle — do not go deeper. The goblet position naturally pulls the chest up and prevents lumbar hyperextension. 2s eccentric. Use moderate weight — this is an anterior-chain primer, not a max-effort lift."
+        },
+        {
+          "name": "Standing Calf Raise",
+          "bodyPart": "lower legs",
+          "equipment": "leverage machine",
+          "target": "gastrocnemius",
+          "sets": 4,
+          "reps": "15–20",
+          "rpe": 7,
+          "note": "Full stretch at the bottom (slow controlled descent), explosive drive up, 1s hold at peak. Calves respond well to high reps and time under tension. Vary foot position: toes neutral for 2 sets, toes slightly out for 1 set, toes slightly in for 1 set."
         }
       ]
     },
     {
-      "id": "TUE-PULL-A",
+      "id": "TUE-PULL",
       "day": "tuesday",
-      "focus": "Pull A — Back + Biceps",
-      "scheduling_note": "Morning session. Full upper back and biceps volume day.",
+      "focus": "Pull — Back + Biceps",
+      "scheduling_note": "Morning session. Full upper back and biceps volume day. All rows are supported or cable-based per lower back protocol.",
       "estimated_duration_min": 70,
       "metabolic_primer": {
         "name": "AMRAP Posterior Shoulder Circuit",
@@ -141,13 +184,21 @@
           "equipment": "cable",
           "target": "lats",
           "warmup_sets": [
-            { "reps": 10, "load": "40% of working weight", "note": "Focus on lat depression before pulling" },
-            { "reps": 6, "load": "65% of working weight", "note": "Build lat engagement — feel the stretch at the top" }
+            {
+              "reps": 10,
+              "load": "40% working weight",
+              "note": "Focus on lat depression before pulling"
+            },
+            {
+              "reps": 6,
+              "load": "65% working weight",
+              "note": "Build lat engagement — feel the stretch at the top"
+            }
           ],
           "sets": 4,
           "reps": "8–10",
           "rpe": "7–8",
-          "note": "Initiate every rep by depressing the scapulae (pull shoulder blades down) before the arms move. Pull to upper chest. 2s concentric, 2s eccentric. Never pull behind the neck."
+          "note": "Initiate every rep by depressing the scapulae before the arms move. Pull to upper chest. 2s concentric, 2s eccentric. Never pull behind the neck. This is Tuesday's primary back movement."
         },
         {
           "name": "Seated Cable Row (Close Grip)",
@@ -155,12 +206,15 @@
           "equipment": "cable",
           "target": "lats",
           "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight" }
+            {
+              "reps": 10,
+              "load": "50% working weight"
+            }
           ],
           "sets": 4,
           "reps": "10–12",
           "rpe": "7–8",
-          "note": "Brace the core before each rep. Slight lean back at the contraction is fine — do NOT hyperextend the lumbar spine (lower back protocol). Drive elbows back and squeeze the shoulder blades together at the peak. 2s eccentric."
+          "note": "Brace the core before each rep. Slight lean back at the contraction is fine — do NOT hyperextend the lumbar spine. Drive elbows back and squeeze the shoulder blades together at the peak. 2s eccentric."
         },
         {
           "name": "Single-Arm Dumbbell Row (Supported on Bench)",
@@ -168,9 +222,9 @@
           "equipment": "dumbbell",
           "target": "lats",
           "sets": 3,
-          "reps": "12",
+          "reps": 12,
           "rpe": "7–8",
-          "note": "Bracing arm and knee on the bench removes lumbar load entirely — critical for lower back protocol. Keep hips squared (do not rotate to swing the weight). Drive elbow high and back. 2s eccentric. Perform both sides."
+          "note": "Bracing arm and knee on the bench removes lumbar load entirely — critical for lower back protocol. Keep hips squared (do not rotate to swing the weight). Drive elbow high and back. 2s eccentric. Perform both sides — 3 sets per side."
         },
         {
           "name": "Dumbbell Bicep Curl (Alternating)",
@@ -178,8 +232,8 @@
           "equipment": "dumbbell",
           "target": "biceps brachii",
           "sets": 3,
-          "reps": "12",
-          "rpe": "7",
+          "reps": 12,
+          "rpe": 7,
           "note": "Supinate the wrist fully at the top of every rep to maximize bicep peak contraction. Do not swing — elbows stay pinned at sides. Full extension at the bottom on every rep."
         },
         {
@@ -189,62 +243,52 @@
           "target": "brachialis",
           "sets": 3,
           "reps": "12–15",
-          "rpe": "7",
-          "note": "Neutral (hammer) grip throughout. Targets the brachialis, which lies under the biceps and adds arm thickness. Keep elbows pinned. Great complement to the supinated dumbbell curl."
+          "rpe": 7,
+          "note": "Neutral (hammer) grip throughout. Targets the brachialis, which adds arm thickness. Keep elbows pinned. Great complement to the supinated dumbbell curl."
         }
       ]
     },
     {
-      "id": "WED-LEGS",
+      "id": "WED-LEGS-B",
       "day": "wednesday",
-      "focus": "Legs — Quads + Hamstrings + Glutes",
-      "scheduling_note": "Morning session. Knee protocol active: max 90-degree knee flexion on all squat patterns. Lower back protocol: no deadlifts or RDLs.",
+      "focus": "Legs B — Glutes + Hamstrings Focus",
+      "scheduling_note": "Morning session. Knee protocol: max 90° on all knee-flexion movements. Lower back protocol: no RDLs, deadlifts from floor, hyperextensions, or loaded good mornings. Hip hinge via cable pull-through and hip thrust only.",
       "estimated_duration_min": 75,
       "metabolic_primer": {
-        "name": "Glute and Hip Activation Circuit",
+        "name": "AMRAP Glute and Hamstring Activation",
         "format": "AMRAP",
         "duration_min": 8,
-        "protocol": "3-exercise circuit — as many rounds as possible in 8 min: 15 × Glute Bridge (bodyweight) + 10 × Banded Clamshell per side + 10 × Bodyweight Squat (controlled, 90-degree ROM only)",
-        "instructions": "Focus on mind-muscle connection during the glute bridge — feel the glutes contracting, not the lower back. Banded clamshell activates hip abductors which protect the knee joint during loaded work. Bodyweight squat depth is hard-capped at 90 degrees (knee protocol). No jumping at any point.",
+        "protocol": "As many rounds as possible in 8 min: 15 × Glute Bridge (bodyweight) + 10 × Banded Clamshell per side + 10 × Bodyweight Squat (90° ROM hard cap)",
+        "instructions": "Focus on mind-muscle connection during glute bridge — feel the glutes contracting, NOT the lower back. Banded clamshell activates hip abductors which protect the knee joint. Bodyweight squat depth is hard-capped at 90° (knee protocol). No jumping at any point.",
         "rpe_target": 8
       },
       "exercises": [
         {
-          "name": "Leg Press",
+          "name": "Hip Thrust (Machine or Barbell)",
           "bodyPart": "upper legs",
           "equipment": "leverage machine",
-          "target": "quads",
+          "target": "glutes",
           "warmup_sets": [
-            { "reps": 12, "load": "40% of working weight", "note": "Confirm 90-degree stop point before adding load" },
-            { "reps": 8, "load": "65% of working weight" }
+            {
+              "reps": 10,
+              "load": "50% working weight",
+              "note": "Use barbell pad if using barbell. Confirm neutral spine at the top before loading."
+            }
           ],
           "sets": 4,
           "reps": "10–12",
-          "rpe": "7–8",
-          "note": "Feet hip-width, mid-platform. Lower to 90-degree knee angle — do not push deeper (knee protocol). Keep lower back pressed firmly into the pad throughout. Do not lock out the knees at the top of the press."
+          "rpe": 8,
+          "note": "Upper back on a flat bench. Drive through the heel. Squeeze the glutes hard at the top and hold for 1 second. Critical: the spine does NOT extend at the top — ribs stay down, spine stays neutral. Machine hip thrust is preferred over barbell for lower back safety. 2s eccentric."
         },
         {
-          "name": "Hack Squat",
+          "name": "Cable Pull-Through",
           "bodyPart": "upper legs",
-          "equipment": "leverage machine",
-          "target": "quads",
-          "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight" }
-          ],
-          "sets": 3,
-          "reps": "10–12",
-          "rpe": "7–8",
-          "note": "90-degree ROM hard cap. Feet slightly wider than shoulder-width. Drive through the full foot — do not shift onto the toes. The machine guides the movement but still brace the core deliberately. If knee discomfort, substitute with Bulgarian Split Squat using bodyweight or light dumbbells."
-        },
-        {
-          "name": "Leg Extension",
-          "bodyPart": "upper legs",
-          "equipment": "leverage machine",
-          "target": "quads",
-          "sets": 3,
-          "reps": "12–15",
-          "rpe": "7",
-          "note": "2s concentric, 3s eccentric. Full extension at the top — do not hyperextend. The seated position keeps the lumbar spine out of the movement. This is pure quad isolation — do not rush the reps."
+          "equipment": "cable",
+          "target": "glutes",
+          "sets": 4,
+          "reps": 15,
+          "rpe": 7,
+          "note": "Attach a rope to the low pulley. Stand facing away from the machine, straddle the cable. Hinge at the hip — push the hips back until you feel hamstring tension, then drive the hips forward and squeeze the glutes. Zero spinal compression — this is the ideal hip hinge for Carol's lower back protocol. Do not hyperextend at the top. 2s eccentric."
         },
         {
           "name": "Lying Leg Curl",
@@ -254,20 +298,27 @@
           "sets": 4,
           "reps": "10–12",
           "rpe": "7–8",
-          "note": "Plantarflex the foot (point toes down) to optimize hamstring recruitment. 2s eccentric. Do not let the hips rise off the pad — hips rising means the lower back is compensating. Lower back protocol: the lying position is safe as long as hips stay neutral."
+          "note": "Plantarflex the foot (point toes down) to optimize hamstring recruitment. 2s eccentric. Do not let the hips rise off the pad — hips rising means the lower back is compensating. The lying position is safe as long as hips stay neutral."
         },
         {
-          "name": "Hip Thrust",
+          "name": "Seated Leg Curl",
           "bodyPart": "upper legs",
-          "equipment": "barbell",
-          "target": "glutes",
-          "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight", "note": "Use a barbell pad. Confirm neutral spine at the top before loading." }
-          ],
+          "equipment": "leverage machine",
+          "target": "hamstrings",
           "sets": 3,
           "reps": "10–12",
-          "rpe": "8",
-          "note": "Upper back on a flat bench. Drive through the heel. Squeeze the glutes hard at the top and hold for 1 second. Critical: the spine does NOT extend at the top — ribs stay down, spine stays neutral. Use a barbell pad to protect the hip bones. Machine hip thrust is preferred over barbell for lower back safety."
+          "rpe": "7–8",
+          "note": "Seated leg curl hits the hamstring at a longer muscle length, targeting a different portion of the strength curve than the lying variation. 2s concentric, 3s eccentric. Keep hips against the pad. This deliberate variation maximizes hamstring recruitment across the full ROM."
+        },
+        {
+          "name": "Cable Kickback",
+          "bodyPart": "upper legs",
+          "equipment": "cable",
+          "target": "glutes",
+          "sets": 3,
+          "reps": "12–15",
+          "rpe": 7,
+          "note": "Attach an ankle cuff to the low pulley. Face the machine and kick the leg straight back, squeezing the glute at the top. Keep the standing leg slightly bent. 2s concentric, 2s eccentric. This isolates the glute max without any lumbar stress. Perform both legs — 3 sets per side."
         },
         {
           "name": "Standing Calf Raise",
@@ -276,16 +327,16 @@
           "target": "gastrocnemius",
           "sets": 4,
           "reps": "15–20",
-          "rpe": "7",
-          "note": "Full stretch at the bottom (slow controlled descent), explosive drive up, hold 1s at the top. Calves respond well to high reps and time under tension. Vary foot position across sets: toes neutral for 2 sets, toes slightly out for 1 set, toes slightly in for 1 set."
+          "rpe": 7,
+          "note": "Full stretch at the bottom (slow controlled descent), explosive drive up, 1s hold at the top. Vary foot position across sets: toes neutral for 2 sets, toes slightly out for 1 set, toes slightly in for 1 set."
         }
       ]
     },
     {
-      "id": "THU-PUSH-B",
+      "id": "THU-PUSH",
       "day": "thursday",
-      "focus": "Push B — Shoulders (Press) + Chest Accessory + Triceps",
-      "scheduling_note": "Morning session. Shoulder press is the primary strength movement today — treat it with the same focus as bench press on Monday.",
+      "focus": "Push — Chest + Shoulders + Triceps",
+      "scheduling_note": "Morning session. Shoulder press is the primary strength movement today.",
       "estimated_duration_min": 70,
       "metabolic_primer": {
         "name": "Tabata Band Shoulder Circuit",
@@ -297,158 +348,190 @@
       },
       "exercises": [
         {
-          "name": "Seated Dumbbell Shoulder Press",
-          "bodyPart": "shoulders",
-          "equipment": "dumbbell",
-          "target": "delts",
+          "name": "Barbell Bench Press",
+          "bodyPart": "chest",
+          "equipment": "barbell",
+          "target": "pectorals",
           "warmup_sets": [
-            { "reps": 10, "load": "light dumbbells (movement rehearsal)", "note": "Confirm full ROM before adding load" },
-            { "reps": 8, "load": "60% of working weight" }
+            {
+              "reps": 10,
+              "load": "20 kg (empty bar)",
+              "note": "Movement pattern rehearsal — slow and controlled"
+            },
+            {
+              "reps": 8,
+              "load": "40% of working weight",
+              "note": "Feel the chest stretch at the bottom"
+            },
+            {
+              "reps": 5,
+              "load": "60% of working weight",
+              "note": "Build intent for the working sets"
+            }
           ],
           "sets": 4,
           "reps": "8–10",
           "rpe": "7–8",
-          "note": "Seated position eliminates lumbar load. Lower dumbbells to ear level, press to just short of lockout. Do not lean back excessively — keep torso upright. This is the primary strength lift for Thursday — treat it with the same focus as bench press on Monday."
+          "note": "Lower bar to mid-chest, not the neck. Drive shoulders into the bench throughout the press. 2s eccentric — do not drop the bar. If any shoulder impingement discomfort, substitute with Dumbbell Bench Press."
         },
         {
-          "name": "Cable Fly (Low to High)",
-          "bodyPart": "chest",
-          "equipment": "cable",
-          "target": "pectorals",
-          "sets": 3,
-          "reps": "12–15",
-          "rpe": "7",
-          "note": "Set pulleys at the lowest position. Arc the arms upward and together as if hugging a tree from below. This vector targets the upper pec (clavicular head) — complements Monday's flat barbell press. Controlled throughout — no jerking at the start of the movement."
-        },
-        {
-          "name": "Pec Deck Fly",
-          "bodyPart": "chest",
-          "equipment": "leverage machine",
-          "target": "pectorals",
-          "sets": 3,
-          "reps": "12–15",
-          "rpe": "7",
-          "note": "Pure chest isolation. Keep the movement in the chest — shoulders should not be the primary driver. If the pec deck is unavailable, substitute with Dumbbell Fly (flat or incline). Controlled eccentric — resist the pads opening."
-        },
-        {
-          "name": "Dumbbell Lateral Raise",
+          "name": "Seated Dumbbell Shoulder Press",
           "bodyPart": "shoulders",
           "equipment": "dumbbell",
-          "target": "delts",
+          "target": "deltoids",
+          "warmup_sets": [
+            {
+              "reps": 10,
+              "load": "light dumbbells (movement rehearsal)",
+              "note": "Confirm full ROM before adding load"
+            },
+            {
+              "reps": 8,
+              "load": "60% working weight"
+            }
+          ],
           "sets": 4,
-          "reps": "15",
-          "rpe": "7",
-          "note": "Strict form — zero momentum. Use 3/1/3 tempo: 3s raise, 1s hold at the top, 3s lower. This maximizes time under tension on the medial delt. Thursday carries the highest shoulder volume of the week — this is intentional. Keep the weight light enough to complete all reps with this tempo."
+          "reps": "8–10",
+          "rpe": "7–8",
+          "note": "Seated position eliminates lumbar load. Lower dumbbells to ear level, press to just short of lockout. Do not lean back excessively — keep torso upright. This is the primary strength lift for Thursday."
         },
         {
-          "name": "EZ-Bar Skull Crusher",
-          "bodyPart": "upper arms",
-          "equipment": "ez barbell",
-          "target": "triceps brachii",
+          "name": "Dumbbell Incline Press",
+          "bodyPart": "chest",
+          "equipment": "dumbbell",
+          "target": "pectorals",
           "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight" }
+            {
+              "reps": 10,
+              "load": "50% working weight",
+              "note": "Set incline to 30 degrees only"
+            }
           ],
           "sets": 3,
           "reps": "10–12",
           "rpe": "7–8",
-          "note": "Lower the bar toward the forehead (stopping 1 cm above). Elbows directly above the shoulders — do not let them flare. The long head of the tricep is the primary target. Keep wrists neutral throughout. A slight backward lean of the bar on the eccentric gives extra long-head stretch."
+          "note": "30-degree incline only — avoid steep inclines that stress the shoulder joint. 2s eccentric. Control the path: elbows at 45 degrees to the torso, not flared."
         },
         {
-          "name": "Tricep Dip (Assisted Machine)",
+          "name": "Cable Lateral Raise",
+          "bodyPart": "shoulders",
+          "equipment": "cable",
+          "target": "deltoids",
+          "sets": 3,
+          "reps": "12–15",
+          "rpe": 7,
+          "note": "Set the cable pulley low. Lead with the elbow, not the wrist. Stop at shoulder height — do not raise above the head. Slight forward lean is acceptable. Perform both sides — 3 sets per side."
+        },
+        {
+          "name": "Cable Tricep Pushdown (Rope Attachment)",
           "bodyPart": "upper arms",
-          "equipment": "leverage machine",
+          "equipment": "cable",
           "target": "triceps brachii",
           "sets": 3,
-          "reps": "12",
-          "rpe": "7",
-          "note": "Use the assisted dip machine (preferred) for shoulder safety. If unavailable, use a bench dip. Lean slightly forward to bias the triceps over the chest. Monitor shoulder for internal rotation stress — if discomfort, substitute with Tricep Pushdown."
+          "reps": "12–15",
+          "rpe": 7,
+          "note": "Keep elbows pinned at sides throughout. Flare the rope handles at the bottom of each rep and pause briefly to maximize tricep contraction. Do not lean forward to add momentum."
         }
       ]
     },
     {
-      "id": "FRI-PULL-B",
+      "id": "FRI-LEGS-C",
       "day": "friday",
-      "focus": "Pull B / Posterior Chain — Back + Glutes + Hamstrings",
-      "scheduling_note": "Morning session. Lower back protocol fully active. All back work is supported or cable-based. Hip hinge work via cable pull-through and hip thrust only.",
-      "estimated_duration_min": 70,
+      "focus": "Legs C — Full Legs Pump + Accessories",
+      "scheduling_note": "Morning session. Knee protocol: max 90° on all knee-flexion movements. Lower back protocol: hip hinge via cable only. This is the week's highest leg volume session — push the pump here.",
+      "estimated_duration_min": 80,
       "metabolic_primer": {
-        "name": "AMRAP Posterior Chain Activation",
-        "format": "AMRAP",
-        "duration_min": 7,
-        "protocol": "2-exercise circuit — as many rounds as possible in 7 min: 10 × Cable Pull-Through (light) + 10 × Resistance Band Good Morning (band only — NOT a barbell)",
-        "instructions": "Cable pull-through teaches the hip hinge pattern without spinal compression — keep it light and focus on pushing the hips back, feeling the hamstring stretch, then driving forward through the glutes. Band good mornings are activation only — use the lightest band available. This primes the posterior chain (glutes and hamstrings) for the session. No barbell, no spinal loading.",
-        "rpe_target": 8
+        "name": "Tabata Lower Body Pump Circuit",
+        "format": "Tabata",
+        "duration_min": 8,
+        "protocol": "20s work / 10s rest × 8 rounds alternating between Stationary Bodyweight Squat (90° hard cap) and Glute Bridge",
+        "instructions": "Alternate each round: Round 1 bodyweight squat, Round 2 glute bridge, repeat. Maintain strict 90° knee angle on every squat rep — this is the hardest discipline under fatigue. Glute bridge: drive through the heel, squeeze glutes at the top. Keep transitions short. No jumping.",
+        "rpe_target": 9
       },
       "exercises": [
         {
-          "name": "Lat Pulldown (Underhand Grip)",
-          "bodyPart": "back",
-          "equipment": "cable",
-          "target": "lats",
-          "warmup_sets": [
-            { "reps": 10, "load": "40% of working weight" },
-            { "reps": 6, "load": "65% of working weight" }
-          ],
-          "sets": 4,
-          "reps": "8–10",
-          "rpe": "7–8",
-          "note": "Underhand (supinated) grip shifts emphasis to the lower lats and adds bicep involvement — different stimulus from Monday's wide-grip pulldown. Lean back slightly (30 degrees) and pull to the upper chest. Avoid craning the neck forward to meet the bar."
-        },
-        {
-          "name": "Chest-Supported Machine Row",
-          "bodyPart": "back",
+          "name": "Leg Press",
+          "bodyPart": "upper legs",
           "equipment": "leverage machine",
-          "target": "lats",
+          "target": "quadriceps",
           "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight" }
+            {
+              "reps": 12,
+              "load": "40% working weight",
+              "note": "Confirm 90° stop before adding load"
+            },
+            {
+              "reps": 8,
+              "load": "65% working weight"
+            }
           ],
           "sets": 4,
           "reps": "10–12",
           "rpe": "7–8",
-          "note": "Chest pad means the lower back is completely unloaded — this is the preferred row variation for Carol's lower back condition. Drive the elbows back (not down). Squeeze and hold 1 second at the peak contraction. 2s eccentric."
+          "note": "Feet hip-width on mid-platform. Lower to exactly 90° knee angle — do not push deeper (knee protocol). Keep lower back pressed into the pad throughout. This is Legs C's first compound — go heavy but controlled. 2s eccentric."
         },
         {
-          "name": "Cable Pull-Through",
+          "name": "Dumbbell Bulgarian Split Squat",
           "bodyPart": "upper legs",
-          "equipment": "cable",
-          "target": "glutes",
-          "sets": 3,
-          "reps": "15",
-          "rpe": "7",
-          "note": "Attach a rope to the low pulley. Stand facing away from the machine, straddle the cable. Hinge at the hip — push the hips back until you feel hamstring tension, then drive the hips forward and squeeze the glutes. Zero spinal compression — this is the ideal hip hinge for Carol's lower back. Do not hyperextend at the top."
-        },
-        {
-          "name": "Seated Leg Curl",
-          "bodyPart": "upper legs",
-          "equipment": "leverage machine",
-          "target": "hamstrings",
-          "sets": 4,
-          "reps": "10–12",
-          "rpe": "7–8",
-          "note": "Seated leg curl (vs lying on Wednesday) hits the hamstring at a longer muscle length, targeting a different portion of the strength curve — deliberate variation. 2s concentric, 3s eccentric. Keep the hips against the pad."
-        },
-        {
-          "name": "Hip Thrust",
-          "bodyPart": "upper legs",
-          "equipment": "barbell",
-          "target": "glutes",
-          "warmup_sets": [
-            { "reps": 10, "load": "50% of working weight", "note": "Use barbell pad" }
-          ],
-          "sets": 4,
-          "reps": "10",
-          "rpe": "8",
-          "note": "Second hip thrust session of the week — glute training frequency is doubled intentionally. Female athletes respond well to higher glute frequency. Same form cues: drive through the heel, neutral spine at the top, 1s squeeze at peak. Use machine hip thrust or barbell with pad."
-        },
-        {
-          "name": "Dumbbell Hammer Curl",
-          "bodyPart": "upper arms",
           "equipment": "dumbbell",
-          "target": "brachialis",
+          "target": "quadriceps",
+          "warmup_sets": [
+            {
+              "reps": 8,
+              "load": "light dumbbells (unloaded rehearsal)"
+            }
+          ],
           "sets": 3,
-          "reps": "12",
-          "rpe": "7",
-          "note": "Friday closes the week with light bicep volume. Neutral grip (hammer). Can be done alternating or bilateral — choose based on how the arms feel at the end of the session. The brachialis work here complements the supinated curl from Tuesday."
+          "reps": "10–12",
+          "rpe": "7–8",
+          "note": "Rear foot elevated on bench (or step). Lower until the front knee reaches exactly 90° — do not go deeper (knee protocol). Drive through the front heel. Keep torso upright. Unilateral loading corrects left/right imbalances and is excellent for quad emphasis. Perform both legs — 3 sets per side."
+        },
+        {
+          "name": "Hip Thrust (Machine or Barbell)",
+          "bodyPart": "upper legs",
+          "equipment": "leverage machine",
+          "target": "glutes",
+          "warmup_sets": [
+            {
+              "reps": 10,
+              "load": "50% working weight",
+              "note": "Use barbell pad if using barbell"
+            }
+          ],
+          "sets": 4,
+          "reps": "10–12",
+          "rpe": 8,
+          "note": "Second hip thrust session of the week — glute training frequency is doubled intentionally for hypertrophy. Same form cues: drive through the heel, neutral spine at the top, 1s squeeze at peak. Machine hip thrust preferred for lower back safety."
+        },
+        {
+          "name": "Leg Extension",
+          "bodyPart": "upper legs",
+          "equipment": "leverage machine",
+          "target": "quadriceps",
+          "sets": 4,
+          "reps": "12–15",
+          "rpe": 7,
+          "note": "Pure quad isolation — the seated position keeps the lumbar spine completely unloaded. 2s concentric, 3s eccentric. Full extension at the top — do not hyperextend. High-rep pump work here on Legs C to maximize quad hypertrophy. Carol's weakest muscle group — maximize time under tension."
+        },
+        {
+          "name": "Cable Adduction",
+          "bodyPart": "upper legs",
+          "equipment": "cable",
+          "target": "adductors",
+          "sets": 3,
+          "reps": "12–15",
+          "rpe": 7,
+          "note": "Attach an ankle cuff to the low pulley. Stand sideways to the machine and swing the free leg across the body, squeezing the adductors at the peak. 2s concentric, 2s eccentric. The adductors are a neglected muscle group that contributes to overall leg development. Perform both legs — 3 sets per side."
+        },
+        {
+          "name": "Seated Calf Raise",
+          "bodyPart": "lower legs",
+          "equipment": "leverage machine",
+          "target": "soleus",
+          "sets": 4,
+          "reps": "15–20",
+          "rpe": 7,
+          "note": "Seated position targets the soleus (a deeper calf muscle) rather than the gastrocnemius. Full stretch at the bottom, drive up with control, 1s hold at the top. Seated calf raises complete the lower leg development for the week."
         }
       ]
     }

@@ -1,0 +1,48 @@
+{
+  "date": "2026-04-12",
+  "athlete": "Carol Marinho",
+  "decisions": [
+    {
+      "key": "schedule_change",
+      "value": "Legs now 3x/week (Mon, Wed, Fri) instead of 1x. Upper/Lower split adopted: Mon=LegsA, Tue=Pull, Wed=LegsB, Thu=Push, Fri=LegsC"
+    },
+    {
+      "key": "quad_priority",
+      "value": "Quads designated weakest muscle group. 25 quad sets programmed across Legs A and Legs C"
+    },
+    {
+      "key": "lumbar_safe",
+      "value": "No RDLs, deadlifts from floor, hyperextensions, or loaded good mornings. Hip hinge via cable pull-through only"
+    },
+    {
+      "key": "knee_protocol",
+      "value": "90-degree max ROM on all squat patterns (leg press, hack squat, goblet squat, Bulgarian split squat)"
+    },
+    {
+      "key": "metabolic_primer",
+      "value": "Metabolic Primer (AMRAP or Tabata) mandatory at start of every gym session"
+    }
+  ],
+  "preferences_delta": {
+    "food_swaps": [],
+    "food_additions": [],
+    "food_removals": [],
+    "constraints_added": [
+      "knees: Occasional knee pain reported during discovery. 90-degree ROM cap implemented on all squat patterns"
+    ],
+    "constraints_removed": [],
+    "schedule_changes": [
+      {
+        "field": "training_split",
+        "value": "Upper/Lower split with 3 legs days (Mon, Wed, Fri)"
+      }
+    ]
+  },
+  "plan_rationale_deltas": [
+    "Baseline appointment — no prior WROC data. Conservative 300-400 kcal deficit initiated with EA floor protection",
+    "gymSport days raised to 2320 kcal — EA dropped below 30 kcal/kg FFM with dual sessions (~625 kcal EEE). Metabolic health protection prioritized over aggressive deficit",
+    "Leg training expanded from 1 to 3 days — athlete is female with quad weakness. 25 quad sets programmed to address weakest link",
+    "Split shifted to Upper/Lower format to accommodate 3 legs days without compromising upper body development"
+  ],
+  "notes": "Baseline appointment. Carol reported occasional knee pain and lower back discomfort on loaded exercises. Iron deficiency noted in health conditions — iron+Vit C pairing enforced, calcium-iron separation maintained. Energy levels mid-to-low, sleep 6-7hrs quality 6-7/10. Athlete satisfied with current food preferences — no changes requested."
+}
