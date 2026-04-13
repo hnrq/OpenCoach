@@ -1,0 +1,5 @@
+{
+  "context_root": ".opencode/context/",
+  "navigation_file": "navigation.md",
+  "global": false
+}

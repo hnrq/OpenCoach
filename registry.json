@@ -24,6 +24,7 @@
           "orchestrator"
         ],
         "dependencies": [
+          "subagent:contextscout",
           "subagent:opencoach-analyst",
           "subagent:opencoach-dietitian",
           "subagent:opencoach-programmer",
@@ -33,6 +34,20 @@
       }
     ],
     "subagents": [
+      {
+        "id": "contextscout",
+        "name": "ContextScout",
+        "type": "subagent",
+        "path": ".opencode/agent/subagents/core/contextscout.md",
+        "description": "Discovers and recommends context files from .opencode/context/ ranked by priority.",
+        "tags": [
+          "core",
+          "context",
+          "discovery"
+        ],
+        "dependencies": [],
+        "category": "core"
+      },
       {
         "id": "opencoach-dietitian",
         "name": "Nutrition Specialist",
@@ -164,6 +179,32 @@
     ],
     "contexts": [
       {
+        "id": "root-navigation",
+        "name": "Root Navigation",
+        "type": "context",
+        "path": ".opencode/context/navigation.md",
+        "description": "Root navigation file for context discovery",
+        "tags": [
+          "core",
+          "navigation"
+        ],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
+        "id": "context-paths-config",
+        "name": "Context Paths Config",
+        "type": "context",
+        "path": ".opencode/context/core/config/paths.json",
+        "description": "Configuration for context root and navigation paths",
+        "tags": [
+          "core",
+          "config"
+        ],
+        "dependencies": [],
+        "category": "essential"
+      },
+      {
         "id": "coaching",
         "name": "Navigation",
         "type": "context",
@@ -210,6 +251,20 @@
         "path": ".opencode/context/core/context-system/standards/mvi.md",
         "description": "MVI Principle (Minimal Viable Information)",
         "tags": [],
+        "dependencies": [],
+        "category": "standard"
+      },
+      {
+        "id": "sport-goals",
+        "name": "Sport Goals Lookup",
+        "type": "context",
+        "path": ".opencode/context/coaching/lookup/sport-goals.md",
+        "description": "Michaels Methodology sport goal definitions",
+        "tags": [
+          "coaching",
+          "lookup",
+          "sports"
+        ],
         "dependencies": [],
         "category": "standard"
       },

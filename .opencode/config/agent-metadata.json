@@ -17,11 +17,26 @@
         "orchestrator"
       ],
       "dependencies": [
+        "subagent:contextscout",
         "subagent:opencoach-analyst",
         "subagent:opencoach-dietitian",
         "subagent:opencoach-programmer",
         "skill:opencoach"
       ]
+    },
+    "contextscout": {
+      "id": "contextscout",
+      "name": "ContextScout",
+      "category": "core",
+      "type": "subagent",
+      "version": "1.0.0",
+      "author": "henrique-ramos",
+      "tags": [
+        "core",
+        "context",
+        "discovery"
+      ],
+      "dependencies": []
     },
     "opencoach-analyst": {
       "id": "opencoach-analyst",
